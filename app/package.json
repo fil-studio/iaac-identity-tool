@@ -1,0 +1,12 @@
+{
+    "name": "iaac-tool",
+    "version": "0.1.0",
+    "main": "main.js",
+    "author": "Fil Studio <hello@fil.studio>",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+      
+    }
+  }
+  

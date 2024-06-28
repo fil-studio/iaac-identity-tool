@@ -1,0 +1,19 @@
+# Fil's server setup
+
+# File types to add Brotli compression
+# HTML, JS and CSS are already done for you
+# [compress]
+# txt = "text/plain"
+
+# Add headers to files by extensions
+[headers]
+"fil" = [
+    [ "Content-Type", "application/json"],
+    [ "Content-Encoding", "gzip"]
+]
+
+[robots]
+content = '''
+User-agent: *
+Disallow: /
+'''
