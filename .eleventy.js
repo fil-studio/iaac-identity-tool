@@ -93,7 +93,6 @@ module.exports = function (eleventyConfig) {
 
 	eleventyConfig.setWatchJavaScriptDependencies(false);
 	eleventyConfig.addPassthroughCopy({"src/assets": "assets"});
-	eleventyConfig.addPassthroughCopy({"src/toolkit-assets": "toolkit-assets"});
 
 	return {
 		dir: {
