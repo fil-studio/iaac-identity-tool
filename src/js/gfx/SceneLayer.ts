@@ -3,6 +3,7 @@ import { OrthographicCamera } from "three";
 
 export class SceneLayer extends ThreeLayer {
     camera:OrthographicCamera;
+    needsUpdate:boolean = true;
 
     constructor(_gl:ThreeDOMLayer) {
         super(_gl);
@@ -22,5 +23,11 @@ export class SceneLayer extends ThreeLayer {
 
     update(time:number, dt:number) {
         
+    }
+
+    render(): void {
+        if(!this.needsUpdate) return;
+        this.needsUpdate = false;
+        super.render();
     }
 }

@@ -4,19 +4,9 @@
 	{% include 'head.njk' %}
 
 	<body>
-
-		<div class="gl"></div>
-
-		<div class="ui">
-			<div class="logo"></div>
-			<div class="menu"></div>
-		</div>
-
-		{# <div class="site__wrapper">
-			{% block content %}
-				{{ content | safe }}
-			{% endblock %}
-		</div> #}
+		{% block content %}
+			{{ content | safe }}
+		{% endblock %}
 
 		<script src="bundle/main.js"></script>
 	</body>

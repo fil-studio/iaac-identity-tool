@@ -1,8 +1,7 @@
 import { Timer } from '@fils/ani';
 import { ThreeDOMLayer } from '@fils/gl-dom';
-import { UI } from '@fils/ui';
-import { uiFilebrowser } from '@fils/ui-icons';
 import { SceneLayer } from '../gfx/SceneLayer';
+import { FancyButton } from '../components/FancyButton';
 
 export class App  {
 	gl:ThreeDOMLayer;
@@ -15,21 +14,18 @@ export class App  {
 			antialias: true,
 			alpha: false
 		});
-		this.gl.renderer.setClearColor(0xececec, 1);
+		this.gl.renderer.setClearColor(0xEAEAEA, 1);
+
+		console.log('Hello World! ^_^');
+
+		const fancy_buttons = document.querySelectorAll('button.fancy');
+		for(const btn of fancy_buttons) {
+			const f = new FancyButton(btn as HTMLElement);
+		}
 
 		this.layer = new SceneLayer(this.gl);
 
-		this.initUI();
-
 		this.start();
-	}
-
-	initUI() {
-		const gui = new UI({
-			title: 'Input',
-			icon: uiFilebrowser,
-			parentElement: document.querySelector('.menu')
-		})
 	}
 
 	start() {

@@ -62,7 +62,7 @@ if(!isProduction) {
 	}
 
 	chokidar.watch('src/').on('change', (eventType, file) => {
-		console.log(`Updated JS [${eventType}]`);
+		console.log(`Updated SRC [${eventType}]`);
 		build();
 	});
 }

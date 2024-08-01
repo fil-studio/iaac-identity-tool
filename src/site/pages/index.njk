@@ -6,12 +6,14 @@ eleventyComputed:
   description: "{{ settings.description }}"
 
 ---
-{# ---
-layout: base
-pageTemplate: landing
-eleventyComputed:
-  title: "{{ tookit.title }}"
-  description: "{{ landing.seo.description }}"
-  image: "{{ landing.seo.seo_image }}"
---- #}
 
+{% import '../components/buttons.njk' as Buttons with context %}
+
+<div class="gl"></div>
+
+<div class="ui">
+  <div class="logo"></div>
+  <div class="menu">
+    {{ Buttons.standardButton("Hola que tal", true) }}
+  </div>
+</div>
