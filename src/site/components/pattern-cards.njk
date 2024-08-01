@@ -1,0 +1,13 @@
+{% macro patternCard(className) %}
+<div class="pattern_composer {{className}}" draggable="true">
+    <header class="pattern_composer-head">
+        {% include "../../assets/icons/drag_indicator.svg" %}
+    </header>
+    <div class="pattern_composer-body">
+        <div class="tile" style="background-color: {{ value }}"></div>
+    </div>
+    <div class="pattern_composer-foot">
+        <h3 class="name">{{ name }}</h3>
+    </div>
+</div>
+{% endmacro %}

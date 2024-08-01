@@ -1,10 +1,64 @@
-button {
-    background: black;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 16px;
+button,
+.button {
+    font-weight: 500;
+    cursor: pointer;
+
+    // Style
+
+    &.primary {
+        background: var(--black);
+        color: var(--white);
+
+        &:hover {
+            // @todo
+        }
+    }
+
+
+    &.secondary {
+        background: var(--white);
+        color: var(--black);
+
+        &:hover {
+            // @todo
+        }
+    }
+
+    &.tertiary {
+        background: var(--grey-100);
+        color: var(--grey-400);
+
+        &:hover {
+            // @todo
+        }
+    }
+
+    // Size
+    
+    &.small {
+        padding: var(--size-8) var(--size-12);
+        border-radius: var(--size-20);
+        line-height: var(--size-20);
+        font-size: var(--size-12);
+    }
+
+
+    &.medium {
+        padding: var(--size-16) var(--size-20);
+        border-radius: var(--size-24);
+        line-height: var(--size-12);
+        font-size: var(--size-12);
+    }
+
+    // Elevation
+
+    &.floating {
+        box-shadow: var(--elevation-small);
+    }
+
+    
 }
 
-button:hover {
-    color: gray;
+.buttonIcon {
+    
 }

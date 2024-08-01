@@ -1,0 +1,55 @@
+:root {
+    // UI Colors
+    --white: #FFFFFF;
+    --black: #000000;
+    --grey-100: #EAEAEA;
+    --grey-200: #D7D7D7;
+    --grey-300: #898989;
+    --grey-400: #606060;
+    --grey-500: #414141;
+    --grey-600: #272727;
+
+    --white-a20: rgba(--white, .2);
+    --black-a20: rgba(--black, .2);
+    --black-a12: rgba(--black, .12);
+
+    // Preset Colors
+    --color-pink: #FF71EB;
+    --color-brick: #B2381C;
+    --color-yellow: #FFD302;
+    --color-timber: #C89F5E;
+    --color-orange: #FF5C21;
+    --color-bamboo: #5C7F67;
+    --color-violet: #A057FF;
+    --color-limestone: #CBC1B2;
+    --color-green: #009851;
+    --color-slate: #53565E;
+    --color-blue: #3942FF;
+    --color-clay: #DB7347;
+
+    // Fonts
+    --font-text: FK Grotesk Trial, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+    --font-display: Clarendon Graphic, Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+
+    --size-1: 0.063rem;
+    --size-2: 0.125rem;
+    --size-4: 0.25rem;
+    --size-8: 0.5rem;
+    --size-12: 0.75rem;
+    --size-14: 0.875rem;
+    --size-16: 1rem;
+    --size-20: 1.25rem;
+    --size-24: 1.5rem;
+    --size-32: 2rem;
+    --size-40: 2.5rem;
+    --size-48: 3rem;
+    --size-64: 4rem; 
+
+    // Border Radius
+    --radius-small: --size-2;
+
+    // Elevations
+    --elevation-small: 0 var(--size-1) var(--size-2) var(--black-a12);
+}
+
+  

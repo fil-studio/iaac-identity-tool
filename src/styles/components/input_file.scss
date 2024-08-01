@@ -1,0 +1,26 @@
+.input_file {
+    border: solid 1px transparent;
+    cursor: pointer;
+    
+    input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    label {
+        display: block;
+        padding: var(--size-4);
+    }
+
+    .button {
+        display: inline-block;
+    }
+
+    &:hover {
+        border-color: var(--grey-100);
+    }
+}

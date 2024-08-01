@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 	{% include 'head.njk' %}
 
 	<body>
 		{% block content %}
 			{{ content | safe }}
 		{% endblock %}
-
 		<script src="bundle/main.js"></script>
 	</body>
 </html>

@@ -8,12 +8,159 @@ eleventyComputed:
 ---
 
 {% import '../components/buttons.njk' as Buttons with context %}
+{% import '../components/input-files.njk' as InputFiles with context %}
+{% import '../components/color-cards.njk' as ColorCards with context %}
+{% import '../components/pattern-cards.njk' as PatternCards with context %}
 
-<div class="gl"></div>
 
-<div class="ui">
-  <div class="logo"></div>
-  <div class="menu">
-    {{ Buttons.standardButton("Hola que tal", true) }}
+<main>
+  <aside class="ui">
+    <div class="menu">
+      
+      <ul class="form-list">
+        <li class="form-item">
+          <div class="form_block">
+            <div class="form_block-head">
+              <h2 class="label">
+                <span class="title">Input</span>
+                <span class="detail">Photo or Video</span>
+              </h2>
+            </div>
+            
+            <div class="form_block-body">
+              {{ InputFiles.inputFile("input_file") }}
+            </div>
+          </div>
+        </li>
+
+        <li class="form-item">
+          <label class="form_block">
+            <div class="form_block-head">
+              <h2 class="label">
+                <span class="title">Colours &amp; Patterns</span>
+              </h2>
+            </div>
+            
+            <div class="form_block-body">
+
+              {% set cards = [
+                { name: 'FFFFFF', value: '#FFFFFF', position: '10%'},
+                { name: 'B9BDC0', value: '#B9BDC0', position: '25%'},
+                { name: '508066', value: '#508066', position: '60%'},
+                { name: '3A39FF', value: '#3A39FF', position: '85%'}
+              ] %}
+              
+              <div class="pattern_editor">
+                {% for card in cards %}
+                  {{ ColorCards.colorCard("color_card", card.name, card.value) }}
+                {% endfor %}
+              </div>
+
+              <div class="pattern_connect">
+                <div class="string"></div>
+                <div class="string"></div>
+                <div class="string"></div>
+                <div class="string"></div>
+              </div>
+            
+              <div class="pattern_editor">
+                {% for card in cards %}
+                  {{ PatternCards.patternCard("pattern_card") }}
+                {% endfor %}
+              </div>
+
+            </div>
+          </label>
+        </li>
+
+        <li class="form-item">
+          <label class="form_block">
+            <div class="form_block-head">
+              <h2 class="label">
+                <span class="title">Threshold</span>
+              </h2>
+            </div>
+            
+            <div class="form_block-body">
+              <div class="input_threshold">
+                {% for card in cards %}
+                  <div class="knot" draggable style="left: {{ card.position }}; background-color: {{ card.value }}"></div>
+                {% endfor %}
+              </div>
+            </div>
+          </label>
+        </li>
+
+        <li class="form-item">
+          <label class="form_block">
+
+            <div class="form_block-head">
+              <h2 class="label">
+                <span class="title">Tiles</span>
+              </h2>
+              <span class="num">150</span>
+            </div>
+            
+            <div class="form_block-body">
+              <div class="input_tiles">
+                <div class="track">
+                  <div class="knot" draggable style="left: 10%"></div>
+                </div>
+                <div class="legend">
+                  <span class="min">10</span>
+                  <span class="max">300</span>
+                </div>
+              </div>
+            </div>
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="brand">
+      {% include "../../assets/logo.svg" %}
+    </div>
+  </aside>
+  
+  <div class="canvas">
+    <div class="toolbar top">
+      {{ Buttons.standardButton("Edit crop", "secondary medium floating") }}
+      
+      <select class="button secondary medium floating">
+        <option>25%</option>
+        <option>50%</option>
+        <option>75%</option>
+        <option selected>100%</option>
+        <option>125%</option>
+        <option>150%</option>
+        <option>200%</option>
+      </select>
+    </div>
+    
+    <div class="toolbar bottom">
+      <div class="toolbar-block">
+        test
+      </div>
+      <div class="toolbar-block">
+        <select class="button secondary medium floating">
+          <option selected>Video</option>
+          <option>Frame</option>
+        </select>
+        
+        <select class="button secondary medium floating">
+          <option>0.5x (270x270)</option>
+          <option>0.75x (360x360)</option>
+          <option selected>1x (540x540)</option>
+          <option>1.5x (810x810)</option>
+          <option>2x (1080x1080)</option>
+          <option>3x (1620x1620)</option>
+          <option>4x (2160x2160) </option>
+        </select>
+
+        {{ Buttons.standardButton("Export", "primary medium floating") }}
+      </div>
+    </div>
+    
+    <div class="gl"></div>
   </div>
-</div>
+</main>

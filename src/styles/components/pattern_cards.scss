@@ -1,0 +1,62 @@
+.pattern_editor {
+    display: flex;
+    flex-direction: row;
+    gap: var(--size-1);
+    padding: var(--size-1);
+    background: var(--grey-300);
+}
+
+.pattern_connect {
+    display: flex;
+
+    .string {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    
+        &::before {
+            content: '';
+            display: block;
+            width: var(--size-1);
+            height: var(--size-24);
+            background: var(--grey-200);
+        }
+    }
+}
+
+.pattern_composer {
+    flex: 1;
+    background: var(--white);
+
+    &-head {
+        height: var(--size-24);
+        padding: var(--size-2);
+        cursor: grab;
+        
+        .icon {
+            width: var(--size-20);
+            height:  var(--size-20);
+            fill: var(--grey-300);
+        }
+    }
+
+
+    &-body {
+        padding: var(--size-4);
+        
+        .tile {
+            aspect-ratio: 1;
+            border-radius: var(--size-2);
+            border: solid var(--size-1) var(--grey-500);
+        }
+    }
+
+    &-foot {
+        padding: var(--size-2) var(--size-4);
+        
+        .name {
+            text-align: center;
+            font-size: var(--size-14);
+        }
+    }
+}

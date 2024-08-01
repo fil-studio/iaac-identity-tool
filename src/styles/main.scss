@@ -1,44 +1,87 @@
 // Partials
 @import './partials/reset';
 @import './partials/mixins';
+@import './partials/variables';
 @import './partials/fonts';
 
 // Components
 @import './components/buttons';
+@import './components/forms';
+@import './components/input_file';
+@import './components/pattern_cards';
+@import './components/input_threshold';
+@import './components/input_tiles';
 
+
+html,
 body {
-    background-color: #111;
-    color: #ccc;
+    height: 100%;
+    overflow: hidden;
 }
 
-.gl {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+body {
+    background: var(--white);
+}
 
-    canvas {
-        width: 100%;
-        height: 100%;
-    }
+main {
+    display: flex;
+    height: 100%;
 }
 
 .ui {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 320px;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 384px;
     height: 100%;
-    background-color: white;
-
-    .logo {
-        position: absolute;
-    }
+    background: var(--white);
+    overflow: auto;
+}
 
     .menu {
-        position: absolute;
-        top: 160px;
+        flex: auto;
+        padding-top: var(--size-64);
     }
+
+.brand {
+    padding: var(--size-24);
 }
+
+.canvas {
+    flex: auto;
+    position: relative;
+    overflow: hidden;
+    background: var(--grey-100);
+}
+
+    .toolbar {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--size-8);
+        position: absolute;
+        left: 0;
+        right: 0;
+        padding: var(--size-24);
+        z-index: 2;
+        
+        &.top {
+            top: 0;
+        }
+
+        &.bottom {
+            bottom: 0;
+        }
+    }
+
+    .gl {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    }
