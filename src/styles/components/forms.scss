@@ -31,5 +31,11 @@
     
 
     &-body {
+        .warning {
+            margin-top: 8px;
+            font-size: var(--size-12);
+            font-weight: 500;
+            color: var(--grey-300);
+        }
     }
 }

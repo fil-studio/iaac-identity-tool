@@ -11,135 +11,170 @@ eleventyComputed:
 {% import '../components/input-files.njk' as InputFiles with context %}
 {% import '../components/color-cards.njk' as ColorCards with context %}
 {% import '../components/pattern-cards.njk' as PatternCards with context %}
+{% import '../components/panels.njk' as Panels with context %}
+{% import '../components/snackbars.njk' as Snackbars with context %}
 
 
 <main>
-  <aside class="ui">
-    <div class="menu">
-      
-      <ul class="form-list">
-        <li class="form-item">
-          <div class="form_block">
-            <div class="form_block-head">
-              <h2 class="label">
-                <span class="title">Input</span>
-                <span class="detail">Photo or Video</span>
-              </h2>
-            </div>
-            
-            <div class="form_block-body">
-              {{ InputFiles.inputFile("input_file") }}
-            </div>
-          </div>
-        </li>
-
-        <li class="form-item">
-          <label class="form_block">
-            <div class="form_block-head">
-              <h2 class="label">
-                <span class="title">Colours &amp; Patterns</span>
-              </h2>
-            </div>
-            
-            <div class="form_block-body">
-
-              {% set cards = [
-                { name: 'FFFFFF', value: '#FFFFFF', position: '10%'},
-                { name: 'B9BDC0', value: '#B9BDC0', position: '25%'},
-                { name: '508066', value: '#508066', position: '60%'},
-                { name: '3A39FF', value: '#3A39FF', position: '85%'}
-              ] %}
+  <aside class="control_panel">
+    <div class="layer">
+      <div class="menu">
+        
+        <ul class="form-list">
+          <li class="form-item">
+            <div class="form_block">
+              <div class="form_block-head">
+                <h2 class="label">
+                  <span class="title">Input</span>
+                  <span class="detail">Photo or Video</span>
+                </h2>
+              </div>
               
-              <div class="pattern_editor">
-                {% for card in cards %}
-                  {{ ColorCards.colorCard("color_card", card.name, card.value) }}
-                {% endfor %}
-              </div>
-
-              <div class="pattern_connect">
-                <div class="string"></div>
-                <div class="string"></div>
-                <div class="string"></div>
-                <div class="string"></div>
-              </div>
-            
-              <div class="pattern_editor">
-                {% for card in cards %}
-                  {{ PatternCards.patternCard("pattern_card") }}
-                {% endfor %}
-              </div>
-
-            </div>
-          </label>
-        </li>
-
-        <li class="form-item">
-          <label class="form_block">
-            <div class="form_block-head">
-              <h2 class="label">
-                <span class="title">Threshold</span>
-              </h2>
-            </div>
-            
-            <div class="form_block-body">
-              <div class="input_threshold">
-                {% for card in cards %}
-                  <div class="knot" draggable style="left: {{ card.position }}; background-color: {{ card.value }}"></div>
-                {% endfor %}
+              <div class="form_block-body">
+                {{ InputFiles.inputFile("input_file") }}
+                <p class="warning">Upload a JPG/PNG/SVG image or WebP/MP4 video</p>
               </div>
             </div>
-          </label>
-        </li>
+          </li>
 
-        <li class="form-item">
-          <label class="form_block">
+          <li class="form-item">
+            <label class="form_block">
+              <div class="form_block-head">
+                <h2 class="label">
+                  <span class="title">Colours &amp; Patterns</span>
+                </h2>
+              </div>
+              
+              <div class="form_block-body">
 
-            <div class="form_block-head">
-              <h2 class="label">
-                <span class="title">Tiles</span>
-              </h2>
-              <span class="num">150</span>
-            </div>
-            
-            <div class="form_block-body">
-              <div class="input_tiles">
-                <div class="track">
-                  <div class="knot" draggable style="left: 10%"></div>
+                {% set cards = [
+                  { name: 'FFFFFF', value: '#FFFFFF', position: '10%'},
+                  { name: 'B9BDC0', value: '#B9BDC0', position: '25%'},
+                  { name: '508066', value: '#508066', position: '60%'},
+                  { name: '3A39FF', value: '#3A39FF', position: '85%'}
+                ] %}
+                
+                <div class="pattern_editor">
+                  {% for card in cards %}
+                    {{ ColorCards.colorCard("color_card", card.name, card.value) }}
+                  {% endfor %}
                 </div>
-                <div class="legend">
-                  <span class="min">10</span>
-                  <span class="max">300</span>
+
+                <div class="pattern_connect">
+                  <div class="string"></div>
+                  <div class="string"></div>
+                  <div class="string"></div>
+                  <div class="string"></div>
+                </div>
+              
+                <div class="pattern_editor">
+                  {% for card in cards %}
+                    {{ PatternCards.patternCard("pattern_card") }}
+                  {% endfor %}
+                </div>
+
+              </div>
+            </label>
+          </li>
+
+          <li class="form-item">
+            <label class="form_block">
+              <div class="form_block-head">
+                <h2 class="label">
+                  <span class="title">Threshold</span>
+                </h2>
+              </div>
+              
+              <div class="form_block-body">
+                <div class="input_threshold">
+                  {% for card in cards %}
+                    <div class="knot" draggable style="left: {{ card.position }}; background-color: {{ card.value }}"></div>
+                  {% endfor %}
                 </div>
               </div>
-            </div>
-          </label>
-        </li>
-      </ul>
-    </div>
+            </label>
+          </li>
 
-    <div class="brand">
-      {% include "../../assets/logo.svg" %}
+          <li class="form-item">
+            <label class="form_block">
+
+              <div class="form_block-head">
+                <h2 class="label">
+                  <span class="title">Tiles</span>
+                </h2>
+                <span class="num">150</span>
+              </div>
+              
+              <div class="form_block-body">
+                <div class="input_tiles">
+                  <div class="track">
+                    <div class="knot" draggable style="left: 10%"></div>
+                  </div>
+                  <div class="legend">
+                    <span class="min">10</span>
+                    <span class="max">300</span>
+                  </div>
+                </div>
+              </div>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="brand">
+        {% include "../../assets/logo.svg" %}
+      </div>
     </div>
+    <div class="layer hidden"></div>
   </aside>
   
   <div class="canvas">
+    
+    <div class="dropzone">
+      <p class="label">Drop your files here</p>
+    </div>
+
     <div class="toolbar top">
-      {{ Buttons.standardButton("Edit crop", "secondary medium floating") }}
-      
-      <select class="button secondary medium floating">
-        <option>25%</option>
-        <option>50%</option>
-        <option>75%</option>
-        <option selected>100%</option>
-        <option>125%</option>
-        <option>150%</option>
-        <option>200%</option>
-      </select>
+      <div class="toolbar-block">
+        {{ Buttons.standardButton("Edit crop", "button secondary medium floating", "crop") }}
+        
+        <select class="button secondary medium floating">
+          <option>25%</option>
+          <option>50%</option>
+          <option>75%</option>
+          <option selected>100%</option>
+          <option>125%</option>
+          <option>150%</option>
+          <option>200%</option>
+        </select>
+      </div>
     </div>
     
     <div class="toolbar bottom">
-      <div class="toolbar-block">
-        test
+      <div class="toolbar-block video">
+        <div class="video_controls">
+          <button class="button_icon small secondary play">
+            {% include "../../assets/icons/play.svg" %}
+          </button>
+
+          <div class="timeline">
+            <div class="progress"></div>
+            <div class="trim">
+              <div class="bar"></div>
+              <div class="inputs">
+                <label for="trim_start">
+                  <span class="label">Start</span>
+                  <input type="text" id="trim_start">
+                </label>
+
+                <label for="trim_end">
+                  <span class="label">End</span>
+                  <input type="text" id="trim_end">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="toolbar-block">
         <select class="button secondary medium floating">
@@ -157,10 +192,14 @@ eleventyComputed:
           <option>4x (2160x2160) </option>
         </select>
 
-        {{ Buttons.standardButton("Export", "primary medium floating") }}
+        {{ Buttons.standardButton("Export", "button primary medium floating") }}
       </div>
     </div>
     
     <div class="gl"></div>
   </div>
+
+  {{ Panels.panel("panel") }}
+
+  {{ Snackbars.snackbar("snackbar", "Unsupported file format. Please try again with a valid file extension.") }}  
 </main>

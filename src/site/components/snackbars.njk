@@ -1,0 +1,11 @@
+{% macro snackbar(className, message) %}
+<div class="{{className}}">
+    <div class="icon_wrap">
+        {% include "../../assets/icons/warning.svg" %}
+    </div>
+    
+    <p class="message">
+        {{ message }}
+    </p>
+</div>
+{% endmacro %}

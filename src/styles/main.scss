@@ -7,10 +7,15 @@
 // Components
 @import './components/buttons';
 @import './components/forms';
+@import './components/panel';
+@import './components/panel_library';
 @import './components/input_file';
 @import './components/pattern_cards';
 @import './components/input_threshold';
 @import './components/input_tiles';
+@import './components/dropzone';
+@import './components/video_controls';
+@import './components/snackbar';
 
 
 html,
@@ -26,17 +31,33 @@ body {
 main {
     display: flex;
     height: 100%;
+    min-width: 768px;
 }
 
-.ui {
+.control_panel {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-wrap: nowrap;
     width: 384px;
     height: 100%;
-    background: var(--white);
-    overflow: auto;
 }
+
+    .layer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 100%;
+        height: 100%;
+        background: var(--white);
+        overflow: auto;
+    
+    &.hidden {
+        display: none;
+    }
+    }
 
     .menu {
         flex: auto;
@@ -56,12 +77,12 @@ main {
 
     .toolbar {
         display: flex;
-        justify-content: flex-end;
+        flex-wrap: nowrap;
+        flex-direction: column;
         gap: var(--size-8);
         position: absolute;
         left: 0;
         right: 0;
-        padding: var(--size-24);
         z-index: 2;
         
         &.top {
@@ -70,6 +91,19 @@ main {
 
         &.bottom {
             bottom: 0;
+        }
+
+        &-block {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: var(--size-24);
+
+            &.video {
+                border-top: solid 1px var(--grey-200);
+                border-bottom: solid 1px var(--grey-200);
+            }
         }
     }
 

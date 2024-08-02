@@ -1,0 +1,13 @@
+.video_controls {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--size-16);
+    
+    .play {
+        flex: auto;
+    }
+
+    .timeline {
+        flex: auto;
+    }
+}

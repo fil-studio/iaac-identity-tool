@@ -1,3 +1,9 @@
-{% macro standardButton(label, className) %}
-<button class="{{className}}">{{label}}</button>
+{% macro standardButton(label, className, icon) %}
+<button class="{{ className }}">
+    {% if icon %}
+        {# {% include "../../assets/icons/{{ icon | safe }}.svg" %}  #}
+    {% endif %}
+    
+    <span class="label">{{ label }} {{ icon }}</span>
+</button>
 {% endmacro %}

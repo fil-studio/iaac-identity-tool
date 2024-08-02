@@ -9,9 +9,9 @@
     --grey-500: #414141;
     --grey-600: #272727;
 
-    --white-a20: rgba(--white, .2);
-    --black-a20: rgba(--black, .2);
-    --black-a12: rgba(--black, .12);
+    --white-a20: rgba(255, 255, 255, .2);
+    --black-a20: rgba(0, 0, 0, .2);
+    --black-a12: rgba(0, 0, 0, .12);
 
     // Preset Colors
     --color-pink: #FF71EB;
@@ -46,10 +46,15 @@
     --size-64: 4rem; 
 
     // Border Radius
-    --radius-small: --size-2;
+    --radius-small: var(--size-2);
+    --radius-medium: var(--size-4);
 
     // Elevations
     --elevation-small: 0 var(--size-1) var(--size-2) var(--black-a12);
+
+    --z-snackbars: 5;
+    --z-panels: 4;
+    --z-dropzone: 3;
 }
 
   
