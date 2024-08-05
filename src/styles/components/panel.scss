@@ -5,10 +5,10 @@
     transform: translate(-50%, -50%);
     width: 75%;
     z-index: var(--z-panels);
-    min-width: 284px;
-    max-width: 384px;
+    min-width: toRem(284);
+    max-width: toRem(384);
     background: var(--white);
-    border: solid 1px var(--grey-300);
+    border: solid toRem(1) var(--grey-300);
     border-radius: var(--radius-medium);
     box-shadow: var(--elevation-small);
 
@@ -16,30 +16,31 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: toRem(2);
         cursor: grab;
 
         .title {
             flex: auto;
-            padding: 2px;
-            font-size: var(--size-12);
+            padding: toRem(2);
+            font-size: toRem(12);
             color: var(--grey-300);
         }
     }
 
     &-body {
-        padding: var(--size-12);
+        padding: toRem(12);
     }
 
         &-block {
-            padding-bottom: 24px;
+            padding-bottom: toRem(24);
             
             & + & {
                 padding-bottom: 0;
             }
 
             > .title {
-                padding: 4px;
-                font-size: var(--size-12);
+                padding: toRem(4);
+                font-size: toRem(12);
                 font-weight: 500;
                 color: var(--grey-300);
             }

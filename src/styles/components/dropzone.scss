@@ -9,18 +9,18 @@
     justify-content: center;
     z-index: var(--z-dropzone);
     background: var(--white-a20);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(toRem(10));
 
     &::before {
         content: '';
         position: absolute;
-        inset: var(--size-24);
+        inset: toRem(24);
         background: var(--black-a20);
     }
 
     .label {
         font-family: var(--font-display);
-        font-size: var(--size-24);
+        font-size: toRem(24);
         color: var(--white);
         z-index: 1;
         pointer-events: none;

@@ -1,0 +1,43 @@
+.input_text {
+    
+    &.primary {
+        input,
+        select {
+            background: var(--white);
+            border: solid toRem(1) var(--grey-300);
+            
+            &:focus {
+                border-color: var(--grey-400);
+            }
+        }
+    }
+
+    &.secondary {
+        color: var(--grey-400);
+
+        input,
+        select {
+            background: var(--grey-200);
+            border: solid toRem(1) var(--grey-200);
+            
+            &:focus {
+                border-color: var(--grey-300);
+            }
+        }
+    }
+    
+    &.medium {
+        input,
+        select {
+            width: 100%;
+            height: toRem(40);
+            border-radius: var(--radius-small);
+            line-height: toRem(40);
+            padding: toRem(12) toRem(16);
+            font-size: toRem(12);
+            font-weight: 500;
+        }
+    }
+
+
+}

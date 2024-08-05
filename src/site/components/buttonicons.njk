@@ -1,8 +1,7 @@
-{% macro standardButton(label, className, iconName) %}
+{% macro buttonIcon(className, iconName) %}
 <button class="{{ className }}">
     {% if iconName %}
         {{ Icons.icon(iconName) }}
     {% endif %}
-    <span class="label">{{ label }}</span>
 </button>
 {% endmacro %}

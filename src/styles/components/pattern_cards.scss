@@ -1,8 +1,8 @@
 .pattern_editor {
     display: flex;
     flex-direction: row;
-    gap: var(--size-1);
-    padding: var(--size-1);
+    gap: toRem(1);
+    padding: toRem(1);
     background: var(--grey-300);
 }
 
@@ -17,8 +17,8 @@
         &::before {
             content: '';
             display: block;
-            width: var(--size-1);
-            height: var(--size-24);
+            width: toRem(1);
+            height: toRem(24);
             background: var(--grey-200);
         }
     }
@@ -29,34 +29,38 @@
     background: var(--white);
 
     &-head {
-        height: var(--size-24);
-        padding: var(--size-2);
+        height: toRem(24);
+        padding: toRem(2);
         cursor: grab;
         
         .icon {
-            width: var(--size-20);
-            height:  var(--size-20);
+            width: toRem(20);
+            height:  toRem(20);
             fill: var(--grey-300);
         }
     }
 
 
     &-body {
-        padding: var(--size-4);
+        padding: toRem(4);
         
         .tile {
             aspect-ratio: 1;
-            border-radius: var(--size-2);
-            border: solid var(--size-1) var(--grey-500);
+            border-radius: toRem(2);
+            border: solid toRem(1) var(--grey-500);
         }
     }
 
     &-foot {
-        padding: var(--size-2) var(--size-4);
+        padding: toRem(2) toRem(4);
         
         .name {
             text-align: center;
-            font-size: var(--size-14);
+            font-size: toRem(14);
         }
+    }
+
+    &:hover {
+        box-shadow: 0 0 0 1px rgba(0,0,0);
     }
 }

@@ -6,7 +6,7 @@
     }
 
     &-item {
-        padding: var(--size-16) var(--size-24);
+        padding: toRem(16) toRem(24);
     }
 }
 
@@ -14,28 +14,77 @@
     &-head {
         display: flex;
         justify-content: space-between;
-        
-        .label {
-            margin-bottom: var(--size-16);
+        margin-bottom: toRem(16);
+    
+        .title {
+            color: var(--black);
+            font-weight: 500;
         }
-    
-            .title {
-                color: var(--black);
-                font-weight: 500;
-            }
-    
-            .detail {
-                font-size: var(--size-14);
-            }
+
+        .detail {
+            font-size: toRem(14);
+        }
     }
     
 
-    &-body {
+    &-body {        
         .warning {
-            margin-top: 8px;
-            font-size: var(--size-12);
+            margin-top: toRem(8);
+            font-size: toRem(12);
             font-weight: 500;
             color: var(--grey-300);
         }
     }
+
+    &-foot {
+        display: flex;
+        gap: toRem(8);
+        padding: toRem(16) 0;
+
+        .button {
+            flex: auto;
+        }
+    }
+}
+
+.inputs {
+    &-list {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: toRem(16) toRem(8);
+    }
+
+    &-item {
+        flex: 0 0 50%;
+    }
+
+        &-label {
+            display: flex;
+            align-items: center;
+            gap: toRem(8);
+
+            .icon {
+                width: toRem(20);
+                height: toRem(20);
+                fill: var(--grey-300);
+            }
+
+            .input_text {
+                width: 100%;
+            }
+        }
+
+        &-feedback {
+            margin-top: 16px;
+            padding: toRem(12) toRem(16);
+            border: solid toRem(1) var(--grey-100);
+            color: var(--grey-300);
+            font-size: toRem(12);
+            line-height: toRem(16);
+            text-align: center;
+        }
 }

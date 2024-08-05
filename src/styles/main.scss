@@ -9,6 +9,7 @@
 @import './components/forms';
 @import './components/panel';
 @import './components/panel_library';
+@import './components/input_text';
 @import './components/input_file';
 @import './components/pattern_cards';
 @import './components/input_threshold';
@@ -21,7 +22,7 @@
 html,
 body {
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 body {
@@ -61,11 +62,11 @@ main {
 
     .menu {
         flex: auto;
-        padding-top: var(--size-64);
+        padding-top: toRem(64);
     }
 
 .brand {
-    padding: var(--size-24);
+    padding: toRem(24);
 }
 
 .canvas {
@@ -79,7 +80,7 @@ main {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: column;
-        gap: var(--size-8);
+        gap: toRem(8);
         position: absolute;
         left: 0;
         right: 0;
@@ -98,7 +99,7 @@ main {
             flex-wrap: nowrap;
             justify-content: flex-end;
             gap: 8px;
-            padding: var(--size-24);
+            padding: toRem(24);
 
             &.video {
                 border-top: solid 1px var(--grey-200);

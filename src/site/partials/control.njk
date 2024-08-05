@@ -1,0 +1,46 @@
+<aside class="control_panel">
+
+    {% set cards = [
+        { name: 'FFFFFF', value: '#FFFFFF', position: '10%'},
+        { name: 'B9BDC0', value: '#B9BDC0', position: '25%'},
+        { name: '508066', value: '#508066', position: '60%'},
+        { name: '3A39FF', value: '#3A39FF', position: '85%'}
+    ] %}
+    
+    <div class="layer hidden">
+      <div class="menu">
+        
+        <ul class="form-list">
+          <li class="form-item">
+            {% include 'control-input.njk' %}
+          </li>
+
+          <li class="form-item">
+            {% include 'control-pattern.njk' %}
+          </li>
+
+          <li class="form-item">
+            {% include 'control-threshold.njk' %}
+          </li>
+
+          <li class="form-item">
+            {% include 'control-tiles.njk' %}
+          </li>
+        </ul>
+      </div>
+
+      <div class="brand">
+        {% include "../../assets/logo.svg" %}
+      </div>
+    </div>
+    
+    <div class="layer">
+      <div class="menu">
+        <ul class="form-list">
+          <li class="form-item">
+            {% include 'control-size.njk' %}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </aside>

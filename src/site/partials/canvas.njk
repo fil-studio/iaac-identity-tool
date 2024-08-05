@@ -1,0 +1,57 @@
+<div class="canvas">
+    
+    <div class="dropzone">
+      <p class="label">Drop your files here</p>
+    </div>
+
+    <div class="toolbar top">
+      <div class="toolbar-block">
+        {{ Buttons.standardButton("Edit crop", "button secondary medium floating", "crop") }}
+        
+        <div class="button secondary medium floating">
+          {{ Icons.icon("zoom_in") }}
+          <select>
+            <option>25%</option>
+            <option>50%</option>
+            <option>75%</option>
+            <option selected>100%</option>
+            <option>125%</option>
+            <option>150%</option>
+            <option>200%</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <div class="toolbar bottom">
+      <div class="toolbar-block video">
+        {% include "video_controls.njk" %}
+      </div>
+      
+      <div class="toolbar-block">
+        <div class="button secondary medium floating">
+          {{ Icons.icon("videocam") }}
+          <select>
+            <option selected>Video</option>
+            <option>Frame</option>
+          </select>
+        </div>
+        
+        <div class="button secondary medium floating">
+          <select>
+            <option>0.5x (270x270)</option>
+            <option>0.75x (360x360)</option>
+            <option selected>1x (540x540)</option>
+            <option>1.5x (810x810)</option>
+            <option>2x (1080x1080)</option>
+            <option>3x (1620x1620)</option>
+            <option>4x (2160x2160) </option>
+          </select>
+        </div>
+
+        {{ Buttons.standardButton("Export", "button primary medium floating") }}
+      </div>
+    </div>
+    
+    <div class="gl"></div>
+  </div>

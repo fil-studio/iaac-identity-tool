@@ -1,24 +1,24 @@
 .input_threshold {
     position: relative;
-    padding: 2px;
+    padding: toRem(2);
 
     &::before {
         content: '';
         display: block;
-        height: var(--size-32);
-        border: solid 1px var(--grey-300);
-        border-radius: var(--size-4);
+        height: toRem(32);
+        border: solid toRem(1) var(--grey-300);
+        border-radius: toRem(4);
         opacity: .9;
     }
     
     .knot {
         position: absolute;
         top: -4px;
-        width: var(--size-16);
+        width: toRem(16);
         bottom: -4px;
-        border: solid 2px var(--white);
-        border-radius: var(--size-4);
-        box-shadow: 0 0 0 1px var(--grey-500);
+        border: solid toRem(2) var(--white);
+        border-radius: toRem(4);
+        box-shadow: 0 0 0 toRem(1) var(--grey-500);
         cursor: grab;
     }
 }

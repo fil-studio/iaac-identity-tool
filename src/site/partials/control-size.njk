@@ -1,0 +1,49 @@
+<label class="form_block">
+    <div class="form_block-head">
+    <h2 class="label">
+        <span class="title">Size</span>
+    </h2>
+    {# <span class="num">150</span> #}
+    {{ ButtonIcons.buttonIcon("button_icon medium tertiary", "undo") }}
+    </div>
+    
+    <div class="form_block-body">
+        <ul class="inputs-list">
+            <li class="inputs-item">
+                <label for="" class="inputs-label">
+                    {{ Icons.icon("aspect_ratio") }}
+                    <div class="input_text primary medium">
+                        <select name="" id="">
+                            <option value="">1:1</option>
+                        </select>
+                    </div>
+                </label>
+            </li>
+            
+            <li class="inputs-item">
+                <label for="" class="inputs-label">
+                    {{ Icons.icon("width") }}
+                    <div class="input_text primary medium">
+                        <input type="number" value="540">
+                    </div>
+                </label>
+            </li>
+
+            <li class="inputs-item">
+                <label for="" class="inputs-label">
+                    {{ Icons.icon("height") }}
+                    <div class="input_text primary medium">
+                        <input type="number" value="540">
+                    </div>
+                </label>
+            </li>
+        </ul>
+
+        <p class="inputs-feedback">Original size: 1280x756</p>
+    </div>
+
+    <div class="form_block-foot">
+        {{ Buttons.standardButton("Cancel", "button tertiary large") }}
+        {{ Buttons.standardButton("Apply", "button primary large") }}
+    </div>
+</label>

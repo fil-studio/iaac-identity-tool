@@ -1,0 +1,30 @@
+<label class="form_block">
+    <div class="form_block-head">
+    <h2 class="label">
+        <span class="title">Colours &amp; Patterns</span>
+    </h2>
+    </div>
+    
+    <div class="form_block-body">
+    
+    <div class="pattern_editor">
+        {% for card in cards %}
+        {{ ColorCards.colorCard("color_card", card.name, card.value) }}
+        {% endfor %}
+    </div>
+
+    <div class="pattern_connect">
+        <div class="string"></div>
+        <div class="string"></div>
+        <div class="string"></div>
+        <div class="string"></div>
+    </div>
+    
+    <div class="pattern_editor">
+        {% for card in cards %}
+        {{ PatternCards.patternCard("pattern_card") }}
+        {% endfor %}
+    </div>
+
+    </div>
+</label>

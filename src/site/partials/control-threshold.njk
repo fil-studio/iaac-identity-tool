@@ -1,0 +1,15 @@
+<label class="form_block">
+    <div class="form_block-head">
+    <h2 class="label">
+        <span class="title">Threshold</span>
+    </h2>
+    </div>
+    
+    <div class="form_block-body">
+    <div class="input_threshold">
+        {% for card in cards %}
+        <div class="knot" draggable style="left: {{ card.position }}; background-color: {{ card.value }}"></div>
+        {% endfor %}
+    </div>
+    </div>
+</label>

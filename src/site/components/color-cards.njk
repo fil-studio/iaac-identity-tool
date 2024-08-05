@@ -1,7 +1,7 @@
 {% macro colorCard(className, name, value) %}
 <div class="pattern_composer {{className}}" draggable="true">
     <header class="pattern_composer-head">
-        {% include "../../assets/icons/drag_indicator.svg" %}
+        {{ ButtonIcons.buttonIcon("button_icon ghost small", "drag_indicator") }}
     </header>
     <div class="pattern_composer-body">
         <div class="tile" style="background-color: {{ value }}"></div>

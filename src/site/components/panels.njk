@@ -1,12 +1,14 @@
 {% macro panel(className) %}
 <section class="{{className}}">
     <header class="{{className}}-head">
-        {{ Buttons.standardButton("Drag", "button secondary small") }}
+        {{ ButtonIcons.buttonIcon("button_icon ghost medium", "drag_indicator") }}
         <span class="title">Color</span>
-        {{ Buttons.standardButton("Close", "button secondary small") }}
+        {{ ButtonIcons.buttonIcon("button_icon ghost medium", "close") }}
     </header>
     <div class="{{className}}-body">
         <div class="{{className}}-block">
+            {{ Buttons.standardButton("Select custom color", "button tertiary large", "colors") }}
+            
             <label class="button_color">
                 {# <span class="label">Select custom color</span> #}
                 <input type="color" class="tile">

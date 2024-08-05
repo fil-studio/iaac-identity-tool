@@ -13,44 +13,16 @@
     --black-a20: rgba(0, 0, 0, .2);
     --black-a12: rgba(0, 0, 0, .12);
 
-    // Preset Colors
-    --color-pink: #FF71EB;
-    --color-brick: #B2381C;
-    --color-yellow: #FFD302;
-    --color-timber: #C89F5E;
-    --color-orange: #FF5C21;
-    --color-bamboo: #5C7F67;
-    --color-violet: #A057FF;
-    --color-limestone: #CBC1B2;
-    --color-green: #009851;
-    --color-slate: #53565E;
-    --color-blue: #3942FF;
-    --color-clay: #DB7347;
-
     // Fonts
     --font-text: FK Grotesk Trial, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
     --font-display: Clarendon Graphic, Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 
-    --size-1: 0.063rem;
-    --size-2: 0.125rem;
-    --size-4: 0.25rem;
-    --size-8: 0.5rem;
-    --size-12: 0.75rem;
-    --size-14: 0.875rem;
-    --size-16: 1rem;
-    --size-20: 1.25rem;
-    --size-24: 1.5rem;
-    --size-32: 2rem;
-    --size-40: 2.5rem;
-    --size-48: 3rem;
-    --size-64: 4rem; 
-
     // Border Radius
-    --radius-small: var(--size-2);
-    --radius-medium: var(--size-4);
+    --radius-small: toRem(2);
+    --radius-medium: toRem(4);
 
     // Elevations
-    --elevation-small: 0 var(--size-1) var(--size-2) var(--black-a12);
+    --elevation-small: 0 toRem(1) toRem(2) var(--black-a12);
 
     --z-snackbars: 5;
     --z-panels: 4;

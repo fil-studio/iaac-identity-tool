@@ -1,7 +1,8 @@
 .video_controls {
     display: flex;
+    width: 100%;
     flex-wrap: nowrap;
-    gap: var(--size-16);
+    gap: toRem(16);
     
     .play {
         flex: auto;
@@ -10,4 +11,90 @@
     .timeline {
         flex: auto;
     }
+        
+        .progress {
+            display: flex;
+            align-items: center;
+            height: toRem(32);            
+
+            &-bar {
+                position: relative;
+                width: 100%;
+                height: toRem(2);
+                background: var(--grey-200);
+
+                .current {
+                    position: absolute;
+                    inset: 0 auto 0 0;
+                    background: var(--grey-300);
+                }
+            }
+
+            &-knot {
+                position: absolute;
+                inset: 0 0 0 auto;
+                width: toRem(12);
+                height: toRem(12);
+                border-radius: toRem(12);
+                transform: translateY(-50%);
+                color: var(--grey-300);
+                background: currentColor;
+                border: solid 1px currentColor;
+                cursor: grab;
+            }
+        
+            &:hover {
+                
+                .progress-bar {
+                    height: toRem(4);
+                }
+
+                .progress-knot {
+                    width: toRem(24);
+                    height: toRem(24);
+                    border-radius: toRem(24);
+                    color: var(--grey-400);
+                    background: var(--white);
+                }
+            }
+        }
+
+        .trim {
+            margin-top: toRem(8);
+            
+            .trim-bar {
+                position: relative;
+                height: toRem(6);
+                background-image: linear-gradient(90deg, var(--grey-300), var(--grey-300) 15%, transparent 15%, transparent 100%);
+                background-size: toRem(8) toRem(1);
+            }
+
+                .selected {
+                    position: absolute;
+                    inset: 0 auto 0 0;
+                    background: var(--grey-200);
+                }
+            
+            .inputs {
+                display: flex;
+                justify-content: space-between;
+                margin-top: toRem(20);
+            }
+
+                label {
+                    display: flex;
+                    align-items: center;
+                    gap: toRem(8);
+                }
+
+                    .label {
+                        font-size: toRem(12);
+                        font-weight: 500;
+                        color: var(--grey-400);
+                    }
+
+                    input {
+                        max-width: 80px;
+                    }
+        }
 }

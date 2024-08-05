@@ -39,34 +39,34 @@
                         display: flex;
                         flex-wrap: nowrap;
                         align-items: center;
-                        gap: 4px;
-                        padding: var(--size-4);
+                        gap: toRem(4);
+                        padding: toRem(4);
                         border-radius: var(--radius-small)
                     }
 
                     .tile {
                         display: block;
                         aspect-ratio: 1;
-                        width: var(--size-40);
-                        border: solid 1px var(--grey-500);
+                        width: toRem(40);
+                        border: solid toRem(1) var(--grey-500);
                         border-radius: var(--radius-small);
                     }
 
                     .head {
                         display: block;
-                        padding: var(--size-4) var(--size-2);
+                        padding: toRem(4) toRem(2);
                         color: var(--grey-500);
                     }
 
                         .title {
                             display: block;
-                            font-size: var(--size-12);
+                            font-size: toRem(12);
                             font-weight: 500;
                         }
 
                         .value {
                             display: block;
-                            font-size: var(--size-12);
+                            font-size: toRem(12);
                         }
                 }
     }

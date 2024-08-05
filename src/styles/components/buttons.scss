@@ -7,17 +7,17 @@ button.button {
     cursor: pointer;
 }
 
-.button {
-    display: flex;
-    justify-content: center;
-    font-weight: 500;
-    white-space: nowrap;
-
+.button,
+.button_icon {
     // Style
 
     &.primary {
         background: var(--black);
         color: var(--white);
+
+        .icon {
+            fill: currentColor;
+        }
 
         &:hover {
             // @todo
@@ -29,6 +29,10 @@ button.button {
         background: var(--white);
         color: var(--black);
 
+        .icon {
+            fill: currentColor;
+        }
+
         &:hover {
             // @todo
         }
@@ -38,65 +42,118 @@ button.button {
         background: var(--grey-100);
         color: var(--grey-400);
 
+        .icon {
+            fill: currentColor;
+        }
+
         &:hover {
             // @todo
         }
     }
 
+    &.ghost {
+        color: var(--grey-300);
+
+        .icon {
+            fill: currentColor;
+        }
+
+        &:hover {
+            // @todo
+        }
+    }
+
+     // Elevation
+
+     &.floating {
+        box-shadow: var(--elevation-small);
+    }
+}
+
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    white-space: nowrap;
+
     // Size
     
     &.small {
-        padding: var(--size-8) var(--size-12);
-        border-radius: var(--size-20);
-        line-height: var(--size-20);
-        font-size: var(--size-12);
+        padding: toRem(8) toRem(12);
+        border-radius: toRem(20);
+        line-height: toRem(20);
+        font-size: toRem(12);
+        gap: toRem(4);
     }
 
 
     &.medium {
-        padding: var(--size-16) var(--size-20);
-        border-radius: var(--size-24);
-        line-height: var(--size-12);
-        font-size: var(--size-12);
+        padding: toRem(16) toRem(20);
+        border-radius: toRem(24);
+        line-height: toRem(12);
+        font-size: toRem(12);
+        gap: toRem(4);
+
+        .icon {
+            width: toRem(16);
+            height: toRem(16);
+        }
     }
 
-    // Elevation
+    &.large {
+        padding: toRem(6) toRem(20);
+        border-radius: toRem(8);
+        line-height: toRem(52);
+        font-size: toRem(12);
+        gap: toRem(8);
 
-    &.floating {
-        box-shadow: var(--elevation-small);
+        .icon {
+            width: toRem(20);
+            height: toRem(20);
+        }
     }
-
-    
 }
 
+
 .button_icon {
-    // Style
-
-    &.secondary {
-        background: var(--white);
-        
-        .icon {
-            color: var(--grey-300);
-        }
-
-        &:hover {
-            // @todo
-        }
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
     // Size
     
     &.small {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: var(--size-32);
-        height: var(--size-32);
+        width: toRem(24);
+        height: toRem(24);
         border-radius: 100%;
 
         .icon {
-            width: var(--size-16);
-            height: var(--size-16);
+            width: toRem(20);
+            height: toRem(20);
+        }
+    }
+
+    &.medium {
+        width: toRem(32);
+        height: toRem(32);
+        border-radius: 100%;
+
+        .icon {
+            width: toRem(20);
+            height: toRem(20);
+        }
+    }
+
+    &.large {
+        width: toRem(40);
+        height: toRem(40);
+        border-radius: 100%;
+
+        .icon {
+            width: toRem(20);
+            height: toRem(20);
         }
     }
 }
@@ -105,8 +162,8 @@ button.button {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    gap: var(--size-8);
-    padding: var(--size-4);
+    gap: toRem(8);
+    padding: toRem(4);
     border-radius: var(--radius-small);
 
     &:hover {
@@ -115,10 +172,10 @@ button.button {
 
     input[type=color] {
         appearance: none;
-        width: var(--size-40);
-        height: var(--size-40);
+        width: toRem(40);
+        height: toRem(40);
         padding: 0;
-        border: solid 1px var(--grey-500);
+        border: solid toRem(1) var(--grey-500);
         border-radius: var(--radius-small);
     }
 
@@ -128,12 +185,12 @@ button.button {
 
         .title {
             display: block;
-            font-size: var(--size-12);
+            font-size: toRem(12);
             font-weight: 500;
         }
 
         .value {
             display: block;
-            font-size: var(--size-12);
+            font-size: toRem(12);
         }
 }

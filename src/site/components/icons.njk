@@ -1,0 +1,4 @@
+{% macro icon(iconName) %}
+    {% set iconPath = "../icons/" + iconName + ".njk" %}
+    {% include iconPath %}
+{% endmacro %}
