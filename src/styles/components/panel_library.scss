@@ -4,6 +4,55 @@
     }
 }
 
+    .pattern_preset {
+        padding: 0;
+        border: 0;
+
+        &-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+            &-item {}
+
+            &-label {
+                    
+                input[type=radio] {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+
+                    &:checked + .label {
+                        background: var(--grey-100);
+                    }
+                }
+
+
+                .label {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    align-items: center;
+                    gap: toRem(4);
+                    padding: toRem(4);
+                    border-radius: var(--radius-small)
+                }
+
+                .tile {
+                    display: block;
+                    aspect-ratio: 1;
+                    width: toRem(44);
+                    @include chess_pattern;
+                    border: solid toRem(1) var(--grey-500);
+                    border-radius: var(--radius-small);
+                }
+            } 
+    }
+
     .color_preset {
         padding: 0;
         border: 0;

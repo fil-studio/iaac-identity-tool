@@ -6,6 +6,8 @@
         content: '';
         display: block;
         height: toRem(32);
+        background: var(--black);
+        background: linear-gradient(90deg, var(--black) 0%, var(--white) 100%);
         border: solid toRem(1) var(--grey-300);
         border-radius: toRem(4);
         opacity: .9;
@@ -13,9 +15,9 @@
     
     .knot {
         position: absolute;
-        top: -4px;
+        top: -(toRem(4));
         width: toRem(16);
-        bottom: -4px;
+        bottom: -(toRem(4));
         border: solid toRem(2) var(--white);
         border-radius: toRem(4);
         box-shadow: 0 0 0 toRem(1) var(--grey-500);

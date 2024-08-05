@@ -22,7 +22,9 @@ eleventyComputed:
   
   {% include 'canvas.njk' %}
 
-  {{ Panels.panel("panel") }}
+  {{ Panels.panel("color", false) }}
 
-  {{ Snackbars.snackbar("snackbar", "Unsupported file format. Please try again with a valid file extension.") }}  
+  {{ Panels.panel("pattern", true) }}
+
+  {{ Snackbars.snackbar("Unsupported file format. Please try again with a valid file extension.", false) }}  
 </main>

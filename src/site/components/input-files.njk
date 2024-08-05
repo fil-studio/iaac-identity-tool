@@ -1,8 +1,14 @@
-{% macro inputFile(className) %}
-<div class="{{className}}">
-    <input type="file" id="{{className}}">
-    <label for="{{className}}">
-        <span class="button small tertiary">Choose file</span>
+{% macro inputFile(name) %}
+<div class="input_file">
+    <input type="file" id="{{ name }}">
+    <label for="{{ name }}">
+        <span class="button small tertiary error">
+            <span class="text">Choose file</span>
+            <div class="icon_wrap">
+                {{ Icons.icon("error") }}
+            </div>
+        </span>
     </label>
 </div>
+<p class="input_file-warning">Upload a JPG/PNG/SVG image or WebP/MP4 video</p>
 {% endmacro %}

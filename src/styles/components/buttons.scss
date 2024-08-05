@@ -63,6 +63,25 @@ button.button {
         }
     }
 
+    &.error {
+        position: relative;
+        border: solid toRem(2) var(--orange);
+        
+        .icon_wrap {
+            position: absolute;
+            inset: -(toRem(8)) (-(toRem(8))) auto auto;
+            width: toRem(24);
+            height: toRem(24);
+            border-radius: toRem(24);
+            background: var(--white);
+
+            .icon {
+
+                fill: var(--orange);
+            }
+        }
+    }
+
      // Elevation
 
      &.floating {

@@ -27,14 +27,7 @@
     }
     
 
-    &-body {        
-        .warning {
-            margin-top: toRem(8);
-            font-size: toRem(12);
-            font-weight: 500;
-            color: var(--grey-300);
-        }
-    }
+    &-body {  }
 
     &-foot {
         display: flex;
@@ -50,7 +43,6 @@
 .inputs {
     &-list {
         display: flex;
-        flex-direction: column;
         flex-wrap: wrap;
         list-style: none;
         padding: 0;
@@ -59,7 +51,11 @@
     }
 
     &-item {
-        flex: 0 0 50%;
+        flex: 1 1 50%;
+    
+        &.expand {
+            flex: 1 1 100%;
+        }
     }
 
         &-label {
@@ -79,7 +75,7 @@
         }
 
         &-feedback {
-            margin-top: 16px;
+            margin-top: toRem(16);
             padding: toRem(12) toRem(16);
             border: solid toRem(1) var(--grey-100);
             color: var(--grey-300);

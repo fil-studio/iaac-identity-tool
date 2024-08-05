@@ -39,7 +39,7 @@
                 transform: translateY(-50%);
                 color: var(--grey-300);
                 background: currentColor;
-                border: solid 1px currentColor;
+                border: solid toRem(1) currentColor;
                 cursor: grab;
             }
         
@@ -94,7 +94,7 @@
                     }
 
                     input {
-                        max-width: 80px;
+                        max-width: toRem(80);
                     }
         }
 }

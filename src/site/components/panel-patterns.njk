@@ -1,0 +1,37 @@
+<div class="panel-block">
+    {{ InputFiles.inputFile("pattern_file") }}
+</div>
+
+<div class="panel-block panel_library">
+    <h3 class="title">Library</h3>
+
+    {% set pattern_preset = [
+        { id: 0},
+        { id: 1},
+        { id: 2},
+        { id: 3},
+        { id: 4},
+        { id: 5},
+        { id: 6},
+        { id: 7},
+        { id: 8},
+        { id: 9},
+        { id: 10},
+        { id: 11}
+    ] %}
+
+    <fieldset class="pattern_preset" id="pattern">
+        <ul class="pattern_preset-list">
+            {% for color in pattern_preset %}
+            <li class="pattern_preset-item">
+                <label for="color_{{ color.id }}" class="pattern_preset-label">
+                    <input type="radio" id="color_{{ color.id }}" name="color" value="{{ color.id }}">
+                    <span class="label">
+                        <span class="tile"></span>
+                    </span>
+                </label>
+            </li>
+            {% endfor %}
+        </ul>
+    </fieldset>
+</div>

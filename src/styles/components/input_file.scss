@@ -23,4 +23,11 @@
     &:hover {
         border-color: var(--grey-100);
     }
+
+&-warning {
+    margin-top: toRem(8);
+    font-size: toRem(12);
+    font-weight: 500;
+    color: var(--grey-300);
+}
 }

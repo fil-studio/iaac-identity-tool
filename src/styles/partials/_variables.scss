@@ -13,6 +13,8 @@
     --black-a20: rgba(0, 0, 0, .2);
     --black-a12: rgba(0, 0, 0, .12);
 
+    --orange: #FF5C21;
+
     // Fonts
     --font-text: FK Grotesk Trial, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
     --font-display: Clarendon Graphic, Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
@@ -24,8 +26,9 @@
     // Elevations
     --elevation-small: 0 toRem(1) toRem(2) var(--black-a12);
 
-    --z-snackbars: 5;
-    --z-panels: 4;
+    --z-snackbars: 6;
+    --z-panels: 5;
+    --z-loading: 4;
     --z-dropzone: 3;
 }
 

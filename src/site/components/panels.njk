@@ -1,62 +1,20 @@
-{% macro panel(className) %}
-<section class="{{className}}">
-    <header class="{{className}}-head">
+{% macro panel(variant, visible) %}
+{% if visible %}
+<section class="panel" style="top: 30%; left: 30%">
+    <header class="panel-head">
         {{ ButtonIcons.buttonIcon("button_icon ghost medium", "drag_indicator") }}
-        <span class="title">Color</span>
+        <span class="title">{{ variant | capitalize}}</span>
         {{ ButtonIcons.buttonIcon("button_icon ghost medium", "close") }}
     </header>
-    <div class="{{className}}-body">
-        <div class="{{className}}-block">
-            {{ Buttons.standardButton("Select custom color", "button tertiary large", "colors") }}
-            
-            <label class="button_color">
-                {# <span class="label">Select custom color</span> #}
-                <input type="color" class="tile">
-                <span class="label">
-                    <span class="title">Custom color</span>
-                    <span class="value">F6B73C</span>
-                </span>
-            </label>
-        </div>
-        <div class="{{className}}-block panel_library">
-            <h3 class="title">Library</h3>
-
-            {% set color_preset = [
-                { name: 'pink', value: 'FF71EB'},
-                { name: 'brick', value: 'B2381C'},
-                { name: 'yellow', value: 'FFD302'},
-                { name: 'timber', value: 'C89F5E'},
-                { name: 'orange', value: 'FF5C21'},
-                { name: 'bamboo', value: '5C7F67'},
-                { name: 'violet', value: 'A057FF'},
-                { name: 'limestone', value: 'CBC1B2'},
-                { name: 'green', value: '009851'},
-                { name: 'slate', value: '53565E'},
-                { name: 'blue', value: '3942FF'},
-                { name: 'clay', value: 'DB7347'}
-            ] %}
-
-            <fieldset class="color_preset" id="color">
-                <ul class="color_preset-list">
-                    {% for color in color_preset %}
-                    <div class="knot" draggable style="left: {{ color.value }}; background-color: {{ color.value }}"></div>
-
-                    <li class="color_preset-item">
-                        <label for="color_{{ color.name }}" class="color_preset-label">
-                            <input type="radio" id="color_{{ color.name }}" name="color" value="{{ color.name }}">
-                            <span class="label">
-                                <span class="tile" style="background: #{{ color.value }}"></span>
-                                <span class="head">
-                                    <span class="title">{{ color.name | capitalize }}</span>
-                                    <span class="value">{{ color.value }}</span>
-                                </span>
-                            </span>
-                        </label>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </fieldset>
-        </div>
+    
+    <div class="panel-body">
+        {% if variant === "color" %}
+            {% include "../components/panel-colors.njk" %}
+        
+        {% elseif variant === "pattern" %}
+            {% include "../components/panel-patterns.njk" %}
+        {% endif %}    
     </div>
 </section>  
+{% endif %}
 {% endmacro %}

@@ -23,9 +23,9 @@
         
         .knot {
             position: absolute;
-            top: -4px;
+            top: -(toRem(4));
             width: toRem(16);
-            bottom: -4px;
+            bottom: -(toRem(4));
             background: var(--white);
             border: solid toRem(2) var(--white);
             border-radius: toRem(4);

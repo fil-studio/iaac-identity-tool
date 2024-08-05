@@ -61,6 +61,12 @@
     }
 
     &:hover {
-        box-shadow: 0 0 0 1px rgba(0,0,0);
+        box-shadow: 0 0 0 toRem(1) var(--black);
+    }
+}
+
+.pattern_card {
+    .tile {
+        @include chess_pattern;
     }
 }

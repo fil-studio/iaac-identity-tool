@@ -1,0 +1,30 @@
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+.loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-loading);
+    background: var(--white-a20);
+    backdrop-filter: blur(toRem(10));
+
+    .spinner {
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 50% auto auto 50%;
+            width: toRem(80);
+            height: toRem(80);
+            margin-top: -(toRem(40));
+            margin-left: -(toRem(40));
+            border-radius: 50%;
+            border: toRem(10) solid var(--grey-500);
+            border-top-color: var(--black-a20);
+            animation: spinner .6s linear infinite;
+        }
+    }
+}

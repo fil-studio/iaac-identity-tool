@@ -31,3 +31,13 @@
     $remValue: calc($value / 16) + rem; 
     @return $remValue;
 }
+
+@mixin chess_pattern {
+	background-image: 
+		linear-gradient(45deg, var(--grey-200) 25%, transparent 25%), 
+		linear-gradient(-45deg, var(--grey-200) 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, var(--grey-200) 75%),
+		linear-gradient(-45deg, transparent 75%, var(--grey-200) 75%);
+	background-size: 8px 8px; /* Adjust the size of squares */
+	background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+}
