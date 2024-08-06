@@ -1,3 +1,5 @@
 const { App } = require("./core/App");
 
-const _App = new App();
+document.addEventListener("DOMContentLoaded", (event) => {
+    const _App = new App();
+});

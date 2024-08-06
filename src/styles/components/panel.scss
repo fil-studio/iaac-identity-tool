@@ -10,6 +10,10 @@
     border-radius: var(--radius-medium);
     box-shadow: var(--elevation-small);
 
+    &:not(.active) {
+        display: none;
+    }
+
     &-head {
         display: flex;
         justify-content: space-between;
@@ -22,6 +26,13 @@
             padding: toRem(2);
             font-size: toRem(12);
             color: var(--grey-300);
+        }
+
+        .close {
+            cursor: pointer;
+            svg {
+                pointer-events: none;
+            }
         }
     }
 

@@ -1,12 +1,14 @@
 import { Timer } from '@fils/ani';
 import { ThreeDOMLayer } from '@fils/gl-dom';
 import { SceneLayer } from '../gfx/SceneLayer';
-import { FancyButton } from '../components/FancyButton';
+import { IS_DEV_MODE } from './Globals';
+import { Controller } from './Controller';
 
 export class App  {
 	gl:ThreeDOMLayer;
 	layer:SceneLayer;
 	clock:Timer;
+	controller:Controller;
 
 	constructor() {
 		this.clock = new Timer(false);
@@ -16,14 +18,11 @@ export class App  {
 		});
 		this.gl.renderer.setClearColor(0xEAEAEA, 1);
 
-		console.log('Hello World! ^_^');
-
-		const fancy_buttons = document.querySelectorAll('button.fancy');
-		for(const btn of fancy_buttons) {
-			const f = new FancyButton(btn as HTMLElement);
-		}
+		console.log('Hello World! ^_^', IS_DEV_MODE);
 
 		this.layer = new SceneLayer(this.gl);
+		
+		this.controller = new Controller();
 
 		this.start();
 	}
