@@ -26,6 +26,10 @@ export class FloatingPanel extends HiddeableComponent {
             y: box.y
         }
 
+        close.onclick = () => {
+            this.active = false;
+        }
+
         head.addEventListener('mousedown', e => {
             if(e.target === close) return;
             this.startDrag(e.clientX, e.clientY);
