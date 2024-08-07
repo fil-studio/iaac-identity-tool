@@ -33,7 +33,7 @@
             {% for color in color_preset %}
             <li class="color_preset-item">
                 <label for="color_{{ color.name }}" class="color_preset-label">
-                    <input type="radio" id="color_{{ color.name }}" name="color" value="{{ color.name }}">
+                    <input type="radio" id="color_{{ color.name }}" name="color" value="{{ color.value }}">
                     <span class="label">
                         <span class="tile" style="background: #{{ color.value }}"></span>
                         <span class="head">

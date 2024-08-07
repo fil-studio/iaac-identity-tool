@@ -4,6 +4,8 @@ export class Component {
     constructor(_dom:HTMLElement) {
         this.dom = _dom;
     }
+
+    refresh() {}
 }
 
 export class HiddeableComponent extends Component {
@@ -16,7 +18,15 @@ export class HiddeableComponent extends Component {
 
     set active(value:boolean) {
         this._active = value;
-        if(value) this.dom.classList.add('active');
+        this.refresh();
+    }
+
+    get active():boolean {
+        return this._active;
+    }
+
+    refresh(): void {
+        if(this._active) this.dom.classList.add('active');
         else this.dom.classList.remove('active');
     }
 }

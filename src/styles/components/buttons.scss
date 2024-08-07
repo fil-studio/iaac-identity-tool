@@ -11,6 +11,16 @@ button.button {
 .button_icon {
     // Style
 
+    &.disabled {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    &.super-disabled {
+        display: none;
+    }
+
     &.primary {
         background: var(--black);
         color: var(--white);
@@ -188,6 +198,10 @@ button.button {
     &:hover {
         background: var(--grey-100);
     }
+
+    --bg-color: transparent;
+
+    background-color: var(--bg-color);
 
     input[type=color] {
         appearance: none;

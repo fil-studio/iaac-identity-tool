@@ -70,7 +70,12 @@
             }
 
                 &-label {
-                    
+                    --selected-alpha: .15;
+                    --selected-r: 0;
+                    --selected-g: 0;
+                    --selected-b: 0;
+                    --selected-color: rgba(var(--selected-r), var(--selected-g), var(--selected-b), var(--selected-alpha));
+
                     input[type=radio] {
                         position: absolute;
                         opacity: 0;
@@ -79,7 +84,7 @@
                         width: 0;
 
                         &:checked + .label {
-                            background: var(--grey-100);
+                            background: var(--selected-color);
                         }
                     }
 

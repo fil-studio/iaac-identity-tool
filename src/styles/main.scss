@@ -57,10 +57,16 @@ main {
         height: 100%;
         background: var(--white);
         overflow: auto;
+        transition: transform 500ms ease-out;
+
+        &:not(.active) {
+            transform: translateX(-100%);
+            pointer-events: none;
+        }
     
-    &.hidden {
+    /* &.hidden {
         display: none;
-    }
+    } */
     }
 
     .menu {
@@ -104,7 +110,17 @@ main {
             gap: 8px;
             padding: toRem(24);
 
+            &#export {
+                transition: transform 500ms ease-out;
+                &:not(.active) {
+                    transform: translateY(200px);
+                }
+            }
+
             &.video {
+                &:not(.active) {
+                    display: none;
+                }
                 border-top: solid 1px var(--grey-200);
                 border-bottom: solid 1px var(--grey-200);
             }

@@ -9,7 +9,7 @@
     </div>
 
     <div class="toolbar top">
-      <div class="toolbar-block">
+      <div id="topbar" class="toolbar-block">
         {{ Buttons.standardButton("Edit crop", "button secondary medium floating", "crop") }}
         
         <div class="button secondary medium floating">
@@ -32,7 +32,7 @@
         {% include "video_controls.njk" %}
       </div>
       
-      <div class="toolbar-block">
+      <div id="export" class="toolbar-block active">
         <div class="button secondary medium floating">
           {{ Icons.icon("videocam") }}
           <select>
