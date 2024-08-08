@@ -1,4 +1,5 @@
 import { Component } from "../core/Component";
+import { CardContainer } from "./menu/CardContainer";
 import { MenuLayer } from "./menu/MenuLayer";
 
 export class Menu extends Component {
@@ -7,12 +8,18 @@ export class Menu extends Component {
     layer1:MenuLayer;
     layer2:MenuLayer;
 
+    colors:CardContainer;
+
     constructor(_dom:HTMLElement) {
         super(_dom);
 
         const layers = _dom.querySelectorAll('.layer');
         this.layer1 = new MenuLayer(layers[0] as HTMLElement);
         this.layer2 = new MenuLayer(layers[1] as HTMLElement);
+
+        const cc = this.layer1.dom.querySelectorAll('.card_container');
+        
+        this.colors = new CardContainer(cc[0] as HTMLElement);
     }
 
     set cropping(value:boolean) {

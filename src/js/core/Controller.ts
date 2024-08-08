@@ -39,9 +39,10 @@ export class Controller implements TopBarListener {
 
         // this.colorsPanel.show("DB7347");
 
-        this.symbolsPanel.active = true;
+        // this.symbolsPanel.active = true;
 
         // this.loader.active = true;
+
 
         this.addListeners();
     }
