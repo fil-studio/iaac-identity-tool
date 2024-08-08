@@ -17,29 +17,15 @@
 }
 
 .card_container {
-    position: relative;
+    display: flex;
+    gap: 1px;
+    padding: 1px;
     background: var(--grey-300);
-
-    &#color_editor {
-        height: 136px;
-    }
-
-    &#pattern_editor {
-        height: 112px;
-    }
 }
 
     .pattern_composer {
-        position: absolute;
-        top: 1px;
-        bottom: 1px;
-        width: 25%;
+        flex: auto;
         background: var(--white);
-
-        &:nth-child(1) { left: 0;}
-        &:nth-child(2) { left: 25%;}
-        &:nth-child(3) { left: 50%;}
-        &:nth-child(4) { left: 75%;}
 
         &-head {
             height: toRem(24);
