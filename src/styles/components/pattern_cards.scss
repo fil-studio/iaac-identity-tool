@@ -18,13 +18,14 @@
 
 .card_container {
     display: flex;
+    flex-direction: row;
     gap: 1px;
     padding: 1px;
     background: var(--grey-300);
 }
 
     .pattern_composer {
-        flex: auto;
+        flex: 1;
         background: var(--white);
 
         &-head {
