@@ -1,12 +1,4 @@
-.pattern_editor {
-    display: flex;
-    flex-direction: row;
-    gap: toRem(1);
-    padding: toRem(1);
-    background: var(--grey-300);
-}
-
-.pattern_connect {
+.card_connect {
     display: flex;
 
     .string {
@@ -24,49 +16,71 @@
     }
 }
 
-.pattern_composer {
-    flex: 1;
-    background: var(--white);
+.card_container {
+    position: relative;
+    background: var(--grey-300);
 
-    &-head {
-        height: toRem(24);
-        padding: toRem(2);
-        cursor: grab;
-        
-        .icon {
-            width: toRem(20);
-            height:  toRem(20);
-            fill: var(--grey-300);
+    &#color_editor {
+        height: 136px;
+    }
+
+    &#pattern_editor {
+        height: 112px;
+    }
+}
+
+    .pattern_composer {
+        position: absolute;
+        top: 1px;
+        bottom: 1px;
+        width: 25%;
+        background: var(--white);
+
+        &:nth-child(1) { left: 0;}
+        &:nth-child(2) { left: 25%;}
+        &:nth-child(3) { left: 50%;}
+        &:nth-child(4) { left: 75%;}
+
+        &-head {
+            height: toRem(24);
+            padding: toRem(2);
+            cursor: grab;
+            
+            .icon {
+                width: toRem(20);
+                height:  toRem(20);
+                fill: var(--grey-300);
+            }
+        }
+
+
+        &-body {
+            padding: toRem(4);
+            
+            .tile {
+                aspect-ratio: 1;
+                border-radius: toRem(2);
+                border: solid toRem(1) var(--grey-500);
+            }
+        }
+
+        &-foot {
+            padding: toRem(2) toRem(4);
+            
+            .name {
+                text-align: center;
+                font-size: toRem(14);
+            }
+        }
+
+        &:hover {
+            box-shadow: 0 0 0 toRem(1) var(--black);
+            z-index: 2;
         }
     }
 
-
-    &-body {
-        padding: toRem(4);
-        
+    .pattern_card {
         .tile {
-            aspect-ratio: 1;
-            border-radius: toRem(2);
-            border: solid toRem(1) var(--grey-500);
+            @include chess_pattern;
         }
     }
-
-    &-foot {
-        padding: toRem(2) toRem(4);
-        
-        .name {
-            text-align: center;
-            font-size: toRem(14);
-        }
-    }
-
-    &:hover {
-        box-shadow: 0 0 0 toRem(1) var(--black);
-    }
-}
-
-.pattern_card {
-    .tile {
-        @include chess_pattern;
-    }
-}

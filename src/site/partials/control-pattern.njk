@@ -7,20 +7,20 @@
     
     <div class="form_block-body">
     
-    <div class="pattern_editor">
+    <div class="card_container" id="color_editor">
         {% for card in cards %}
         {{ ColorCards.colorCard("color_card", card.name, card.value) }}
         {% endfor %}
     </div>
 
-    <div class="pattern_connect">
+    <div class="card_connect">
         <div class="string"></div>
         <div class="string"></div>
         <div class="string"></div>
         <div class="string"></div>
     </div>
     
-    <div class="pattern_editor">
+    <div class="card_container" id="pattern_editor">
         {% for card in cards %}
         {{ PatternCards.patternCard("pattern_card") }}
         {% endfor %}

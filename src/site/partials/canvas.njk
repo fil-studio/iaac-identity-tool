@@ -12,9 +12,9 @@
       <div id="topbar" class="toolbar-block">
         {{ Buttons.standardButton("Edit crop", "button secondary medium floating", "crop") }}
         
-        <div class="button secondary medium floating">
+        <label class="button secondary medium floating" for="zoom">
           {{ Icons.icon("zoom_in") }}
-          <select>
+          <select id="zoom">
             <option>25%</option>
             <option>50%</option>
             <option>75%</option>
@@ -23,7 +23,7 @@
             <option>150%</option>
             <option>200%</option>
           </select>
-        </div>
+        </label>
       </div>
     </div>
     

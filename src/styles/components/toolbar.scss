@@ -1,0 +1,41 @@
+.toolbar {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    gap: toRem(8);
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    
+    &.top {
+        top: 0;
+    }
+
+    &.bottom {
+        bottom: 0;
+    }
+
+    &-block {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: toRem(24);
+
+        &#export {
+            transition: transform 500ms ease-out;
+            &:not(.active) {
+                transform: translateY(200px);
+            }
+        }
+
+        &.video {
+            &:not(.active) {
+                display: none;
+            }
+            border-top: solid 1px var(--grey-200);
+            border-bottom: solid 1px var(--grey-200);
+        }
+    }
+}

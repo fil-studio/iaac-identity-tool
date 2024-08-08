@@ -6,7 +6,6 @@
     <h3 class="title">Library</h3>
 
     {% set pattern_preset = [
-        { id: 0},
         { id: 1},
         { id: 2},
         { id: 3},
@@ -22,12 +21,14 @@
 
     <fieldset class="pattern_preset" id="pattern">
         <ul class="pattern_preset-list">
-            {% for color in pattern_preset %}
+            {% for pattern in pattern_preset %}
             <li class="pattern_preset-item">
-                <label for="color_{{ color.id }}" class="pattern_preset-label">
-                    <input type="radio" id="color_{{ color.id }}" name="color" value="{{ color.id }}">
+                <label for="pattern_{{ pattern.id }}" class="pattern_preset-label">
+                    <input type="radio" id="pattern_{{ pattern.id }}" name="pattern" value="{{ pattern.id }}">
                     <span class="label">
-                        <span class="tile"></span>
+                        <span class="tile">
+                            {{ PatternThumbs.patternThumb(pattern.id) }}
+                        </span>
                     </span>
                 </label>
             </li>

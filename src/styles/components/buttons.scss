@@ -143,6 +143,10 @@ button.button {
             height: toRem(20);
         }
     }
+
+    &.expand {
+        width: 100%;
+    }
 }
 
 
