@@ -35,7 +35,9 @@
                 <label for="color_{{ color.name }}" class="color_preset-label">
                     <input type="radio" id="color_{{ color.name }}" name="color" value="{{ color.value }}">
                     <span class="label">
-                        <span class="tile" style="background: #{{ color.value }}"></span>
+                        <span class="tile" style="background: #{{ color.value }}">
+                            {{ Icons.icon('check-small') }}
+                        </span>
                         <span class="head">
                             <span class="title">{{ color.name | capitalize }}</span>
                             <span class="value">{{ color.value }}</span>

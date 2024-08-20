@@ -37,9 +37,9 @@ export class Controller implements TopBarListener {
         this.menu = new Menu(document.querySelector('aside'));
         // this.menu.cropping = true;
 
-        // this.colorsPanel.show("DB7347");
+        this.colorsPanel.show("DB7347");
 
-        this.symbolsPanel.active = true;
+        // this.symbolsPanel.active = true;
 
         // this.loader.active = true;
 

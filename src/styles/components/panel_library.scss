@@ -93,6 +93,12 @@
 
                         &:checked + .label {
                             background: var(--selected-color);
+                            border-radius: var(--radius-small);
+                            border: solid 1px var(--grey-500);
+
+                            .icon {
+                                display: block;
+                            }
                         }
                     }
 
@@ -103,15 +109,25 @@
                         align-items: center;
                         gap: toRem(4);
                         padding: toRem(4);
-                        border-radius: var(--radius-small)
+                        border: solid 1px transparent;
+                        border-radius: var(--radius-small);
                     }
 
                     .tile {
-                        display: block;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                         aspect-ratio: 1;
                         width: toRem(40);
                         border: solid toRem(1) var(--grey-500);
                         border-radius: var(--radius-small);
+
+                        .icon {
+                            display: none;
+                            width: toRem(24);
+                            height: toRem(24);
+                            fill: var(--white);
+                        }
                     }
 
                     .head {
