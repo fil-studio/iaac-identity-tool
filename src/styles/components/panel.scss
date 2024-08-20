@@ -21,6 +21,10 @@
         padding: toRem(2);
         cursor: grab;
 
+        .drag {
+            pointer-events: none;
+        }
+
         .title {
             flex: auto;
             padding: toRem(2);

@@ -50,6 +50,10 @@
                 height:  toRem(20);
                 fill: var(--grey-300);
             }
+
+            .drag {
+                pointer-events: none;
+            }
         }
 
 

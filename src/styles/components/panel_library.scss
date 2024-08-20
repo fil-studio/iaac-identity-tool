@@ -49,6 +49,14 @@
                     @include chess_pattern;
                     border: solid toRem(1) var(--grey-500);
                     border-radius: var(--radius-small);
+                    overflow: hidden;
+
+                    .pattern {
+                        aspect-ratio: 1;
+                        width: toRem(44);
+                        height: toRem(44);
+                        fill: var(--grey-500)
+                    }
                 }
             } 
     }
