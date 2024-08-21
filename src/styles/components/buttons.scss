@@ -132,9 +132,9 @@ button.button {
     }
 
     &.large {
-        padding: toRem(6) toRem(20);
-        border-radius: toRem(8);
-        line-height: toRem(52);
+        padding: toRem(16) toRem(20);
+        border-radius: toRem(4);
+        line-height: toRem(12);
         font-size: toRem(12);
         gap: toRem(8);
 
@@ -189,45 +189,4 @@ button.button {
             height: toRem(20);
         }
     }
-}
-
-.button_color {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: toRem(8);
-    padding: toRem(4);
-    border-radius: var(--radius-small);
-
-    &:hover {
-        background: var(--grey-100);
-    }
-
-    --bg-color: transparent;
-
-    background-color: var(--bg-color);
-
-    input[type=color] {
-        appearance: none;
-        width: toRem(40);
-        height: toRem(40);
-        padding: 0;
-        border: solid toRem(1) var(--grey-500);
-        border-radius: var(--radius-small);
-    }
-
-    .label {
-        flex: auto;
-    }
-
-        .title {
-            display: block;
-            font-size: toRem(12);
-            font-weight: 500;
-        }
-
-        .value {
-            display: block;
-            font-size: toRem(12);
-        }
 }

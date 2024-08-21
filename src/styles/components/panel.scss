@@ -58,4 +58,57 @@
                 color: var(--grey-300);
             }
         }
+
+        &-color {
+            .button_color {
+                display: none;
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: toRem(8);
+                padding: toRem(6);
+                border-radius: var(--radius-small);
+            
+                &:hover {
+                    background: var(--grey-100);
+                }
+            
+                --bg-color: transparent;
+            
+                background-color: var(--bg-color);
+            
+                input[type=color] {
+                    appearance: none;
+                    width: toRem(40);
+                    height: toRem(40);
+                    padding: 0;
+                    border: solid toRem(1) var(--grey-500);
+                    border-radius: var(--radius-small);
+                }
+            
+                .label {
+                    flex: auto;
+                }
+            
+                    .title {
+                        display: block;
+                        font-size: toRem(12);
+                        font-weight: 500;
+                    }
+            
+                    .value {
+                        display: block;
+                        font-size: toRem(12);
+                    }
+            }
+        
+        &.active {
+            .button {
+                display: none;
+            }
+            
+            .button_color {
+                display: flex;
+            }
+        }
+        }
 }
