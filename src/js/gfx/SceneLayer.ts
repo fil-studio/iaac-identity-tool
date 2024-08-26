@@ -43,15 +43,24 @@ export class SceneLayer extends ThreeLayer {
             options: {
                 '1_original': 0,
                 '2_pixelated': 1,
-                '3_luma': 2
+                '3_luma': 2,
+                '4_comp': 3
             }
         })
 
         const u = MAT.uniforms.settings.value;
-        gui.add(u, 'tiles', {
+        gui.add(u, 'columns', {
+            title: 'Tile Columns',
             min: 5,
             max: 100,
             step: 1
+        })
+
+        gui.add(MAT.uniforms.alphaBlend, 'value', {
+            title: 'Alpha blend',
+            min: 0,
+            max: 1,
+            step: .001
         })
     }
 
