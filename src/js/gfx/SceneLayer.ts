@@ -1,7 +1,7 @@
 import { ThreeDOMLayer, ThreeLayer } from "@fils/gl-dom";
 import { UI } from "@fils/ui";
 import { uiTexture } from "@fils/ui-icons";
-import { OrthographicCamera } from "three";
+import { Color, OrthographicCamera } from "three";
 import { MAT, RenderEngine } from "./RenderEngine";
 
 export class SceneLayer extends ThreeLayer {
@@ -56,12 +56,20 @@ export class SceneLayer extends ThreeLayer {
             step: 1
         })
 
-        gui.add(MAT.uniforms.alphaBlend, 'value', {
-            title: 'Alpha blend',
-            min: 0,
-            max: 1,
-            step: .001
-        })
+        let i = 0;
+        const tmp = new Color();
+        for(const t of u.tiles) {
+            tmp.copy(t.color).convertSRGBToLinear();
+            const col = {
+                hex: `#${tmp.getHexString()}`
+            }
+            gui.add(col, 'hex', {
+                view: 'color',
+                title: `Color ${i++}`
+            }).on('change', () => {
+                t.color.setStyle(col.hex).convertLinearToSRGB();
+            })
+        }
     }
 
     update(time:number, dt:number) {

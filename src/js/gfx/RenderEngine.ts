@@ -18,26 +18,26 @@ export const MAT = new ShaderMaterial({
                 columns: 30,
                 tiles: [
                     {
-                        map: tLoader.load('assets/patterns/pattern-1.svg'),
-                        color: new Color(0xFF71EB),
+                        map: null,
+                        color: new Color(0xFF71EB).convertLinearToSRGB(),
                         t0: 0,
                         t1: .25
                     },
                     {
-                        map: tLoader.load('assets/patterns/pattern-2.svg'),
-                        color: new Color(0xFFD302),
+                        map: null,
+                        color: new Color(0xFFD302).convertLinearToSRGB(),
                         t0: .25,
                         t1: .5
                     },
                     {
-                        map: tLoader.load('assets/patterns/pattern-3.svg'),
-                        color: new Color(0xA057FF),
+                        map: null,
+                        color: new Color(0xA057FF).convertLinearToSRGB(),
                         t0: .5,
                         t1: .75
                     },
                     {
-                        map: tLoader.load('assets/patterns/pattern-4.svg'),
-                        color: new Color(0x53565E),
+                        map: null,
+                        color: new Color(0x53565E).convertLinearToSRGB(),
                         t0: .75,
                         t1: 1.0
                     }
@@ -49,9 +49,6 @@ export const MAT = new ShaderMaterial({
         },
         mode: {
             value: 3
-        },
-        alphaBlend: {
-            value: .2
         }
     }
 });
@@ -64,6 +61,14 @@ export class RenderEngine {
         this.loadTestImage('assets/test/test-image.jpg');
 
         this.quad = new Mesh(geo, MAT);
+
+        const u = MAT.uniforms.settings.value.tiles;
+        for(let i=0 ;i<u.length; i++) {
+            u[i].map = tLoader.load(`assets/patterns/pattern-${i+1}.svg`, texture => {
+                texture.minFilter = LinearFilter;
+                texture.magFilter = LinearFilter;
+            })
+        }
     }
 
     protected loadTestImage(url:string) {

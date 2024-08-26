@@ -20,7 +20,7 @@ uniform sampler2D tInput;
 
 uniform int mode;
 
-uniform float alphaBlend;
+// uniform float alphaBlend;
 
 float rgb2lum(vec3 p) {
     return 0.3086 * p.r + 0.6094 * p.g + 0.0820 * p.b;
@@ -57,7 +57,7 @@ void main() {
                 vec2 tl = 1.0 / uvStep;
                 vec2 tUv = mod(vUv * tl, vec2(1.));
                 vec4 mCol = texture2D(settings.tiles[i].map, tUv);
-                float aR = smoothstep(alphaBlend, 1.0, mCol.a);
+                float aR = mCol.a;//moothstep(alphaBlend, 1.0, mCol.a);
                 vec3 col = mix(settings.tiles[i].color, mCol.rgb, aR);
                 gl_FragColor = vec4(col, 1.0);
             }
