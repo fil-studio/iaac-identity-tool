@@ -22,7 +22,7 @@ export class App  {
 
 		this.layer = new SceneLayer(this.gl);
 		
-		this.controller = new Controller();
+		// this.controller = new Controller();
 
 		this.start();
 	}

@@ -19,6 +19,7 @@
 	"dependencies": {
 		"@fils/ani": "^0.0.6",
 		"@fils/color": "^0.0.9",
+		"@fils/gfx": "^0.1.4",
 		"@fils/gl-dom": "^0.0.8",
 		"@fils/math": "^0.1.0",
 		"@fils/ui": "^0.1.1",
