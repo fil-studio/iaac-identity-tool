@@ -1,6 +1,6 @@
-import vertexShader from "../../glsl/shader.vert";
+import { Color, LinearFilter, Mesh, PlaneGeometry, ShaderMaterial, Texture, TextureLoader, Vector2, VideoTexture } from "three";
 import fragmentShader from "../../glsl/shader.frag";
-import { Color, LinearFilter, Mesh, NearestFilter, NearestMipMapLinearFilter, PlaneGeometry, ShaderMaterial, TextureLoader, Vector2 } from "three";
+import vertexShader from "../../glsl/shader.vert";
 // import { RTUtils } from "@fils/gfx";
 
 const tLoader = new TextureLoader();
@@ -58,27 +58,26 @@ export class RenderEngine {
     quad:Mesh;
 
     constructor() {
-        this.loadTestImage('assets/test/test-image.jpg');
+        this.loadImage('assets/test/test-image.jpg');
 
         this.quad = new Mesh(geo, MAT);
 
         const u = MAT.uniforms.settings.value.tiles;
         for(let i=0 ;i<u.length; i++) {
             u[i].map = tLoader.load(`assets/patterns/pattern-${i+1}.svg`, texture => {
-                texture.minFilter = LinearFilter;
-                texture.magFilter = LinearFilter;
+                this.updateTextureSettings(texture);
             })
         }
     }
 
-    protected loadTestImage(url:string) {
+    /* protected loadTestImage(url:string) {
         tLoader.load(url, texture => {
             texture.magFilter = LinearFilter;
             texture.minFilter = LinearFilter;
             MAT.uniforms.tInput.value = texture;
             this.updateResolution();
         });
-    }
+    } */
 
     protected updateResolution(isVideo:boolean=false) {
         const u = MAT.uniforms;
@@ -95,6 +94,47 @@ export class RenderEngine {
 
         this.ratio = res.x / res.y;
         console.log('image ratio', this.ratio);
+    }
+
+    protected updateTextureSettings(texture:Texture) {
+        texture.magFilter = LinearFilter;
+        texture.minFilter = LinearFilter;
+    }
+
+    protected disposeTextrueInput() {
+        if(MAT.uniforms.tInput.value != null) {
+            MAT.uniforms.tInput.value.dispose();
+            MAT.uniforms.tInput.value = null;
+        }
+    }
+
+    loadVideo(url:string) {
+        this.disposeTextrueInput();
+        const video = document.createElement('video');
+        video.muted = true;
+        video.loop = true;
+        let created = false;
+        video.addEventListener('canplaythrough', e => {
+            if(created) {
+                return;
+            }
+            created = true;
+            video.play();
+            const texture = new VideoTexture(video);
+            MAT.uniforms.tInput.value = texture;
+            this.updateTextureSettings(texture);
+            this.updateResolution(true);    
+        });
+        video.src = url;
+    }
+
+    loadImage(url:string) {
+        this.disposeTextrueInput();
+        tLoader.load(url, texture => {
+            this.updateTextureSettings(texture);
+            MAT.uniforms.tInput.value = texture;
+            this.updateResolution();
+        });
     }
 
     setSize(width:number, height:number, margin:number) {

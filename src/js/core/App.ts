@@ -5,6 +5,7 @@ import { IS_DEV_MODE } from './Globals';
 import { Controller } from './Controller';
 
 import Stats from 'three/examples/jsm/libs/stats.module.js';
+import { initDragAndDrop } from './FileTypes';
 
 export class App  {
 	gl:ThreeDOMLayer;
@@ -23,6 +24,10 @@ export class App  {
 		console.log('Hello World! ^_^', IS_DEV_MODE);
 
 		this.layer = new SceneLayer(this.gl);
+
+		initDragAndDrop(document.querySelector('.canvas'), (url:string, isVideo:boolean=false) => {
+			this.layer.loadVisual(url, isVideo);
+		});
 		
 		// this.controller = new Controller();
 

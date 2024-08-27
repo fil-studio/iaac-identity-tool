@@ -56,6 +56,9 @@ export class SceneLayer extends ThreeLayer {
             step: 1
         })
 
+        const f = gui.addGroup({
+            title: 'Colors'
+        });
         let i = 0;
         const tmp = new Color();
         for(const t of u.tiles) {
@@ -63,13 +66,52 @@ export class SceneLayer extends ThreeLayer {
             const col = {
                 hex: `#${tmp.getHexString()}`
             }
-            gui.add(col, 'hex', {
+            f.add(col, 'hex', {
                 view: 'color',
                 title: `Color ${i++}`
             }).on('change', () => {
                 t.color.setStyle(col.hex).convertLinearToSRGB();
             })
         }
+
+        const th = {
+            t0: 0,
+            t1: .25,
+            t2: .5,
+            t3: .75
+        }
+
+        const updateThresholds = () => {
+            u.tiles[0].t0 = th.t0;
+            u.tiles[0].t1 = th.t1;
+            
+            u.tiles[1].t0 = th.t1;
+            u.tiles[1].t1 = th.t2;
+
+            u.tiles[2].t0 = th.t2;
+            u.tiles[2].t1 = th.t3;
+
+            u.tiles[3].t0 = th.t3;
+            u.tiles[3].t1 = 1;
+        }
+
+        const f2 = gui.addGroup({
+            title: 'Thresholds',
+            folded: true
+        });
+
+        const addTh = (key) => {
+            f2.add(th, key, {
+                min: 0,
+                max: 1,
+                step: .001
+            }).on('change', updateThresholds);
+        }
+
+        addTh('t0');
+        addTh('t1');
+        addTh('t2');
+        addTh('t3');
     }
 
     update(time:number, dt:number) {
@@ -81,5 +123,10 @@ export class SceneLayer extends ThreeLayer {
         // this.needsUpdate = false;
         this.engine.setSize(this.gl.rect.width, this.gl.rect.height, 100);
         super.render();
+    }
+
+    loadVisual(url:string, isVideo:boolean=false) {
+        if(isVideo) this.engine.loadVideo(url);
+        else this.engine.loadImage(url);
     }
 }
