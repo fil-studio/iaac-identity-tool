@@ -25,6 +25,7 @@
 		"@fils/ui": "^0.1.1",
 		"@fils/ui-icons": "^0.0.17",
 		"@fils/utils": "^0.1.1",
+		"@fils/vfx": "^0.2.3",
 		"electron": "^31.1.0",
 		"three": "^0.166.0"
 	},

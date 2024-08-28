@@ -18,6 +18,16 @@
 
     .button {
         display: inline-block;
+
+        .icon_wrap {
+            display: none;
+        }
+
+        &.error {
+            .icon_wrap {
+                display: unset;
+            }
+        }
     }
 
     &:hover {

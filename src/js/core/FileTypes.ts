@@ -1,7 +1,7 @@
 import { addFileDropHandler } from "@fils/utils";
 
 export const supportedVideo = ["video/mp4", "video/webm"];
-export const supportedImage = ["image/jpeg", "image/png", "image/webp", "image/svg"];
+export const supportedImage = ["image/jpeg", "image/png", "image/webp", "image/svg+xml"];
 
 export function initDragAndDrop(el:HTMLElement, callback:Function) {
     addFileDropHandler(el, files => {

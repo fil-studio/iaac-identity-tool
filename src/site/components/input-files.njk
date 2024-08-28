@@ -1,8 +1,12 @@
-{% macro inputFile(name) %}
+{% macro inputFile(name, noVideo=false) %}
 <div class="input_file">
-    <input type="file" id="{{ name }}">
+    {% if noVideo %}
+    <input type="file" id="{{ name }}" accept="image/jpeg, image/png, image/webp, image/svg+xml">
+    {% else %}
+    <input type="file" id="{{ name }}" accept="image/jpeg, image/png, image/webp, image/svg+xml, video/mp4, video/webm">
+    {% endif %}
     <label for="{{ name }}">
-        <span class="button small tertiary error">
+        <span class="button small tertiary">
             <span class="text">Choose file</span>
             <div class="icon_wrap">
                 {{ Icons.icon("error") }}
@@ -10,5 +14,9 @@
         </span>
     </label>
 </div>
-<p class="input_file-warning">Upload a JPG/PNG/SVG image or WebP/MP4 video</p>
+{% if noVideo %}
+<p class="input_file-warning">Upload a JPG/PNG/WebP/SVG image.</p>
+{% else %}
+<p class="input_file-warning">Upload a JPG/PNG/WebP/SVG image or WebM/MP4 video</p>
+{% endif %}
 {% endmacro %}

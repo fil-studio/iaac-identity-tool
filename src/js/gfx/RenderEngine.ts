@@ -70,15 +70,6 @@ export class RenderEngine {
         }
     }
 
-    /* protected loadTestImage(url:string) {
-        tLoader.load(url, texture => {
-            texture.magFilter = LinearFilter;
-            texture.minFilter = LinearFilter;
-            MAT.uniforms.tInput.value = texture;
-            this.updateResolution();
-        });
-    } */
-
     protected updateResolution(isVideo:boolean=false) {
         const u = MAT.uniforms;
         const src = u.tInput.value;

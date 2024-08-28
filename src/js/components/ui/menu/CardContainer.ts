@@ -99,7 +99,7 @@ export class CardContainer extends Component {
     updateCardPositions() {
         for(const card of this.cards) {
             const offset = card.position - card.index;
-            card.dom.style.transform = `translateX(${offset*100}%)`;
+            card.dom.style.transform = `translateX(${offset*101}%)`;
         }
     }
 }

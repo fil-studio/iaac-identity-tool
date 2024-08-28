@@ -13,22 +13,18 @@ export class SceneLayer extends ThreeLayer {
     constructor(_gl:ThreeDOMLayer) {
         super(_gl);
 
-        const rnd = _gl.renderer;
-
         const w = this.gl.rect.width;
         const h = this.gl.rect.height;
         this.camera = new OrthographicCamera(-w/2, w/2, h/2, -h/2, 1, 100);
         this.scene.add(this.camera);
         this.params.camera = this.camera;
 
-        // this.trPass = new TransmissionDepthPass(this.gl.renderer, w, h, .5);
-
         this.camera.position.z = 20;
 
-        this.engine = new RenderEngine();
-        this.scene.add(this.engine.quad);
+        // this.engine = new RenderEngine();
+        // this.scene.add(this.engine.quad);
 
-        this.initGUI();
+        // this.initGUI();
     }
 
     protected initGUI() {
@@ -121,7 +117,7 @@ export class SceneLayer extends ThreeLayer {
     render(): void {
         if(!this.needsUpdate) return;
         // this.needsUpdate = false;
-        this.engine.setSize(this.gl.rect.width, this.gl.rect.height, 100);
+        // this.engine.setSize(this.gl.rect.width, this.gl.rect.height, 100);
         super.render();
     }
 
