@@ -7,7 +7,7 @@ eleventyComputed:
 
 ---
 
-{% import '../components/icons.njk' as Icons with context %}
+{# {% import '../components/icons.njk' as Icons with context %}
 {% import '../components/buttons.njk' as Buttons with context %}
 {% import '../components/buttonicons.njk' as ButtonIcons with context %}
 {% import '../components/input-files.njk' as InputFiles with context %}
@@ -15,11 +15,11 @@ eleventyComputed:
 {% import '../components/pattern-cards.njk' as PatternCards with context %}
 {% import '../components/pattern-thumb.njk' as PatternThumbs with context %}
 {% import '../components/panels.njk' as Panels with context %}
-{% import '../components/snackbars.njk' as Snackbars with context %}
+{% import '../components/snackbars.njk' as Snackbars with context %} #}
 
 
 <main>
-  {% include 'control.njk' %}
+  {# {% include 'control.njk' %}
   
   {% include 'canvas.njk' %}
 
@@ -27,5 +27,9 @@ eleventyComputed:
 
   {{ Panels.panel("pattern", true) }}
 
-  {{ Snackbars.snackbar("Unsupported file format. Please try again with a valid file extension.", false) }}  
+  {{ Snackbars.snackbar("Unsupported file format. Please try again with a valid file extension.", false) }}   #}
+
+  <div class="canvas">
+    <div class="gl"></div>
+  </div>
 </main>

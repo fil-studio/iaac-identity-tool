@@ -4,6 +4,9 @@ import { SceneLayer } from '../gfx/SceneLayer';
 import { IS_DEV_MODE } from './Globals';
 import { Controller } from './Controller';
 
+import Stats from 'three/examples/jsm/libs/stats.module.js';
+import { initDragAndDrop } from './FileTypes';
+
 export class App  {
 	gl:ThreeDOMLayer;
 	layer:SceneLayer;
@@ -21,16 +24,26 @@ export class App  {
 		console.log('Hello World! ^_^', IS_DEV_MODE);
 
 		this.layer = new SceneLayer(this.gl);
+
+		initDragAndDrop(document.querySelector('.canvas'), (url:string, isVideo:boolean=false) => {
+			this.layer.loadVisual(url, isVideo);
+		});
 		
-		this.controller = new Controller();
+		// this.controller = new Controller();
 
 		this.start();
 	}
 
 	start() {
+		const stats = new Stats();
+		stats.showPanel(1);
+		document.body.appendChild(stats.dom);
+
 		const animate = () => {
 			requestAnimationFrame(animate);
+			stats.begin();
 			this.update();
+			stats.end();
 		}
 
 		requestAnimationFrame(animate);
