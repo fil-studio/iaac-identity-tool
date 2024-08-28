@@ -26,6 +26,8 @@ float rgb2lum(vec3 p) {
     return 0.3086 * p.r + 0.6094 * p.g + 0.0820 * p.b;
 }
 
+const vec3 bgSym = vec3(1.);
+
 void main() {
     // pixelate uv
     float ratio = resolution.x / resolution.y;
@@ -58,7 +60,10 @@ void main() {
                 vec2 tUv = mod(vUv * tl, vec2(1.));
                 vec4 mCol = texture2D(settings.tiles[i].map, tUv);
                 float aR = mCol.a;//moothstep(alphaBlend, 1.0, mCol.a);
-                vec3 col = mix(settings.tiles[i].color, mCol.rgb, aR);
+                vec3 sym = mix(bgSym,mCol.rgb, aR);
+                float sL = rgb2lum(sym);
+                float sR = smoothstep(0., 1., sL);
+                vec3 col = mix(settings.tiles[i].color, bgSym, sR);
                 gl_FragColor = vec4(col, 1.0);
             }
         }
