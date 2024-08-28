@@ -46,7 +46,7 @@
                     display: block;
                     aspect-ratio: 1;
                     width: toRem(44);
-                    @include chess_pattern;
+                    background: var(--white);
                     border: solid toRem(1) var(--grey-500);
                     border-radius: var(--radius-small);
                     overflow: hidden;

@@ -62,6 +62,7 @@
             
             .tile {
                 aspect-ratio: 1;
+                background: var(--white);
                 border-radius: toRem(2);
                 border: solid toRem(1) var(--grey-500);
             }
@@ -84,6 +85,6 @@
 
     .pattern_card {
         .tile {
-            @include chess_pattern;
+            
         }
     }
