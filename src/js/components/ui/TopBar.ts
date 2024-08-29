@@ -1,4 +1,5 @@
 import { Component } from "../core/Component";
+import { Zoom } from "./ZoomController";
 
 export interface TopBarListener {
     onCropChanged(value:boolean);
@@ -18,6 +19,8 @@ export class TopBar extends Component {
         const buttons = _dom.querySelectorAll('.button');
         this.cropButton = buttons[0] as HTMLButtonElement;
         this.zoomSel = buttons[1] as HTMLElement;
+
+        Zoom.dom = this.zoomSel;
         
         this.cropButton.onclick = () => {
             this.cropping = true;
@@ -43,10 +46,10 @@ export class TopBar extends Component {
 
     refresh() {
         if(this.isCropping) {
-            this.zoomSel.classList.add('disabled');
+            // this.zoomSel.classList.add('disabled');
             this.cropButton.classList.add('super-disabled');
         } else {
-            this.zoomSel.classList.remove('disabled');
+            // this.zoomSel.classList.remove('disabled');
             this.cropButton.classList.remove('super-disabled');
         }
     }

@@ -28,17 +28,17 @@ export class GLView {
 
     setDomSize(vis:VisualSettings, isCrop:boolean=false) {
         const rect = document.querySelector('.gl').getBoundingClientRect();
-        const rw = rect.width * .9;
-        const rh = rect.height * .65;
+        // const rw = rect.width * .9;
+        // const rh = rect.height * .65;
 
         const ratio = isCrop ? vis.crop.ratio : vis.ratio;
         let w = isCrop ? vis.crop.width : vis.originalSize.width;
         let h = w / ratio;
         
-        while(w > rw || h > rh) {
+        /* while(w > rw || h > rh) {
             w -= 10;
             h = w / ratio;
-        }
+        } */
         
         this.dom.style.width = `${w}px`;
         this.dom.style.height = `${h}px`;
