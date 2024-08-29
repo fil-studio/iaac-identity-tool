@@ -8,23 +8,17 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { initDragAndDrop } from './FileTypes';
 import { Visual, VisualListener, VisualSettings } from '../gfx/Visual';
 import { CropView } from '../gfx/CropView';
+import { ExportView } from '../gfx/ExportView';
 
 export class App implements VisualListener  {
-	gl:ThreeDOMLayer;
-	layer:SceneLayer;
 	clock:Timer;
 	controller:Controller;
 
 	cropView:CropView;
+	exportView:ExportView;
 
 	constructor() {
 		this.clock = new Timer(false);
-		/* this.gl = new ThreeDOMLayer(document.querySelector('.gl'), {
-			antialias: true,
-			alpha: false
-		});
-		this.gl.renderer.setClearColor(0xEAEAEA, 1); */
-
 		console.log('Hello World! ^_^', IS_DEV_MODE);
 
 		// this.layer = new SceneLayer(this.gl);
@@ -37,11 +31,14 @@ export class App implements VisualListener  {
 		this.controller = new Controller();
 
 		this.cropView = new CropView(document.querySelector('.visual-crop-base'));
+		this.exportView = new ExportView(document.querySelector('.visual'));
 
 		Visual.addListener(this);
 		Visual.updateElement('assets/test/test-image.jpg');
 
 		this.start();
+
+		this.exportView.enabled = true;
 	}
 
 	start() {
@@ -73,10 +70,12 @@ export class App implements VisualListener  {
 
 	onVisualLoaded(vis: VisualSettings) {
 		this.cropView.visualUpdated(vis);
+		this.exportView.visualUpdated(vis, true);
 	}
 
 	onTextureUpdate() {
 		this.cropView.render();
+		this.exportView.crop.onFrameUpdate();
 	}
 
 }

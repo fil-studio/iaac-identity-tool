@@ -74,14 +74,12 @@ main {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-        }
 
-        .visual-crop-base {
-            width: 540px;
-            height: 540px;
-            // background: grey;
-            // filter: blur(8px);
             filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, .25));
+
+            &:not(.active) {
+                display: none;
+            }
 
             canvas {
                 position: absolute;
@@ -89,9 +87,4 @@ main {
                 max-height: 100%;
             }
         }
-
-        /* canvas {
-            width: 100%;
-            height: 100%;
-        } */
     }

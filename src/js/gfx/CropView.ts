@@ -1,16 +1,11 @@
 import { Mesh, MeshBasicMaterial, OrthographicCamera, PlaneGeometry, Scene, Texture, TextureLoader, VideoTexture, WebGLRenderer, WebGLRenderTarget } from "three";
 import { Visual, VisualSettings } from "./Visual";
 import { BlurPass } from "@fils/vfx";
+import { GLView } from "./GLView";
 
 let rT;
 
-export class CropView {
-    gl:WebGLRenderer;
-    dom:HTMLElement;
-
-    scene:Scene;
-    camera:OrthographicCamera;
-
+export class CropView extends GLView {
     texture:Texture;
     blur:BlurPass;
 
@@ -20,20 +15,8 @@ export class CropView {
     crop:Mesh;
     cropMat:MeshBasicMaterial;
 
-    _enabled:boolean = true;
-
     constructor(_dom:HTMLElement) {
-        this.dom = _dom;
-
-        this.gl = new WebGLRenderer({
-            antialias: false,
-            alpha: false
-        })
-        this.gl.setClearColor(0x999999, 1);
-        this.gl.outputColorSpace = 'srgb-linear';
-        this.dom.appendChild(this.gl.domElement);
-
-        this.scene = new Scene();
+        super(_dom);
 
         window.addEventListener('resize', e => {
             clearTimeout(rT);
@@ -58,34 +41,11 @@ export class CropView {
         this.crop.position.z = 1;
     }
 
-    setDomSize(vis:VisualSettings) {
-        const rect = document.querySelector('.gl').getBoundingClientRect();
-        const rw = rect.width * .9;
-        const rh = rect.height * .65;
-
-        const ratio = vis.ratio;
-        let w = vis.originalSize.width;
-        let h = w / ratio;
-        
-        while(w > rw || h > rh) {
-            w -= 100;
-            h = w / ratio;
-        }
-        
-        this.dom.style.width = `${w}px`;
-        this.dom.style.height = `${h}px`;
-    }
-
     visualUpdated(vis:VisualSettings) {
-        this.setDomSize(vis);
-        
+        super.visualUpdated(vis);
+
         const w = vis.originalSize.width;
         const h = vis.originalSize.height;
-
-        this.gl.setSize(w, h);
-
-        this.camera = new OrthographicCamera(-w/2, w/2, h/2, -h/2, 1, 100);
-        this.camera.position.z = 10;
 
         if(this.texture) this.texture.dispose();
         if(this.blur) this.blur.dispose();
@@ -139,14 +99,5 @@ export class CropView {
         this.blur.renderInternal(this.gl);
         this.gl.setRenderTarget(null);
         this.gl.render(this.scene, this.camera);
-    }
-
-    set enabled(value:boolean) {
-        this._enabled = value;
-        if(value) this.render();
-    }
-
-    get enabled():boolean {
-        return this._enabled;
     }
 }

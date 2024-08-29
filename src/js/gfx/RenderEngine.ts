@@ -58,8 +58,6 @@ export class RenderEngine {
     quad:Mesh;
 
     constructor() {
-        this.loadImage('assets/test/test-image.jpg');
-
         this.quad = new Mesh(geo, MAT);
 
         const u = MAT.uniforms.settings.value.tiles;
@@ -70,21 +68,21 @@ export class RenderEngine {
         }
     }
 
-    protected updateResolution(isVideo:boolean=false) {
-        const u = MAT.uniforms;
-        const src = u.tInput.value;
-        const res = u.resolution.value;
+    set texture(value:Texture) {
+        this.updateTextureSettings(value);
+        MAT.uniforms.tInput.value = value;
+    }
 
-        if(isVideo) {
-            const video = src.image as HTMLVideoElement;
-            res.set(video.videoWidth, video.videoHeight);
-        } else {
-            const img = src.image as HTMLImageElement;
-            res.set(img.width, img.height);
-        }
+    updateResolution(width:number, height:number) {
+        const u = MAT.uniforms;
+        const res = u.resolution.value;
+        
+        res.set(width, height);
+
+        this.quad.scale.set(width, height, 1);
 
         this.ratio = res.x / res.y;
-        console.log('image ratio', this.ratio);
+        // console.log('image ratio', this.ratio);
     }
 
     protected updateTextureSettings(texture:Texture) {
@@ -92,14 +90,14 @@ export class RenderEngine {
         texture.minFilter = LinearFilter;
     }
 
-    protected disposeTextrueInput() {
+    /* protected disposeTextrueInput() {
         if(MAT.uniforms.tInput.value != null) {
             MAT.uniforms.tInput.value.dispose();
             MAT.uniforms.tInput.value = null;
         }
-    }
+    } */
 
-    loadVideo(url:string) {
+    /* loadVideo(url:string) {
         this.disposeTextrueInput();
         const video = document.createElement('video');
         video.muted = true;
@@ -126,9 +124,9 @@ export class RenderEngine {
             MAT.uniforms.tInput.value = texture;
             this.updateResolution();
         });
-    }
+    } */
 
-    setSize(width:number, height:number, margin:number) {
+    /* setSize(width:number, height:number, margin:number) {
         const w = width - 2 * margin;
         const h = height - 2 * margin;
 
@@ -141,5 +139,5 @@ export class RenderEngine {
             this.quad.scale.x = w;
             this.quad.scale.y = w / this.ratio;
         }
-    }
+    } */
 }
