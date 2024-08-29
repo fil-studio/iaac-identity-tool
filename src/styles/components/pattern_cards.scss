@@ -61,10 +61,16 @@
             padding: toRem(4);
             
             .tile {
+                position: relative;
                 aspect-ratio: 1;
                 background: var(--white);
                 border-radius: toRem(2);
                 border: solid toRem(1) var(--grey-500);
+                canvas {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
 

@@ -7,6 +7,7 @@ import { CropView } from '../gfx/CropView';
 import { ExportView } from '../gfx/ExportView';
 import { Visual, VisualListener, VisualSettings } from '../gfx/Visual';
 import { getVisualURL, initDragAndDrop } from './FileTypes';
+import { Texture } from 'three';
 
 export class App implements VisualListener, SettingsChangedListener  {
 	clock:Timer;
@@ -43,7 +44,7 @@ export class App implements VisualListener, SettingsChangedListener  {
 	start() {
 		const stats = new Stats();
 		stats.showPanel(1);
-		document.body.appendChild(stats.dom);
+		// document.body.appendChild(stats.dom);
 
 		const animate = () => {
 			requestAnimationFrame(animate);
@@ -83,11 +84,21 @@ export class App implements VisualListener, SettingsChangedListener  {
 		this.exportView.render();
 	}
 
+	onPatternsChanged(values: Texture[]) {
+		this.exportView.engine.patterns = values;
+		this.exportView.render();
+	}
+
 	onVisualSelected(file: File) {
 		getVisualURL(file, (url:string, isVideo:boolean=false) => {
 			// this.layer.loadVisual(url, isVideo);
 			Visual.updateElement(url, isVideo);
 		})
+	}
+
+	onCropViewChanged(value: boolean) {
+		this.cropView.enabled = value;
+		this.exportView.enabled = !value;
 	}
 
 }

@@ -17,7 +17,7 @@ export class GLView {
             antialias: false,
             alpha: false
         })
-        this.gl.setClearColor(0x999999, 1);
+        this.gl.setClearColor(0x111111, 1);
         this.gl.outputColorSpace = 'srgb-linear';
         this.dom.appendChild(this.gl.domElement);
 

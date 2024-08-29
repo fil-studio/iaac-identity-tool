@@ -1,6 +1,7 @@
 import { Component } from "../core/Component";
 import { CardContainer } from "./menu/CardContainer";
 import { MenuLayer } from "./menu/MenuLayer";
+import { PatternCards } from "./menu/PatternCards";
 
 export class Menu extends Component {
     protected isCropping:boolean = false;
@@ -9,6 +10,7 @@ export class Menu extends Component {
     layer2:MenuLayer;
 
     colors:CardContainer;
+    patterns:PatternCards;
 
     constructor(_dom:HTMLElement) {
         super(_dom);
@@ -20,6 +22,7 @@ export class Menu extends Component {
         const cc = this.layer1.dom.querySelectorAll('.card_container');
         
         this.colors = new CardContainer("color", cc[0] as HTMLElement);
+        this.patterns = new PatternCards(cc[1] as HTMLElement);
     }
 
     set cropping(value:boolean) {
@@ -28,7 +31,7 @@ export class Menu extends Component {
     }
 
     refresh(): void {
-        console.log(this.isCropping)
+        // console.log(this.isCropping)
         this.layer1.active = !this.isCropping;
         this.layer2.active = !this.layer1.active;
     }

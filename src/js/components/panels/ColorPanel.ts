@@ -57,7 +57,6 @@ export class ColorPanel extends FloatingPanel {
     }
 
     updateState() {
-        // To-Do: en funció del selectedColor -> refrescar UI
         for(const input of this.library) {
             input.checked = input.value === this.selectedColor;
             if(input.checked) {

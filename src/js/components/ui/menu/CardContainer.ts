@@ -55,10 +55,14 @@ export class CardContainer extends Component {
             this.addDragActions(cards.length-1, header);
         }
 
-        const tiles = _dom.querySelectorAll('.tile');
+        this.addTileEvents();
+    }
+
+    protected addTileEvents() {
+        const tiles = this.dom.querySelectorAll('.tile');
         for(let i=0; i<tiles.length; i++) {
             const t = tiles[i] as HTMLElement;
-            t.ondblclick = () => {
+            t.onclick = () => {
                 for(const lis of this.listeners) {
                     lis.onCardSelected(this.id, this.cards[i]);
                 }
@@ -102,10 +106,10 @@ export class CardContainer extends Component {
 
     protected drag(target:HTMLElement) {
         if(target === this.cards[this.dragIndex].dom) return;
-        const pos1 = this.cards[this.dragIndex].position;
-        console.log(this.cardsDom.indexOf(target));
+        // const pos1 = this.cards[this.dragIndex].position;
+        // console.log(this.cardsDom.indexOf(target));
         const card2 = this.cards[this.cardsDom.indexOf(target)];
-        const pos2 = card2.position;
+        // const pos2 = card2.position;
         // console.log('Dragging me over', pos1, pos2);
         this.swapPositions(this.cards[this.dragIndex], card2);
     }

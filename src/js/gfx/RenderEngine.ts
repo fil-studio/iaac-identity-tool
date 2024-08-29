@@ -59,12 +59,12 @@ export class RenderEngine {
 
     constructor() {
         this.quad = new Mesh(geo, MAT);
+    }
 
+    set patterns(patterns:Texture[]) {
         const u = MAT.uniforms.settings.value.tiles;
         for(let i=0 ;i<u.length; i++) {
-            u[i].map = tLoader.load(`assets/patterns/pattern-${i+1}.svg`, texture => {
-                this.updateTextureSettings(texture);
-            })
+            u[i].map = patterns[i];
         }
     }
 

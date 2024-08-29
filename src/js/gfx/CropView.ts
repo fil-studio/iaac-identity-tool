@@ -25,7 +25,10 @@ export class CropView extends GLView {
             }, 100);
         });
 
-        this.bgMat = new MeshBasicMaterial();
+        this.bgMat = new MeshBasicMaterial({
+            transparent: true,
+            opacity: 0.5
+        });
         this.bg = new Mesh(
             new PlaneGeometry(1,1),
             this.bgMat
