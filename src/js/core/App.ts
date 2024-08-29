@@ -1,14 +1,12 @@
 import { Timer } from '@fils/ani';
-import { ThreeDOMLayer } from '@fils/gl-dom';
-import { SceneLayer } from '../gfx/SceneLayer';
-import { IS_DEV_MODE } from './Globals';
 import { Controller } from './Controller';
+import { IS_DEV_MODE } from './Globals';
 
 import Stats from 'three/examples/jsm/libs/stats.module.js';
-import { initDragAndDrop } from './FileTypes';
-import { Visual, VisualListener, VisualSettings } from '../gfx/Visual';
 import { CropView } from '../gfx/CropView';
 import { ExportView } from '../gfx/ExportView';
+import { Visual, VisualListener, VisualSettings } from '../gfx/Visual';
+import { initDragAndDrop } from './FileTypes';
 
 export class App implements VisualListener  {
 	clock:Timer;
