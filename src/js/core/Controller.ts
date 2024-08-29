@@ -8,6 +8,7 @@ import { TopBar, TopBarListener } from "../components/ui/TopBar";
 
 export interface SettingsChangedListener {
     onColorsChanged(values:string[]);
+    onVisualSelected(file:File);
 }
 
 export class Controller implements TopBarListener, CardListener, FloatingPanelListener {
@@ -73,6 +74,13 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         window.addEventListener('keydown', e => {
             if(e.key === 'Escape') {
                 this.topBar.cropping = false;
+            }
+        })
+
+        const input = document.querySelector('input#input_file') as HTMLInputElement;
+        input.addEventListener('change', (e) => {
+            for(const lis of this.listeners) {
+                lis.onVisualSelected(input.files[0]);
             }
         })
     }
