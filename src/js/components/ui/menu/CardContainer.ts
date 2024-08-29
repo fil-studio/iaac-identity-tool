@@ -7,14 +7,25 @@ export interface Card {
     index:number;
 }
 
+export interface CardListener {
+    onCardSelected(id:string, card:Card);
+    onCardSwap(id:string);
+}
+
 export class CardContainer extends Component {
     cards:Card[] = [];
     cardsDom:HTMLElement[] = [];
     dragging:boolean = false;
     dragIndex:number = -1;
+    
+    listeners:CardListener[] = [];
 
-    constructor(_dom:HTMLElement) {
+    id:string;
+
+    constructor(_id:string, _dom:HTMLElement) {
         super(_dom);
+
+        this.id = _id;
 
         const cards = _dom.querySelectorAll('.pattern_composer');
         for(const card of cards) {
@@ -43,6 +54,25 @@ export class CardContainer extends Component {
             const header = card.querySelector('header');
             this.addDragActions(cards.length-1, header);
         }
+
+        const tiles = _dom.querySelectorAll('.tile');
+        for(let i=0; i<tiles.length; i++) {
+            const t = tiles[i] as HTMLElement;
+            t.ondblclick = () => {
+                for(const lis of this.listeners) {
+                    lis.onCardSelected(this.id, this.cards[i]);
+                }
+            }
+        }
+    }
+
+    addCardListener(lis:CardListener) {
+        if(this.listeners.indexOf(lis) > -1) return;
+        this.listeners.push(lis);
+    }
+
+    removeCardListener(lis:CardListener) {
+        this.listeners.splice(this.listeners.indexOf(lis), 1);
     }
 
     protected addDragActions(index:number, header:HTMLElement) {
@@ -100,6 +130,10 @@ export class CardContainer extends Component {
         for(const card of this.cards) {
             const offset = card.position - card.index;
             card.dom.style.transform = `translateX(${offset*101}%)`;
+        }
+
+        for(const lis of this.listeners) {
+            lis.onCardSwap(this.id);
         }
     }
 }

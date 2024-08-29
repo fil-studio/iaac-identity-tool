@@ -5,14 +5,25 @@ export interface ScreenCoord {
     y:number;
 }
 
+export interface FloatingPanelListener {
+    onPanelClosed?(id:string);
+    onPanelDataChanged?(id:string, data:any);
+}
+
 export class FloatingPanel extends HiddeableComponent {
     anchor:ScreenCoord;
     position:ScreenCoord;
     anchorPosition:ScreenCoord;
     dragging:boolean = false;
+
+    listeners:FloatingPanelListener[] = [];
+
+    id:string;
     
-    constructor(_dom:HTMLElement) {
+    constructor(_id:string, _dom:HTMLElement) {
         super(_dom);
+
+        this.id = _id;
 
         const active = this._active;
         this.active = true;
@@ -27,7 +38,7 @@ export class FloatingPanel extends HiddeableComponent {
         }
 
         close.onclick = () => {
-            this.active = false;
+            this.close();
         }
 
         head.addEventListener('mousedown', e => {
@@ -45,7 +56,30 @@ export class FloatingPanel extends HiddeableComponent {
             this.stopDrag();
         });
 
+        window.addEventListener('keydown', e => {
+            if(e.key === 'Escape') {
+                this.close();
+            }
+        })
+
         this.active = active;
+    }
+
+    close() {
+        if(!this.active) return;
+        this.active = false;
+        for(const lis of this.listeners) {
+            lis?.onPanelClosed(this.id);
+        }
+    }
+
+    addListener(lis:FloatingPanelListener) {
+        if(this.listeners.indexOf(lis) > -1) return;
+        this.listeners.push(lis);
+    }
+
+    removeListener(lis:FloatingPanelListener) {
+        this.listeners.splice(this.listeners.indexOf(lis), 1);
     }
 
     protected startDrag(x: number, y: number) {

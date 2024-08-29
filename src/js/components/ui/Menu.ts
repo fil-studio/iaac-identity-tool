@@ -19,7 +19,7 @@ export class Menu extends Component {
 
         const cc = this.layer1.dom.querySelectorAll('.card_container');
         
-        this.colors = new CardContainer(cc[0] as HTMLElement);
+        this.colors = new CardContainer("color", cc[0] as HTMLElement);
     }
 
     set cropping(value:boolean) {

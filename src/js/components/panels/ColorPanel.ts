@@ -5,10 +5,8 @@ export class ColorPanel extends FloatingPanel {
     selectedColor:string;
     library:HTMLInputElement[] = [];
 
-
-
-    constructor(_dom:HTMLElement) {
-        super(_dom);
+    constructor(_id:string, _dom:HTMLElement) {
+        super(_id, _dom);
 
         const inputs = _dom.querySelectorAll('input');
         for(const input of inputs) {
@@ -38,7 +36,10 @@ export class ColorPanel extends FloatingPanel {
 
     protected setValue(value:string) {
         this.selectedColor = value;
-            console.log(`Value changed to ${this.selectedColor}`);
+        // console.log(`Value changed to ${this.selectedColor}`);
+        for(const lis of this.listeners) {
+            lis.onPanelDataChanged(this.id, this.selectedColor);
+        }
     }
 
     get hexColor():string {

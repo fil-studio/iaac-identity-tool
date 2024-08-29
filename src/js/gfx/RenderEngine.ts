@@ -90,6 +90,13 @@ export class RenderEngine {
         texture.minFilter = LinearFilter;
     }
 
+    setColors(colors:string[]) {
+        const tiles = MAT.uniforms.settings.value.tiles;
+        for(let i=0; i<tiles.length; i++) {
+            tiles[i].color.setStyle(colors[i]).convertLinearToSRGB();
+        }
+    }
+
     /* protected disposeTextrueInput() {
         if(MAT.uniforms.tInput.value != null) {
             MAT.uniforms.tInput.value.dispose();

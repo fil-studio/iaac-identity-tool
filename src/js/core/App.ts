@@ -1,5 +1,5 @@
 import { Timer } from '@fils/ani';
-import { Controller } from './Controller';
+import { Controller, SettingsChangedListener } from './Controller';
 import { IS_DEV_MODE } from './Globals';
 
 import Stats from 'three/examples/jsm/libs/stats.module.js';
@@ -8,7 +8,7 @@ import { ExportView } from '../gfx/ExportView';
 import { Visual, VisualListener, VisualSettings } from '../gfx/Visual';
 import { initDragAndDrop } from './FileTypes';
 
-export class App implements VisualListener  {
+export class App implements VisualListener, SettingsChangedListener  {
 	clock:Timer;
 	controller:Controller;
 
@@ -27,6 +27,7 @@ export class App implements VisualListener  {
 		});
 		
 		this.controller = new Controller();
+		this.controller.addListener(this);
 
 		this.cropView = new CropView(document.querySelector('.visual-crop-base'));
 		this.exportView = new ExportView(document.querySelector('.visual'));
@@ -74,6 +75,12 @@ export class App implements VisualListener  {
 	onTextureUpdate() {
 		this.cropView.render();
 		this.exportView.crop.onFrameUpdate();
+	}
+
+	onColorsChanged(values: string[]) {
+		// console.log(values);
+		this.exportView.engine.setColors(values);
+		this.exportView.render();
 	}
 
 }
