@@ -2,7 +2,15 @@ import { Texture } from "three";
 import { CropRenderer, CropRendererListener } from "./CropRenderer";
 import { GLView } from "./GLView";
 import { RenderEngine } from "./RenderEngine";
-import { Visual, VisualSettings } from "./Visual";
+import { CropSettings, Visual, VisualSettings } from "./Visual";
+import { TempCrop } from "./CropView";
+
+export function equalCrops(c1:CropSettings, c2:CropSettings):boolean {
+    return c1.height === c2.height && 
+    c1.width === c2.width &&
+    c1.offsetX === c2.offsetX &&
+    c1.offsetY === c2.offsetY;
+}
 
 export class ExportView extends GLView implements CropRendererListener {
     engine:RenderEngine;
@@ -22,7 +30,11 @@ export class ExportView extends GLView implements CropRendererListener {
     set enabled(value:boolean) {
         super.enabled = value;
         if(this._enabled) {
-            this.crop.onVisualUpdate(Visual);
+            const c1 = Visual.crop;
+            const c2 = TempCrop;
+            if(!equalCrops(c1, c2)) {
+                this.crop.onVisualUpdate(Visual);
+            }
         }
     }
 
