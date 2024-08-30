@@ -9,6 +9,7 @@ import { TopBar, TopBarListener } from "../components/ui/TopBar";
 import { PatternPanel } from "../components/panels/PatternPanel";
 import { TilesController, TilesControllerListener } from "../components/ui/TilesController";
 import { Knot, ThresholdController, ThresholdListener } from "../components/ui/ThresholdController";
+import { VideoControls } from "../components/ui/VideoControls";
 
 export interface SettingsChangedListener {
     onColorsChanged(values:string[]);
@@ -27,6 +28,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
 
     topBar:TopBar;
     exportCtrl:ExportControls;
+    videoCtrl:VideoControls;
 
     threshold:ThresholdController;
     tiles:TilesController;
@@ -55,6 +57,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
 
         this.topBar = new TopBar(document.querySelector('#topbar'));
         this.exportCtrl = new ExportControls(document.querySelector('#export'));
+        this.videoCtrl = new VideoControls();
 
         this.threshold = new ThresholdController();
         this.tiles = new TilesController();

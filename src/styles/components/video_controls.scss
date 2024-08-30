@@ -3,6 +3,13 @@
     width: 100%;
     flex-wrap: nowrap;
     gap: toRem(16);
+
+    .button_icon {
+        cursor: pointer;
+        &.playing {
+            filter: invert(1);
+        }
+    }
     
     .play {
         flex: auto;

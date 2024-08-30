@@ -37,13 +37,13 @@ export class TilesController {
             this.startDrag();
         }
 
-        window.onmouseup = () => {
+        window.addEventListener('mouseup', e => {
             this.stopDrag();
-        }
+        });
 
-        window.onmouseleave = () => {
+        window.addEventListener('mouseleave', e => {
             this.stopDrag();
-        }
+        });
 
         window.addEventListener('mousemove', e => {
             this.drag(e.clientX);

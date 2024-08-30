@@ -25,7 +25,7 @@ export class App implements VisualListener, SettingsChangedListener  {
 
 		initDragAndDrop(document.querySelector('.canvas'), document.querySelector('.dropzone'), (url:string, isVideo:boolean=false) => {
 			// this.layer.loadVisual(url, isVideo);
-			Visual.updateElement(url, isVideo);
+			this.updateVisual(url, isVideo);
 		});
 		
 		this.controller = new Controller();
@@ -77,6 +77,7 @@ export class App implements VisualListener, SettingsChangedListener  {
 	onTextureUpdate() {
 		this.cropView.render();
 		this.exportView.crop.onFrameUpdate();
+		this.controller.videoCtrl.updateVideoProgress();
 	}
 
 	onColorsChanged(values: string[]) {
@@ -103,8 +104,18 @@ export class App implements VisualListener, SettingsChangedListener  {
 	onVisualSelected(file: File) {
 		getVisualURL(file, (url:string, isVideo:boolean=false) => {
 			// this.layer.loadVisual(url, isVideo);
-			Visual.updateElement(url, isVideo);
+			this.updateVisual(url, isVideo);
 		})
+
+		// const input = document.querySelector('input#input_file') as HTMLInputElement;
+		// input.value = file.name;
+	}
+
+	updateVisual(url:string, isVideo:boolean=false) {
+		Visual.updateElement(url, isVideo, () => {
+			this.controller.videoCtrl.video = isVideo ? Visual.element as HTMLVideoElement : null;
+		});
+		this.controller.exportCtrl.video = isVideo;
 	}
 
 	onCropViewChanged(value: boolean) {

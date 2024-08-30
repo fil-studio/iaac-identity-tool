@@ -75,7 +75,7 @@ export class VisualSettings {
         }
     }
 
-    protected loadVideo(url:string) {
+    protected loadVideo(url:string, callback:Function=null) {
         const video = document.createElement('video');
         video.muted = true;
         video.loop = true;
@@ -86,26 +86,28 @@ export class VisualSettings {
             }
             created = true;
             video.play();
-            this.updateResolution(true);    
+            this.updateResolution(true);
+            if(callback) callback();
         });
         
         video.src = url;
         this.el = video;
     }
 
-    protected loadImage(url:string) {
+    protected loadImage(url:string, callback:Function=null) {
         const img = new Image();
         img.onload = () => {
             this.updateResolution();
+            if(callback) callback();
         }
         this.el = img;
         img.src = url;
     }
 
-    updateElement(src:string, isVideo:boolean=false) {
+    updateElement(src:string, isVideo:boolean=false, callback:Function=null) {
         this._isVideo = isVideo;
-        if(isVideo) this.loadVideo(src);
-        else this.loadImage(src);
+        if(isVideo) this.loadVideo(src, callback);
+        else this.loadImage(src, callback);
     }
 
     get video():boolean {

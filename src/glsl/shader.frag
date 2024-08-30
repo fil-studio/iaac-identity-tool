@@ -39,6 +39,8 @@ void main() {
     vec2 uv = floor(vUv / uvStep) * uvStep;// + uvStep * 0.5;
     // vec4 newTexturePixelated = textureLod(tInput, uv, 8.0);
     vec4 newTexturePixelated = texture2D(tInput, uv);
+    newTexturePixelated.a = 1.0;
+    // newTexturePixelated.rgb = mix(bgSym, newTexturePixelated.rgb, newTexturePixelated.a);
 
     float lum = rgb2lum(newTexturePixelated.rgb);
 
@@ -53,8 +55,9 @@ void main() {
         gl_FragColor = vec4(vec3(lum), newTexturePixelated.a);
     } else if(mode == 3) {
         // comp
+        // gl_FragColor = vec4(bgSym, 1.0);
         for(int i=0;i<4;i++) {
-            if(lum >= settings.tiles[i].t0 && lum < settings.tiles[i].t1) {
+            if(lum >= settings.tiles[i].t0 && lum <= settings.tiles[i].t1) {
                 //gotcha
                 vec2 tl = 1.0 / uvStep;
                 vec2 tUv = mod(vUv * tl, vec2(1.));
