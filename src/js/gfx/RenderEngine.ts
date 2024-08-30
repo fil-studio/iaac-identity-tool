@@ -65,6 +65,7 @@ export class RenderEngine {
     set patterns(patterns:Texture[]) {
         const u = MAT.uniforms.settings.value.tiles;
         for(let i=0 ;i<u.length; i++) {
+            this.updateTextureSettings(patterns[i])
             u[i].map = patterns[i];
         }
     }
@@ -80,13 +81,10 @@ export class RenderEngine {
 
     set thresholds(value:Knot[]) {
         const tiles = MAT.uniforms.settings.value.tiles;
-        console.log(value);
         const d1 = (value[1].progress - value[0].progress);
         const d2 = d1 + (value[2].progress - value[1].progress);
         const d3 = d2 + (value[3].progress - value[2].progress);
 
-        // console.log(d1, d2, d3);
-        
         tiles[0].t1 = d1;
         tiles[1].t0 = d1;
         tiles[1].t1 = d2;
