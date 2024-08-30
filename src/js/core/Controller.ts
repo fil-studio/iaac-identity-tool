@@ -9,7 +9,7 @@ import { TopBar, TopBarListener } from "../components/ui/TopBar";
 import { PatternPanel } from "../components/panels/PatternPanel";
 import { TilesController, TilesControllerListener } from "../components/ui/TilesController";
 import { Knot, ThresholdController, ThresholdListener } from "../components/ui/ThresholdController";
-import { VideoControls } from "../components/ui/VideoControls";
+import { VideoControls, VideoControlsListener } from "../components/ui/VideoControls";
 
 export interface SettingsChangedListener {
     onColorsChanged(values:string[]);
@@ -18,9 +18,10 @@ export interface SettingsChangedListener {
     onThresholdsChanged(value:Knot[]);
     onVisualSelected(file:File);
     onCropViewChanged(value:boolean);
+    onTextureUpdate();
 }
 
-export class Controller implements TopBarListener, CardListener, FloatingPanelListener, TilesControllerListener, ThresholdListener {
+export class Controller implements TopBarListener, CardListener, FloatingPanelListener, TilesControllerListener, ThresholdListener, VideoControlsListener {
     loader:HiddeableComponent;
 
     colorsPanel:ColorPanel;
@@ -84,6 +85,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         this.threshold.addListener(this);
         this.colorsPanel.addListener(this);
         this.patternsPanel.addListener(this);
+        this.videoCtrl.addListener(this);
 
         window.addEventListener('keydown', e => {
             if(e.key === 'Escape') {
@@ -172,6 +174,12 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
     onThresholdsChanged(values: Knot[]) {
         for(const lis of this.listeners) {
             lis.onThresholdsChanged(values);
+        }
+    }
+
+    onVideoScrub() {
+        for(const lis of this.listeners) {
+            lis.onTextureUpdate();
         }
     }
 

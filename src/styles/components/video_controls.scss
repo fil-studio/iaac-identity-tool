@@ -48,6 +48,10 @@
                 background: currentColor;
                 border: solid toRem(1) currentColor;
                 cursor: grab;
+
+                &.grabbing {
+                    cursor: grabbing;
+                }
             }
         
             &:hover {
