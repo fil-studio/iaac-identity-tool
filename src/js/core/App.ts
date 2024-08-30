@@ -8,6 +8,7 @@ import { ExportView } from '../gfx/ExportView';
 import { Visual, VisualListener, VisualSettings } from '../gfx/Visual';
 import { getVisualURL, initDragAndDrop } from './FileTypes';
 import { Texture } from 'three';
+import { Knot } from '../components/ui/ThresholdController';
 
 export class App implements VisualListener, SettingsChangedListener  {
 	clock:Timer;
@@ -91,6 +92,11 @@ export class App implements VisualListener, SettingsChangedListener  {
 
 	onTilesChanged(value: number) {
 		this.exportView.engine.tiles = value;
+		this.exportView.render();
+	}
+
+	onThresholdsChanged(value: Knot[]) {
+		this.exportView.engine.thresholds = value;
 		this.exportView.render();
 	}
 

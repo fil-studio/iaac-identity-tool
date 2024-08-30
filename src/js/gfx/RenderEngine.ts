@@ -1,6 +1,7 @@
 import { Color, LinearFilter, Mesh, PlaneGeometry, ShaderMaterial, Texture, TextureLoader, Vector2, VideoTexture } from "three";
 import fragmentShader from "../../glsl/shader.frag";
 import vertexShader from "../../glsl/shader.vert";
+import { Knot } from "../components/ui/ThresholdController";
 // import { RTUtils } from "@fils/gfx";
 
 const tLoader = new TextureLoader();
@@ -75,6 +76,23 @@ export class RenderEngine {
 
     set tiles(value:number) {
         MAT.uniforms.settings.value.columns = value;
+    }
+
+    set thresholds(value:Knot[]) {
+        const tiles = MAT.uniforms.settings.value.tiles;
+        console.log(value);
+        const d1 = (value[1].progress - value[0].progress);
+        const d2 = d1 + (value[2].progress - value[1].progress);
+        const d3 = d2 + (value[3].progress - value[2].progress);
+
+        // console.log(d1, d2, d3);
+        
+        tiles[0].t1 = d1;
+        tiles[1].t0 = d1;
+        tiles[1].t1 = d2;
+        tiles[2].t0 = d2;
+        tiles[2].t1 = d3;
+        tiles[3].t0 = d3;
     }
 
     updateResolution(width:number, height:number) {

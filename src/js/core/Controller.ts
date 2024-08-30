@@ -8,16 +8,18 @@ import { Card, CardListener } from "../components/ui/menu/CardContainer";
 import { TopBar, TopBarListener } from "../components/ui/TopBar";
 import { PatternPanel } from "../components/panels/PatternPanel";
 import { TilesController, TilesControllerListener } from "../components/ui/TilesController";
+import { Knot, ThresholdController, ThresholdListener } from "../components/ui/ThresholdController";
 
 export interface SettingsChangedListener {
     onColorsChanged(values:string[]);
     onPatternsChanged(values:Texture[]);
     onTilesChanged(value:number);
+    onThresholdsChanged(value:Knot[]);
     onVisualSelected(file:File);
     onCropViewChanged(value:boolean);
 }
 
-export class Controller implements TopBarListener, CardListener, FloatingPanelListener, TilesControllerListener {
+export class Controller implements TopBarListener, CardListener, FloatingPanelListener, TilesControllerListener, ThresholdListener {
     loader:HiddeableComponent;
 
     colorsPanel:ColorPanel;
@@ -26,6 +28,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
     topBar:TopBar;
     exportCtrl:ExportControls;
 
+    threshold:ThresholdController;
     tiles:TilesController;
 
     menu:Menu;
@@ -53,6 +56,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         this.topBar = new TopBar(document.querySelector('#topbar'));
         this.exportCtrl = new ExportControls(document.querySelector('#export'));
 
+        this.threshold = new ThresholdController();
         this.tiles = new TilesController();
 
         this.menu = new Menu(document.querySelector('aside'));
@@ -74,6 +78,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         this.menu.colors.addCardListener(this);
         this.menu.patterns.addCardListener(this);
         this.tiles.addListener(this);
+        this.threshold.addListener(this);
         this.colorsPanel.addListener(this);
         this.patternsPanel.addListener(this);
 
@@ -161,6 +166,12 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         }
     }
 
+    onThresholdsChanged(values: Knot[]) {
+        for(const lis of this.listeners) {
+            lis.onThresholdsChanged(values);
+        }
+    }
+
     protected fireColorsChanged() {
         const colors = ["", "", "", ""];
         const cards = this.menu.colors.cards;
@@ -168,6 +179,8 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
             const val = card.dom.querySelector('.tile').getAttribute('card-value');
             colors[card.position] = `#${val}`;
         }
+
+        this.threshold.colors = colors;
 
         for(const lis of this.listeners) {
             lis.onColorsChanged(colors);
