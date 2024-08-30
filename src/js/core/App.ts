@@ -89,6 +89,11 @@ export class App implements VisualListener, SettingsChangedListener  {
 		this.exportView.render();
 	}
 
+	onTilesChanged(value: number) {
+		this.exportView.engine.tiles = value;
+		this.exportView.render();
+	}
+
 	onVisualSelected(file: File) {
 		getVisualURL(file, (url:string, isVideo:boolean=false) => {
 			// this.layer.loadVisual(url, isVideo);

@@ -87,7 +87,7 @@ export class PatternPanel extends FloatingPanel {
 
     updateState() {
         // To-Do: en funció del selectedColor -> refrescar UI
-        console.log(this.selectedImage);
+        // console.log(this.selectedImage);
         for(const input of this.library) input.checked = false;
         if(this.selectedImage === 'custom') return;
         this.library[parseInt(this.selectedImage)-1].checked = true;

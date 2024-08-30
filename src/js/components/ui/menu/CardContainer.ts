@@ -116,7 +116,7 @@ export class CardContainer extends Component {
 
     protected stopDrag() {
         if(!this.dragging) return;
-        console.log('STOP DRAG')
+        // console.log('STOP DRAG')
         this.dragging = false;
         // this.cards[this.dragIndex].dom.draggable = false;
         this.dragIndex = -1;

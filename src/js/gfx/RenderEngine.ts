@@ -73,6 +73,10 @@ export class RenderEngine {
         MAT.uniforms.tInput.value = value;
     }
 
+    set tiles(value:number) {
+        MAT.uniforms.settings.value.columns = value;
+    }
+
     updateResolution(width:number, height:number) {
         const u = MAT.uniforms;
         const res = u.resolution.value;

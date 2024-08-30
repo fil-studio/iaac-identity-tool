@@ -7,15 +7,17 @@ import { Menu } from "../components/ui/Menu";
 import { Card, CardListener } from "../components/ui/menu/CardContainer";
 import { TopBar, TopBarListener } from "../components/ui/TopBar";
 import { PatternPanel } from "../components/panels/PatternPanel";
+import { TilesController, TilesControllerListener } from "../components/ui/TilesController";
 
 export interface SettingsChangedListener {
     onColorsChanged(values:string[]);
     onPatternsChanged(values:Texture[]);
+    onTilesChanged(value:number);
     onVisualSelected(file:File);
     onCropViewChanged(value:boolean);
 }
 
-export class Controller implements TopBarListener, CardListener, FloatingPanelListener {
+export class Controller implements TopBarListener, CardListener, FloatingPanelListener, TilesControllerListener {
     loader:HiddeableComponent;
 
     colorsPanel:ColorPanel;
@@ -23,6 +25,8 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
 
     topBar:TopBar;
     exportCtrl:ExportControls;
+
+    tiles:TilesController;
 
     menu:Menu;
 
@@ -49,15 +53,9 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         this.topBar = new TopBar(document.querySelector('#topbar'));
         this.exportCtrl = new ExportControls(document.querySelector('#export'));
 
+        this.tiles = new TilesController();
+
         this.menu = new Menu(document.querySelector('aside'));
-        // this.menu.cropping = true;
-
-        // this.colorsPanel.show("DB7347");
-
-        // this.symbolsPanel.active = true;
-
-        // this.loader.active = true;
-
 
         this.addListeners();
     }
@@ -75,6 +73,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         this.topBar.addListener(this);
         this.menu.colors.addCardListener(this);
         this.menu.patterns.addCardListener(this);
+        this.tiles.addListener(this);
         this.colorsPanel.addListener(this);
         this.patternsPanel.addListener(this);
 
@@ -108,7 +107,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         if(id === 'color') {
             const tile = card.dom.querySelector('.tile') as HTMLElement;
             const colId = tile.getAttribute('card-value');
-            console.log(colId);
+            // console.log(colId);
             this.selectedColorCard = card;
             this.colorsPanel.show(colId);
         } else if (id === 'pattern') {
@@ -139,7 +138,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
             if(!this.selectedPatternCard) return;
             const tile = this.selectedPatternCard.dom.querySelector('.tile') as HTMLElement;
             tile.setAttribute('card-value', data.value);
-            console.log(data)
+            // console.log(data)
             if(!data.isFile) {
                 this.menu.patterns.setValue(this.selectedPatternCard.index, data.value);
             } else {
@@ -153,6 +152,12 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
             this.selectedColorCard = null;
         } else if(id === 'patterns') {
             this.selectedPatternCard = null;
+        }
+    }
+    
+    onTilesChanged(value: number) {
+        for(const lis of this.listeners) {
+            lis.onTilesChanged(value);
         }
     }
 
