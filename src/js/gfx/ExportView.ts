@@ -2,7 +2,7 @@ import { Texture } from "three";
 import { CropRenderer, CropRendererListener } from "./CropRenderer";
 import { GLView } from "./GLView";
 import { RenderEngine } from "./RenderEngine";
-import { VisualSettings } from "./Visual";
+import { Visual, VisualSettings } from "./Visual";
 
 export class ExportView extends GLView implements CropRendererListener {
     engine:RenderEngine;
@@ -17,6 +17,13 @@ export class ExportView extends GLView implements CropRendererListener {
         this.scene.add(this.engine.quad);
 
         this.crop.addListener(this);
+    }
+
+    set enabled(value:boolean) {
+        super.enabled = value;
+        if(this._enabled) {
+            this.crop.onVisualUpdate(Visual);
+        }
     }
 
     visualUpdated(vis: VisualSettings, isCrop?: boolean): void {

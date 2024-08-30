@@ -35,7 +35,9 @@ export class App implements VisualListener, SettingsChangedListener  {
 		this.exportView = new ExportView(document.querySelector('.visual'));
 
 		Visual.addListener(this);
-		Visual.updateElement('assets/test/test-image.jpg');
+		Visual.updateElement('assets/test/test-image.jpg', false, () =>{
+			this.onVisualChanged();
+		});
 
 		this.start();
 
@@ -113,9 +115,22 @@ export class App implements VisualListener, SettingsChangedListener  {
 
 	updateVisual(url:string, isVideo:boolean=false) {
 		Visual.updateElement(url, isVideo, () => {
-			this.controller.videoCtrl.video = isVideo ? Visual.element as HTMLVideoElement : null;
+			this.onVisualChanged();
 		});
 		this.controller.exportCtrl.video = isVideo;
+	}
+
+	protected onVisualChanged() {
+		const isVideo = Visual.video;
+		this.controller.videoCtrl.video = isVideo ? Visual.element as HTMLVideoElement : null;
+		const iv = document.querySelector('p.inputs-feedback');
+		iv.textContent = `Original size: ${Visual.originalSize.width}x${Visual.originalSize.height}`
+
+		const w =  document.querySelector('input#width') as HTMLInputElement;
+		const h =  document.querySelector('input#height') as HTMLInputElement;
+
+		w.value = `${Visual.crop.width}`;
+		h.value = `${Visual.crop.height}`;
 	}
 
 	onCropViewChanged(value: boolean) {

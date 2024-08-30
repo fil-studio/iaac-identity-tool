@@ -1,9 +1,20 @@
-import { Mesh, MeshBasicMaterial, OrthographicCamera, PlaneGeometry, Scene, Texture, TextureLoader, VideoTexture, WebGLRenderer, WebGLRenderTarget } from "three";
-import { Visual, VisualSettings } from "./Visual";
+import { Mesh, MeshBasicMaterial, OrthographicCamera, PlaneGeometry, Raycaster, Scene, Texture, TextureLoader, VideoTexture, WebGLRenderer, WebGLRenderTarget } from "three";
+import { CropSettings, Visual, VisualSettings } from "./Visual";
 import { BlurPass } from "@fils/vfx";
 import { GLView } from "./GLView";
+import { MathUtils } from "@fils/math";
 
 let rT;
+
+const raycastyer = new Raycaster();
+
+export const TempCrop:CropSettings = {
+    width: 0,
+    height: 0,
+    offsetX: 0,
+    offsetY: 0,
+    ratio: 1
+}
 
 export class CropView extends GLView {
     texture:Texture;
@@ -42,6 +53,50 @@ export class CropView extends GLView {
         );
         this.scene.add(this.crop);
         this.crop.position.z = 1;
+
+        const w =  document.querySelector('input#width') as HTMLInputElement;
+        const h =  document.querySelector('input#height') as HTMLInputElement;
+
+        w.onchange = () => {
+            if(!this._enabled) return;
+            const realW = MathUtils.clamp(parseInt(w.value), 128, Visual.originalSize.width);
+            w.value = `${realW}`;
+            
+            Visual.crop.width = realW;
+
+            this.updateCrop();
+            this.render();
+        }
+
+        h.onchange = () => {
+            if(!this._enabled) return;
+            const realH = MathUtils.clamp(parseInt(h.value), 128, Visual.originalSize.height);
+            h.value = `${realH}`;
+            
+            Visual.crop.height = realH;
+
+            this.updateCrop();
+            this.render();
+        }
+    }
+
+    set enabled(value:boolean) {
+        super.enabled = value;
+        if(this._enabled) {
+            const w =  document.querySelector('input#width') as HTMLInputElement;
+            const h =  document.querySelector('input#height') as HTMLInputElement;
+
+            w.value = `${Visual.crop.width}`;
+            h.value = `${Visual.crop.height}`;
+
+            // store current values
+            for(const key in Visual.crop) {
+                TempCrop[key] = Visual.crop[key];
+            }
+
+            this.updateCrop();
+            this.render();
+        }
     }
 
     visualUpdated(vis:VisualSettings) {
@@ -71,6 +126,12 @@ export class CropView extends GLView {
         this.bg.scale.set(w, h, 1);
         this.bgMat.map = this.blur.texture;
 
+        this.updateCrop(vis);
+
+        this.render();
+    }
+
+    updateCrop(vis:VisualSettings=Visual) {
         const c = vis.crop;
         this.crop.position.set(c.offsetX, c.offsetY, 1);
         this.crop.scale.set(c.width, c.height, 1);
@@ -93,8 +154,6 @@ export class CropView extends GLView {
         uv.array[7] = dy/2;
 
         uv.needsUpdate = true;
-
-        this.render();
     }
 
     render() {

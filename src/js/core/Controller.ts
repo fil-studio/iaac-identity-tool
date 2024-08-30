@@ -10,6 +10,8 @@ import { PatternPanel } from "../components/panels/PatternPanel";
 import { TilesController, TilesControllerListener } from "../components/ui/TilesController";
 import { Knot, ThresholdController, ThresholdListener } from "../components/ui/ThresholdController";
 import { VideoControls, VideoControlsListener } from "../components/ui/VideoControls";
+import { Visual } from "../gfx/Visual";
+import { TempCrop } from "../gfx/CropView";
 
 export interface SettingsChangedListener {
     onColorsChanged(values:string[]);
@@ -86,6 +88,22 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         this.colorsPanel.addListener(this);
         this.patternsPanel.addListener(this);
         this.videoCtrl.addListener(this);
+
+        const cancel = document.querySelector('button._cancel') as HTMLElement;
+        const apply = document.querySelector('button._apply') as HTMLElement;
+
+        cancel.onclick = () => {
+            // restore cropping values
+            for(const key in Visual.crop) {
+                Visual.crop[key] = TempCrop[key];
+            }
+
+            this.topBar.cropping = false;
+        }
+
+        apply.onclick = () => {
+            this.topBar.cropping = false;
+        }
 
         window.addEventListener('keydown', e => {
             if(e.key === 'Escape') {

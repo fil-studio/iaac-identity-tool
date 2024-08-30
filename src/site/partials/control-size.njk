@@ -4,7 +4,7 @@
         <span class="title">Size</span>
     </h2>
     {# <span class="num">150</span> #}
-    {{ ButtonIcons.buttonIcon("button_icon medium tertiary", "undo") }}
+    {{ ButtonIcons.buttonIcon("button_icon medium tertiary _undo", "undo") }}
     </div>
     
     <div class="form_block-body">
@@ -24,7 +24,7 @@
                 <label for="" class="inputs-label">
                     {{ Icons.icon("width") }}
                     <div class="input_text primary medium">
-                        <input type="number" value="540">
+                        <input id="width" type="number" value="540">
                     </div>
                 </label>
             </li>
@@ -33,7 +33,7 @@
                 <label for="" class="inputs-label">
                     {{ Icons.icon("height") }}
                     <div class="input_text primary medium">
-                        <input type="number" value="540">
+                        <input id="height" type="number" value="540">
                     </div>
                 </label>
             </li>
@@ -43,7 +43,7 @@
     </div>
 
     <div class="form_block-foot">
-        {{ Buttons.standardButton("Cancel", "button tertiary medium") }}
-        {{ Buttons.standardButton("Apply", "button primary medium") }}
+        {{ Buttons.standardButton("Cancel", "button tertiary medium _cancel") }}
+        {{ Buttons.standardButton("Apply", "button primary medium _apply") }}
     </div>
 </label>
