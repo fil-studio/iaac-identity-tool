@@ -62,11 +62,13 @@ export class TilesController {
     protected startDrag() {
         if(this.dragging) return;
         this.dragging = true;
+        this.dragger.classList.add('grabbing');
     }
 
     protected stopDrag() {
         if(!this.dragging) return;
         this.dragging = false;
+        this.dragger.classList.remove('grabbing');
     }
 
     protected drag(x:number) {

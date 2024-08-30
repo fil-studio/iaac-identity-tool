@@ -31,6 +31,10 @@
             border-radius: toRem(4);
             box-shadow: 0 0 0 toRem(1) var(--grey-500);
             cursor: grab;
+
+            &.grabbing {
+                cursor: grabbing;
+            }
         }
     
     .legend {
