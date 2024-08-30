@@ -22,7 +22,7 @@ export class App implements VisualListener, SettingsChangedListener  {
 
 		// this.layer = new SceneLayer(this.gl);
 
-		initDragAndDrop(document.querySelector('.canvas'), (url:string, isVideo:boolean=false) => {
+		initDragAndDrop(document.querySelector('.canvas'), document.querySelector('.dropzone'), (url:string, isVideo:boolean=false) => {
 			// this.layer.loadVisual(url, isVideo);
 			Visual.updateElement(url, isVideo);
 		});

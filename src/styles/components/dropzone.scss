@@ -1,12 +1,19 @@
 .dropzone {
     position: absolute;
     inset: 0;
-    display: none; // flex;
+    display: flex;
+    pointer-events: none;
     align-items: center;
     justify-content: center;
     z-index: var(--z-dropzone);
     background: var(--white-a20);
     backdrop-filter: blur(toRem(10));
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+
+    &.active {
+        opacity: 1;
+    }
 
     &::before {
         content: '';

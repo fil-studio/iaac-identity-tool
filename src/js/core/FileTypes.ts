@@ -17,9 +17,14 @@ export function getVisualURL(file:File, callback:Function) {
     }
 }
 
-export function initDragAndDrop(el:HTMLElement, callback:Function) {
+export function initDragAndDrop(el:HTMLElement, dropzone:HTMLElement, callback:Function) {
     addFileDropHandler(el, files => {
         const file = files[0];
         getVisualURL(file, callback);
+        dropzone.classList.remove('active');
+    }, () => {
+        dropzone.classList.add('active');
+    }, () => {
+        dropzone.classList.remove('active');
     })
 }
