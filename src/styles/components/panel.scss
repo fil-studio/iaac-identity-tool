@@ -45,7 +45,15 @@
         box-sizing: border-box;
 
         &.drop {
-            border: 10px gray dashed;
+            position: relative;
+            background: var(--grey-100);
+        
+            &:after {
+                content: '';
+                position: absolute;
+                inset: toRem(4);
+                border: dotted toRem(2) var(--grey-300);
+            }
         }
     }
 
