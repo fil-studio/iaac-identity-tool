@@ -8,15 +8,22 @@ export class ColorPanel extends FloatingPanel {
     constructor(_id:string, _dom:HTMLElement) {
         super(_id, _dom);
 
+        const setInputColor = (input) => {
+            const parent = input.parentElement as HTMLElement;
+            const rgb = hexToRgb(input.value);
+            parent.style.setProperty('--bg-color', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, .15)`);
+            this.setValue(input.value.replace("#", ''));
+            this.updateState();
+        }
+
         const inputs = _dom.querySelectorAll('input');
         for(const input of inputs) {
             if(input.type === 'color') {
                 input.oninput = () =>{
-                    const parent = input.parentElement as HTMLElement;
-                    const rgb = hexToRgb(input.value);
-                    parent.style.setProperty('--bg-color', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, .15)`);
-                    this.setValue(input.value.replace("#", ''));
-                    this.updateState();
+                    setInputColor(input);
+                }
+                input.onclick = () => {
+                    setInputColor(input);
                 }
                 continue;
             }
