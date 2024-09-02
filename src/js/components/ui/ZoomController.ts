@@ -28,7 +28,8 @@ class ZoomClass {
             this.updateZoomValue(v);
         }
 
-        window.addEventListener('wheel', e => {
+        const canvas = document.querySelector('.canvas') as HTMLElement;
+        canvas.addEventListener('wheel', e => {
             // console.log(e.deltaY);
             this.updateZoomValue(this.factor + e.deltaY * SPEED);
             const val = Math.round(this.factor*100);
