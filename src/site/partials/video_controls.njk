@@ -1,8 +1,15 @@
 <div class="video_controls">
-    <button class="button_icon secondary large play">
-        {{ Icons.icon("play") }}
-        {{ Icons.icon("pause") }}
-    </button>
+    <div class="actions">
+        <button class="button_icon secondary large play">
+            {{ Icons.icon("play") }}
+            {{ Icons.icon("pause") }}
+        </button>
+
+        <div class="time">
+            <span class="current">0:10:00</span>
+            <span class="total">0:10:00</span>
+        </div>
+    </div>
 
     <div class="timeline">
         <div class="progress">
@@ -13,24 +20,9 @@
             </div>
         </div>
         <div class="trim">
-            <div class="trim-bar">
-                <div class="selected" style="width: 50%"></div>
-            </div>
-            <div class="inputs">
-                <label for="trim_start">
-                    <span class="label">Start</span>
-                    <div class="input_text secondary medium">
-                        <input type="text" placeholder="0:00:00" id="trim_start">
-                    </div>
-                </label>
-
-                <label for="trim_end">
-                    <span class="label">End</span>
-                    <div class="input_text secondary medium">
-                        <input type="text" placeholder="0:00:00" id="trim_end">
-                    </div>
-                </label>
-            </div>
+            <div class="trim-bar" style="left: 20%; right: 20%"></div>
+            <div class="trim-knot left" style="left: 20%"></div>
+            <div class="trim-knot right" style="right: 20%"></div>
         </div>
     </div>
 </div>

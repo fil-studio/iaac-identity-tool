@@ -25,18 +25,38 @@
         }
     }
     
-    .play {
-        flex: 0 0 1;
+    .actions {
+        flex: 0 0 1%;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(8);
     }
+
+        .time {
+            display: flex;
+            flex-direction: column;
+            gap: toRem(4);
+            padding: 4px 0;
+            font-size: toRem(12);
+            font-weight: 500;
+            color: var(--grey-300);
+            
+            .current {
+                color: var(--grey-400);
+            }
+        }
 
     .timeline {
         flex: auto;
+        display: flex;
+        flex-direction: column;
+        gap: toRem(8);
     }
         
         .progress {
             display: flex;
             align-items: center;
-            height: toRem(32);  
+            height: toRem(40);  
 
             &-bar {
                 position: relative;
@@ -87,41 +107,33 @@
         }
 
         .trim {
-            margin-top: toRem(8);
+            position: relative;
+            background: var(--grey-200);
+            height: toRem(32);
+            margin: toRem(4) 0;
             
-            .trim-bar {
-                position: relative;
-                height: toRem(6);
-                background-image: linear-gradient(90deg, var(--grey-300), var(--grey-300) 15%, transparent 15%, transparent 100%);
-                background-size: toRem(8) toRem(1);
+            &-bar {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                background-image: linear-gradient(135deg, var(--grey-200) 25%, var(--grey-300) 25%, var(--grey-300) 50%, var(--grey-200) 50%, var(--grey-200) 75%, var(--grey-300) 75%, var(--grey-300) 100%);
+                background-size: toRem(16) toRem(16);
             }
 
-                .selected {
-                    position: absolute;
-                    inset: 0 auto 0 0;
-                    background: var(--grey-200);
+            &-knot {
+                position: absolute;
+                top: -(toRem(4));
+                width: toRem(16);
+                bottom: -(toRem(4));
+                background: var(--white);
+                border: solid toRem(2) var(--white);
+                border-radius: toRem(4);
+                box-shadow: 0 0 0 toRem(1) var(--grey-500);
+                cursor: grab;
+
+                &.grabbing {
+                    cursor: grabbing;
                 }
-            
-            .inputs {
-                display: flex;
-                justify-content: space-between;
-                margin-top: toRem(20);
             }
-
-                label {
-                    display: flex;
-                    align-items: center;
-                    gap: toRem(8);
-                }
-
-                    .label {
-                        font-size: toRem(12);
-                        font-weight: 500;
-                        color: var(--grey-400);
-                    }
-
-                    input {
-                        max-width: toRem(80);
-                    }
         }
 }
