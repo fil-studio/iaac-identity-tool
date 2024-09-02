@@ -73,8 +73,8 @@ export class CropRenderer {
         this.cam.position.z = 10;
 
         this.quad.scale.set(vis.originalSize.width, vis.originalSize.height, 1);
-        this.quad.position.x = c.offsetX;
-        this.quad.position.y = c.offsetY;
+        this.quad.position.x = -c.offsetX;
+        this.quad.position.y = -c.offsetY;
 
         
         if(this.visTexture) this.visTexture.dispose();
