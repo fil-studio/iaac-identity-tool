@@ -1,4 +1,5 @@
 import { MathUtils } from "@fils/math";
+import { el } from "@fils/utils";
 
 const MIN = .25;
 const MAX = 2;
@@ -16,9 +17,13 @@ class ZoomClass {
 
         this._dom = value;
 
+        const custom = el('option') as HTMLOptionElement;
+        custom.hidden = true;
+
         const sel = this._dom.querySelector('select');
+        sel.add(custom);
+
         sel.onchange = () => {
-            // console.log(sel.value);
             const v = Number(sel.value.replace('%', '')) / 100;
             this.updateZoomValue(v);
         }
@@ -26,6 +31,10 @@ class ZoomClass {
         window.addEventListener('wheel', e => {
             // console.log(e.deltaY);
             this.updateZoomValue(this.factor + e.deltaY * SPEED);
+            const val = Math.round(this.factor*100);
+            custom.value = `${val}%`;
+            custom.textContent = `${val}%`;
+            sel.value = custom.value;
         })
     }
 
