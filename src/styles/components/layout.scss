@@ -78,6 +78,10 @@ main {
             left: 50%;
 
             transform: scale(.5);
+
+            &.video {
+                margin-top: -130px;
+            }
             
             div {
                 position: absolute;

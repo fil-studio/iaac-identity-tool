@@ -131,6 +131,13 @@ export class App implements VisualListener, SettingsChangedListener  {
 
 		w.value = `${Visual.crop.width}`;
 		h.value = `${Visual.crop.height}`;
+
+		const view = document.querySelector('.gl').querySelector('.view');
+		if(Visual.video) {
+			view.classList.add('video');
+		} else {
+			view.classList.remove('video');
+		}
 	}
 
 	onCropViewChanged(value: boolean) {
