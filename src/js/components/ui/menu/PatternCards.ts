@@ -75,7 +75,11 @@ export class PatternCards extends CardContainer {
         img.onload = () => {
             this.drawImage(i, img);
         }
-        img.src = `assets/patterns/pattern-${value}.svg`
+        if(value.indexOf('blob') > -1) {
+            img.src = value
+        } else {
+            img.src = `assets/patterns/pattern-${value}.svg`
+        }
     }
 
     setFromFile(i:number, file:File) {
