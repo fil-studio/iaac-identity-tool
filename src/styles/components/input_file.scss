@@ -12,22 +12,14 @@
     }
 
     label {
-        display: block;
+        display: flex;
+        gap: toRem(12);
         padding: toRem(8) toRem(4);
+        align-items: center;
     }
 
-    .button {
-        display: inline-block;
-
-        .icon_wrap {
-            display: none;
-        }
-
-        &.error {
-            .icon_wrap {
-                display: unset;
-            }
-        }
+    .label {
+        font-size: toRem(14);
     }
 
     &:hover {
