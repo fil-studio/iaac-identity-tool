@@ -6,13 +6,27 @@
 
     .button_icon {
         cursor: pointer;
+
+        .icon {
+            &:nth-child(2) {
+                display: none;
+            }
+        }
+        
         &.playing {
-            filter: invert(1);
+            .icon {
+            &:nth-child(2) {
+                display: block;
+            }
+            &:nth-child(1) {
+                display: none;
+            }
+            }
         }
     }
     
     .play {
-        flex: auto;
+        flex: 0 0 1;
     }
 
     .timeline {
