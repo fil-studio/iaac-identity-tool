@@ -1,13 +1,13 @@
-{% macro modal(variant) %}
-<section class="modal">
+{% macro modal() %}
+<section class="modal active">
     <div class="modal-card">
         {# <header class="modal-head">
             <span class="title">{{ variant | capitalize}}</span>
             {{ ButtonIcons.buttonIcon("button_icon ghost medium close", "close") }}    
         </header> #}
 
-        {% if variant === "export" %}
-        <div class="modal-body">
+        
+        <div class="modal-body active">
             <div class="alert">Canvas size: 1024x1024</div>
             <div class="fieldset">
                 <div class="input_text primary medium">
@@ -35,8 +35,8 @@
             </div>
         </div>
 
-        {% elseif variant === "progress" %}
-        <div class="modal-body">
+        
+        <div class="modal-body active">
             <div class="progress-label">
                 <span class="title">Exporting frames</span>
                 <span class="count">23400/53400</span>
@@ -49,7 +49,7 @@
                 {{ Buttons.standardButton("Cancel", "button tertiary small") }}
             </div>
         </div>
-        {% endif %}
+        
     </div>
     <div class="modal-backdrop"></div>
 </section>

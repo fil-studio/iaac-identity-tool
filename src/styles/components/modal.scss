@@ -56,6 +56,11 @@
         &-body {
             padding: toRem(24);
 
+        
+        &:not(.active) {
+            display: none;
+        }
+
 
             .alert {
                 padding: toRem(12) toRem(16);

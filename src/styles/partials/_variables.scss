@@ -20,11 +20,11 @@
     --font-display: Clarendon Graphic, Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 
     // Border Radius
-    --radius-small: toRem(2);
-    --radius-medium: toRem(4);
+    --radius-small: 2px;
+    --radius-medium: 4px;
 
     // Elevations
-    --elevation-small: 0 toRem(1) toRem(2) var(--black-a12);
+    --elevation-small: 0 1px 2px var(--black-a12);
 
     --z-snackbars: 7;
     --z-modals: 6;
