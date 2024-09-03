@@ -98,8 +98,8 @@ export class VideoControls {
             v.end = this.videoElement.duration * v.p2;
             this.trim.bar.style.left = `${v.p1*100}%`;
             this.trim.bar.style.right = `${100-v.p2*100}%`;
-            this.trim.left.style.left = `${v.p1*99}%`;
-            this.trim.right.style.left = `${v.p2*99}%`;
+            this.trim.left.style.left = `${v.p1*100}%`;
+            this.trim.right.style.left = `${v.p2*100}%`;
         }
 
         const adjustTrimEnd = (x:number, target:HTMLElement) => {
@@ -209,7 +209,7 @@ export class VideoControls {
         this.trim.bar.style.left = '0%';
         this.trim.bar.style.right = '0%';
         this.trim.left.style.left = '0%';
-        this.trim.right.style.left = '99%';
+        this.trim.right.style.left = '100%';
         this.trim.left.classList.remove('grabbing');
         this.trim.right.classList.remove('grabbing');
         this.trim.rect = this.trim.progress.getBoundingClientRect();

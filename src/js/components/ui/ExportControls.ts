@@ -1,4 +1,5 @@
 import { HiddeableComponent } from "../core/Component";
+import { ExportUI } from "./menu/ExportUI";
 
 export class ExportControls extends HiddeableComponent {
     protected isVideo:boolean = false;
@@ -7,13 +8,20 @@ export class ExportControls extends HiddeableComponent {
     dimsSel:HTMLElement;
     exportBtn:HTMLButtonElement;
 
+    exportUI:ExportUI;
+
     constructor(_dom:HTMLElement) {
         super(_dom);
 
         const buttons = _dom.querySelectorAll('.button');
         this.formatSel = buttons[0] as HTMLElement;
-        this.dimsSel = buttons[1] as HTMLElement;
-        this.exportBtn = buttons[2] as HTMLButtonElement;
+        this.exportBtn = buttons[1] as HTMLButtonElement;
+
+        this.exportUI = new ExportUI(document.querySelector('section.modal'));
+
+        this.exportBtn.onclick = () => {
+            this.exportUI.show(this.isVideo);
+        }
 
         this.refresh();
     }
