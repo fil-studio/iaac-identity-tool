@@ -10,6 +10,8 @@ export interface TrimInterface {
     left:HTMLElement;
     right:HTMLElement;
 
+    rect:DOMRect;
+
     values: {
         start:number;
         end:number;
@@ -73,6 +75,7 @@ export class VideoControls {
         // trim interface
         const tl = this.dom.querySelector('div.timeline');
         this.trim = {
+            rect: null,
             progress: tl.querySelector('div.progress'),
             bar: tl.querySelector('div.trim-bar'),
             left: tl.querySelector('div.left'),
@@ -84,13 +87,57 @@ export class VideoControls {
                 p2: 1
             }
         }
-
-        const rect = this.trim.progress.getBoundingClientRect();
+        const v = this.trim.values;
 
         const l = this.trim.left;
         const r = this.trim.right;
+        const d = .05;
 
-        
+        const updateTrim = () => {
+            v.start = this.videoElement.duration * v.p1;
+            v.end = this.videoElement.duration * v.p2;
+            this.trim.bar.style.left = `${v.p1*100}%`;
+            this.trim.bar.style.right = `${100-v.p2*100}%`;
+            this.trim.left.style.left = `${v.p1*99}%`;
+            this.trim.right.style.left = `${v.p2*99}%`;
+        }
+
+        const adjustTrimEnd = (x:number, target:HTMLElement) => {
+            const rect = this.trim.rect;
+            let p = MathUtils.smoothstep(rect.x, rect.x + rect.width, x);
+            if(target === l) {
+                p = Math.min(p, v.p2 - d);
+                v.p1 = p;
+            } else {
+                p = Math.max(p, v.p1 + d);
+                v.p2 = p;
+            }
+
+            // console.log(p, x, rect.x, rect.width);
+
+            updateTrim();
+        }
+
+        l.addEventListener('mousedown', e => {
+            l.classList.add('grabbing');
+        });
+
+        r.addEventListener('mousedown', e => {
+            r.classList.add('grabbing');
+        });
+
+        function stopDrag() {
+            l.classList.remove('grabbing');
+            r.classList.remove('grabbing');
+        }
+
+        window.addEventListener('mouseup', stopDrag);
+        window.addEventListener('mouseleave', stopDrag);
+
+        window.addEventListener('mousemove', e => {
+            if(l.classList.contains('grabbing')) adjustTrimEnd(e.clientX, l);
+            else if(r.classList.contains('grabbing')) adjustTrimEnd(e.clientX, r);
+        });
     }
 
     addListener(lis:VideoControlsListener) {
@@ -163,6 +210,9 @@ export class VideoControls {
         this.trim.bar.style.right = '0%';
         this.trim.left.style.left = '0%';
         this.trim.right.style.left = '99%';
+        this.trim.left.classList.remove('grabbing');
+        this.trim.right.classList.remove('grabbing');
+        this.trim.rect = this.trim.progress.getBoundingClientRect();
     }
 
     getTimeString(value:number):string {
@@ -181,9 +231,10 @@ export class VideoControls {
 
     updateVideoProgress() {
         if(!this.videoElement) return;
-        if(this.videoElement.currentTime < this.trim.values.start || this.videoElement.currentTime > this.trim.values.end) {
-            this.videoElement.currentTime = this.trim.values.start;
-        } 
+        const v = this.trim.values;
+        if(this.videoElement.currentTime < v.start -.1 || this.videoElement.currentTime > v.end) {
+            this.videoElement.currentTime = v.start;
+        }
         const p = this.videoElement.currentTime / this.videoElement.duration;
         this.progressBar.style.width = `${p*100}%`;
         this.time.textContent = this.getTimeString(this.videoElement.currentTime);
