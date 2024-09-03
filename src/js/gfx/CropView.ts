@@ -165,6 +165,8 @@ export class CropView extends GLView {
             const c = Visual.crop;
             c.width = siz.width;
             c.height = siz.height;
+            c.offsetX = 0;
+            c.offsetY = 0;
             
             c.ratio = ratios.indexOf(Visual.ratio) > -1 ? Visual.ratio : null;
 
