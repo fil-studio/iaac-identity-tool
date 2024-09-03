@@ -92,7 +92,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         const cancel = document.querySelector('button._cancel') as HTMLElement;
         const apply = document.querySelector('button._apply') as HTMLElement;
 
-        cancel.onclick = () => {
+        const cancelFn = () => {
             // restore cropping values
             for(const key in Visual.crop) {
                 Visual.crop[key] = TempCrop[key];
@@ -101,13 +101,18 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
             this.topBar.cropping = false;
         }
 
+        cancel.onclick = () => {
+            cancelFn();
+        }
+
         apply.onclick = () => {
             this.topBar.cropping = false;
         }
 
         window.addEventListener('keydown', e => {
             if(e.key === 'Escape') {
-                this.topBar.cropping = false;
+                if(!this.topBar.cropping) return;
+                cancelFn();
             }
         })
 

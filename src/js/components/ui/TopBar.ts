@@ -35,6 +35,10 @@ export class TopBar extends Component {
         }
     }
 
+    get cropping():boolean {
+        return this.isCropping;
+    }
+
     addListener(lis:TopBarListener) {
         if(this.listeners.indexOf(lis) > -1) return;
         this.listeners.push(lis);

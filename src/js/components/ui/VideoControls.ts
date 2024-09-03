@@ -4,6 +4,20 @@ export interface VideoControlsListener {
     onVideoScrub();
 }
 
+export interface TrimInterface {
+    progress:HTMLEmbedElement;
+    bar:HTMLElement;
+    left:HTMLElement;
+    right:HTMLElement;
+
+    values: {
+        start:number;
+        end:number;
+        p1:number;
+        p2:number;
+    }
+}
+
 export class VideoControls {
     dom:HTMLElement;
     protected videoElement:HTMLVideoElement;
@@ -13,6 +27,8 @@ export class VideoControls {
     progressBase:HTMLElement;
     progressBar:HTMLElement;
     progressRect:DOMRect;
+
+    trim:TrimInterface;
 
     time:HTMLElement;
     duration:HTMLElement;
@@ -53,6 +69,28 @@ export class VideoControls {
         window.addEventListener('mousemove', e => {
             this.drag(e.clientX);
         });
+
+        // trim interface
+        const tl = this.dom.querySelector('div.timeline');
+        this.trim = {
+            progress: tl.querySelector('div.progress'),
+            bar: tl.querySelector('div.trim-bar'),
+            left: tl.querySelector('div.left'),
+            right: tl.querySelector('div.right'),
+            values: {
+                start: 0,
+                end: 0,
+                p1: 0,
+                p2: 1
+            }
+        }
+
+        const rect = this.trim.progress.getBoundingClientRect();
+
+        const l = this.trim.left;
+        const r = this.trim.right;
+
+        
     }
 
     addListener(lis:VideoControlsListener) {
@@ -104,6 +142,8 @@ export class VideoControls {
             this.dom.classList.add('active');
             this.progressRect = this.progressBase.getBoundingClientRect();
             this.updatePlayButton();
+            this.time.textContent = this.getTimeString(this.videoElement.currentTime);
+            this.duration.textContent = this.getTimeString(this.videoElement.duration);
             this.resetTrimValues();
         }
     }
@@ -115,8 +155,14 @@ export class VideoControls {
     }
 
     resetTrimValues() {
-        this.time.textContent = this.getTimeString(this.videoElement.currentTime);
-        this.duration.textContent = this.getTimeString(this.videoElement.duration);
+        this.trim.values.start = 0;
+        this.trim.values.end = this.videoElement.duration;
+        this.trim.values.p1 = 0;
+        this.trim.values.p2 = 1;
+        this.trim.bar.style.left = '0%';
+        this.trim.bar.style.right = '0%';
+        this.trim.left.style.left = '0%';
+        this.trim.right.style.left = '99%';
     }
 
     getTimeString(value:number):string {
@@ -135,6 +181,9 @@ export class VideoControls {
 
     updateVideoProgress() {
         if(!this.videoElement) return;
+        if(this.videoElement.currentTime < this.trim.values.start || this.videoElement.currentTime > this.trim.values.end) {
+            this.videoElement.currentTime = this.trim.values.start;
+        } 
         const p = this.videoElement.currentTime / this.videoElement.duration;
         this.progressBar.style.width = `${p*100}%`;
         this.time.textContent = this.getTimeString(this.videoElement.currentTime);
