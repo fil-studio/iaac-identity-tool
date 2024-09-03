@@ -1,8 +1,8 @@
-import { Mesh, MeshBasicMaterial, OrthographicCamera, PlaneGeometry, Raycaster, Scene, Texture, TextureLoader, Vector2, VideoTexture, WebGLRenderer, WebGLRenderTarget } from "three";
-import { CropSettings, Visual, VisualSettings } from "./Visual";
-import { BlurPass } from "@fils/vfx";
-import { GLView } from "./GLView";
 import { MathUtils } from "@fils/math";
+import { BlurPass } from "@fils/vfx";
+import { Mesh, MeshBasicMaterial, PlaneGeometry, Raycaster, Texture, TextureLoader, Vector2, VideoTexture } from "three";
+import { GLView } from "./GLView";
+import { CropSettings, Visual, VisualSettings } from "./Visual";
 
 let rT;
 
@@ -11,12 +11,21 @@ const mouse = new Vector2();
 const anchor = new Vector2();
 const anchorOff = new Vector2();
 
+const ratios = [1, 16.9, 9/16];
+
 export const TempCrop:CropSettings = {
     width: 0,
     height: 0,
     offsetX: 0,
     offsetY: 0,
     ratio: 1
+}
+
+export function updateRatioDropdown() {
+    const ratio = Visual.crop.ratio;
+    const r = document.querySelector('select#ratio') as HTMLSelectElement;
+    if(ratios.indexOf(ratio) > -1) r.value = `${ratio}`;
+    else r.value = 'free';
 }
 
 export class CropView extends GLView {
@@ -98,26 +107,92 @@ export class CropView extends GLView {
             this.stopDrag();
         })
 
-        w.onchange = () => {
-            if(!this._enabled) return;
-            const realW = MathUtils.clamp(parseInt(w.value), 256, Visual.originalSize.width);
-            w.value = `${realW}`;
-            
-            Visual.crop.width = realW;
+        const changeValue = (axis:'width'|'height') => {
+            const c = Visual.crop;
+            const siz = Visual.originalSize;
+
+            const r = c.ratio;
+            let width, height;
+
+            width = MathUtils.clamp(parseInt(w.value), 256, Visual.originalSize.width);
+            height = MathUtils.clamp(parseInt(h.value), 256, Visual.originalSize.height);
+
+            if(c.ratio != null) {
+                if(axis === 'width') {
+                    height = Math.round(width / r);
+                    if(height > Visual.originalSize.height) {
+                        height = Visual.originalSize.height;
+                        width = height * r;
+                    }
+                } else {
+                    width = Math.round(height * r);
+                    if(width > Visual.originalSize.width) {
+                        width = Visual.originalSize.width;
+                        height = width / r;
+                    }
+                }
+            }
+
+            c.width = width;
+            c.height = height;
+
+            const DW = (siz.width - c.width) * .5;
+            const DH = (siz.height - c.height) * .5;
+
+            c.offsetX = MathUtils.clamp(c.offsetX, -DW, DW);
+            c.offsetY = MathUtils.clamp(c.offsetY, -DH, DH);
+
+            w.value = `${width}`;
+            h.value = `${height}`;
 
             this.updateCrop();
             this.render();
         }
 
+        w.onchange = () => {
+            if(!this._enabled) return;
+            changeValue('width');
+        }
+
         h.onchange = () => {
             if(!this._enabled) return;
-            const realH = MathUtils.clamp(parseInt(h.value), 256, Visual.originalSize.height);
-            h.value = `${realH}`;
+            changeValue('height');
+        }
+
+        const restore = document.querySelector('button.restoreBtn') as HTMLButtonElement;
+        restore.onclick = () => {
+            const siz = Visual.originalSize;
+            const c = Visual.crop;
+            c.width = siz.width;
+            c.height = siz.height;
             
-            Visual.crop.height = realH;
+            c.ratio = ratios.indexOf(Visual.ratio) > -1 ? Visual.ratio : null;
+
+            w.value = `${c.width}`;
+            h.value = `${c.height}`;
 
             this.updateCrop();
             this.render();
+            updateRatioDropdown();
+        }
+
+        const r = document.querySelector('select#ratio') as HTMLSelectElement;
+        r.onchange = () => {
+            const c = Visual.crop;
+            if(r.value !== 'free') {
+                const ratio = parseFloat(r.value);
+                c.ratio = ratio;
+                if(Visual.ratio > 1) {
+                    w.value = `${Visual.originalSize.width}`;
+                    changeValue('width');
+                } else {
+                    h.value = `${Visual.originalSize.height}`;
+                    changeValue('height');
+                }
+
+            } else {
+                c.ratio = null;
+            }
         }
     }
 
@@ -172,6 +247,8 @@ export class CropView extends GLView {
 
             this.updateCrop();
             this.render();
+
+            updateRatioDropdown();
         }
     }
 

@@ -33,8 +33,8 @@ export class ExportView extends GLView implements CropRendererListener {
             const c1 = Visual.crop;
             const c2 = TempCrop;
             if(!equalCrops(c1, c2)) {
-                this.crop.onVisualUpdate(Visual);
-
+                this.visualUpdated(Visual, true);
+                
                 const label = document.querySelector('button.crop_btn').querySelector('span.label');
                 label.textContent = `${Visual.crop.width}x${Visual.crop.height}`;
             }
@@ -48,6 +48,7 @@ export class ExportView extends GLView implements CropRendererListener {
     }
 
     onCropRender(texture: Texture) {
+        console.log('on crop render')
         this.engine.texture = texture;
         this.render();
     }

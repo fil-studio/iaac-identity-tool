@@ -53,7 +53,7 @@ export class CropRenderer {
     render() {
         if(!this.cam) return;
         this.quadMat.map = this.visTexture;
-        
+
         this.rnd.setRenderTarget(this.rt);
         this.rnd.render(this.scene, this.cam);
         this.rnd.setRenderTarget(null);

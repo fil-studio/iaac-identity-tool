@@ -12,8 +12,11 @@
                 <label for="" class="inputs-label">
                     {{ Icons.icon("aspect_ratio") }}
                     <div class="input_text primary medium">
-                        <select name="" id="">
-                            <option value="">1:1</option>
+                        <select name="" id="ratio">
+                            <option value="1">1:1</option>
+                            <option value="1.77777778">16:9</option>
+                            <option value="0.5625">9:16</option>
+                            <option value="free">custom</option>
                         </select>
                     </div>
                 </label>
@@ -40,7 +43,7 @@
 
         <div class="inputs-feedback">
             <p class="label">Original size: 1280x756</p>
-            {{ Buttons.standardButton("Restore", "button tertiary small") }}
+            {{ Buttons.standardButton("Restore", "button tertiary small restoreBtn") }}
         </div>
     </div>
 

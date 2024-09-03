@@ -31,7 +31,9 @@ export class GLView {
         // const rw = rect.width * .9;
         // const rh = rect.height * .65;
 
-        const ratio = isCrop ? vis.crop.ratio : vis.ratio;
+        const cratio = vis.crop.width / vis.crop.height;
+
+        const ratio = isCrop ? cratio : vis.ratio;
         let w = isCrop ? vis.crop.width : vis.originalSize.width;
         let h = w / ratio;
         
