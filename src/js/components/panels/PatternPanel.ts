@@ -1,10 +1,12 @@
-import { addFileDropHandler } from "@fils/utils";
+import { addFileDropHandler, el } from "@fils/utils";
 import { FloatingPanel } from "../core/FloatingPanel";
 import { supportedImage } from "../../core/FileTypes";
 
 export class PatternPanel extends FloatingPanel {
     selectedImage:string;
     library:HTMLInputElement[] = [];
+
+    nCustom:number = 0;
 
     constructor(_id:string, _dom:HTMLElement) {
         super(_id, _dom);
@@ -23,9 +25,10 @@ export class PatternPanel extends FloatingPanel {
         body.addEventListener('dragleave', preventDefaults);
         
         addFileDropHandler(body, (files) => {
-            const file = files[0];
-            if(supportedImage.indexOf(file.type) > -1) {
-                this.setFile(file);
+            for(const file of files) {
+                if(supportedImage.indexOf(file.type) > -1) {
+                    this.setFile(file);
+                }
             }
             body.classList.remove('drop');
         }, () => {
@@ -51,15 +54,58 @@ export class PatternPanel extends FloatingPanel {
     }
 
     protected setFile(file:File) {
-        this.selectedImage = 'custom';
-        for(const lis of this.listeners) {
+        const url = URL.createObjectURL(file);
+        this.selectedImage = url;
+        /* for(const lis of this.listeners) {
             lis.onPanelDataChanged(this.id, {
                 value: 'custom',
                 isFile: true,
                 file: file
             });
+        } */
+
+        console.log(this.selectedImage);
+
+        const ul = this.dom.querySelector('ul');
+        const v = 11+this.nCustom;
+        const id = `pattern_${v}`;
+
+        this.nCustom++;
+
+        const li = el('li', 'pattern_preset-item');
+        const label = el('label', 'pattern_preset-label', li);
+        label.setAttribute('for', id);
+
+        const input = el('input', '', label) as HTMLInputElement;
+        input.type = "radio";
+        input.value = url;
+        input.id = id;
+
+        input.onclick = () => {
+            this.setValue(input.value);
         }
+
+        const span1 = el('span', 'label', label);
+        const span2 = el('span', 'tile', span1);
+        const img = new Image();
+        img.className = "pattern";
+        img.style.pointerEvents = 'none';
+        // img.style.width = `44px`;
+        // img.style.height = `44px`;
+        img.src = url;
+        span2.appendChild(img);
+        this.library.push(input)
+
+        ul.appendChild(li);
+
         this.updateState();
+
+        for(const lis of this.listeners) {
+            lis.onPanelDataChanged(this.id, {
+                value: url,
+                isFile: false
+            });
+        }
     }
 
     protected setValue(value:string) {
@@ -72,6 +118,8 @@ export class PatternPanel extends FloatingPanel {
                 isFile: false
             });
         }
+
+        this.updateState();
     }
 
     show(id:string) {
@@ -87,9 +135,10 @@ export class PatternPanel extends FloatingPanel {
 
     updateState() {
         // To-Do: en funció del selectedColor -> refrescar UI
-        // console.log(this.selectedImage);
-        for(const input of this.library) input.checked = false;
-        if(this.selectedImage === 'custom') return;
-        this.library[parseInt(this.selectedImage)-1].checked = true;
+        console.log(this.selectedImage);
+        for(const input of this.library) {
+            // console.log(this.selectedImage, input.value);
+            input.checked = input.value === this.selectedImage;
+        }
     }
 }
