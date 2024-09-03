@@ -122,13 +122,13 @@ export class CropView extends GLView {
                     height = Math.round(width / r);
                     if(height > Visual.originalSize.height) {
                         height = Visual.originalSize.height;
-                        width = height * r;
+                        width = Math.round(height * r);
                     }
                 } else {
                     width = Math.round(height * r);
                     if(width > Visual.originalSize.width) {
                         width = Visual.originalSize.width;
-                        height = width / r;
+                        height = Math.round(width / r);
                     }
                 }
             }
