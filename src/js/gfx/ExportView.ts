@@ -48,7 +48,6 @@ export class ExportView extends GLView implements CropRendererListener {
     }
 
     onCropRender(texture: Texture) {
-        console.log('on crop render')
         this.engine.texture = texture;
         this.render();
     }

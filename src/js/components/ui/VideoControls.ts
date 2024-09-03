@@ -14,8 +14,8 @@ export class VideoControls {
     progressBar:HTMLElement;
     progressRect:DOMRect;
 
-    trimStart:HTMLElement;
-    trimEnd:HTMLElement;
+    time:HTMLElement;
+    duration:HTMLElement;
 
     protected dragging:boolean = false;
 
@@ -29,8 +29,9 @@ export class VideoControls {
         this.progressBase = this.dom.querySelector('div.progress');
         this.progressBar = this.dom.querySelector('div.current');
 
-        this.trimStart = this.dom.querySelector('[for="trim_start"]');
-        this.trimEnd = this.dom.querySelector('[for="trim_end"]');
+        const t = this.dom.querySelector('div.time');
+        this.time = t.querySelector('.current');
+        this.duration = t.querySelector('.total');
 
         this.playBtn.onclick = () => {
             if(!this.videoElement) return;
@@ -114,24 +115,28 @@ export class VideoControls {
     }
 
     resetTrimValues() {
-        this.trimStart.querySelector('input').value = '0:00:00';
-        this.trimEnd.querySelector('input').value = this.getTimeString(this.videoElement.duration);
+        this.time.textContent = this.getTimeString(this.videoElement.currentTime);
+        this.duration.textContent = this.getTimeString(this.videoElement.duration);
     }
 
     getTimeString(value:number):string {
-        const h = Math.floor(value / 3600);
+        // const h = Math.floor(value / 3600);
         const min = Math.floor(value / 60);
-        const sec = (value - min*60 - h*3600);
+        const sec = Math.floor(value - min*60);
+        const millis = Math.round((value - sec) * 1000);
 
         const m = min < 10 ? `0${min}` : `${min}`;
         const s = sec < 10 ? `0${sec}` : `${sec}`;
 
-        return `${h}:${m}:${s}`;
+        const mil = millis < 100 ? millis < 10 ? `00${millis}` : `0${millis}` : `${millis}`;
+
+        return `${m}:${s}:${mil}`;
     }
 
     updateVideoProgress() {
         if(!this.videoElement) return;
         const p = this.videoElement.currentTime / this.videoElement.duration;
         this.progressBar.style.width = `${p*100}%`;
+        this.time.textContent = this.getTimeString(this.videoElement.currentTime);
     }
 }
