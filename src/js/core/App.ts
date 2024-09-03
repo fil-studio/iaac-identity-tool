@@ -123,7 +123,7 @@ export class App implements VisualListener, SettingsChangedListener  {
 	protected onVisualChanged() {
 		const isVideo = Visual.video;
 		this.controller.videoCtrl.video = isVideo ? Visual.element as HTMLVideoElement : null;
-		const iv = document.querySelector('p.inputs-feedback');
+		const iv = document.querySelector('div.inputs-feedback').querySelector('p.label');
 		iv.textContent = `Original size: ${Visual.originalSize.width}x${Visual.originalSize.height}`
 
 		const w =  document.querySelector('input#width') as HTMLInputElement;
