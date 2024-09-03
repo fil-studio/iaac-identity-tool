@@ -138,6 +138,9 @@ export class App implements VisualListener, SettingsChangedListener  {
 		} else {
 			view.classList.remove('video');
 		}
+
+		const label = document.querySelector('button.crop_btn').querySelector('span.label');
+		label.textContent = `${Visual.crop.width}x${Visual.crop.height}`;
 	}
 
 	onCropViewChanged(value: boolean) {
