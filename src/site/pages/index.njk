@@ -16,6 +16,7 @@ eleventyComputed:
 {% import '../components/pattern-thumb.njk' as PatternThumbs with context %}
 {% import '../components/panels.njk' as Panels with context %}
 {% import '../components/snackbars.njk' as Snackbars with context %}
+{% import '../components/modals.njk' as Modals with context %}
 
 
 <main>
@@ -28,4 +29,9 @@ eleventyComputed:
   {{ Panels.panel("pattern", true) }}
 
   {{ Snackbars.snackbar("Unsupported file format. Please try again with a valid file extension.", false) }}  
+
+  {{ Modals.modal('export') }}
+
+  {{ Modals.modal('progress') }}
+  
 </main>
