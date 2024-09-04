@@ -84,19 +84,37 @@
                 &:hover {
                     background: var(--grey-100);
                 }
+
+                &:not(.active) {
+                    .input .icon {
+                        display: none;
+                    }
+                }
             
                 --bg-color: transparent;
             
                 background-color: var(--bg-color);
-            
-                input[type=color] {
-                    appearance: none;
-                    width: toRem(40);
-                    height: toRem(40);
-                    padding: 0;
-                    border: solid toRem(1) var(--grey-500);
-                    border-radius: var(--radius-small);
+
+                .input {
+                    position: relative;
                 }
+            
+                    input[type=color] {
+                        appearance: none;
+                        width: toRem(40);
+                        height: toRem(40);
+                        padding: 0;
+                        border: solid toRem(1) var(--grey-500);
+                        border-radius: var(--radius-small);
+                    }
+
+                    .icon {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        fill: var(--white);
+                    }
             
                 .label {
                     flex: auto;

@@ -1,9 +1,12 @@
 <div class="panel-block panel-color active">
     {{ Buttons.standardButton("Select custom color", "button tertiary large expand", "colors") }}
     
-    <label class="button_color">
+    <label class="button_color active">
         {# <span class="label">Select custom color</span> #}
-        <input type="color" class="tile">
+        <div class="input">
+            <input type="color" class="tile">
+            {{ Icons.icon("check-small") }}
+        </div>
         <span class="label">
             <span class="title">Custom color</span>
             <span class="value">F6B73C</span>
