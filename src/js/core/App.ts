@@ -1,6 +1,6 @@
 import { Timer } from '@fils/ani';
 import { Controller, SettingsChangedListener } from './Controller';
-import { IS_DEV_MODE } from './Globals';
+import { IS_DESKTOP_APP, IS_DEV_MODE, SCOPE } from './Globals';
 
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { CropView } from '../gfx/CropView';
@@ -19,7 +19,11 @@ export class App implements VisualListener, SettingsChangedListener  {
 
 	constructor() {
 		this.clock = new Timer(false);
-		console.log('Hello World! ^_^', IS_DEV_MODE);
+		console.log('Hello World! ^_^');
+		if(IS_DESKTOP_APP) {
+			console.log('Running in Desktop mode');
+			console.log(window.process);
+		}
 
 		// this.layer = new SceneLayer(this.gl);
 
@@ -77,6 +81,7 @@ export class App implements VisualListener, SettingsChangedListener  {
 	}
 
 	onTextureUpdate() {
+		if(SCOPE.exporting) return;
 		this.cropView.render();
 		this.exportView.crop.onFrameUpdate();
 		this.controller.videoCtrl.updateVideoProgress();

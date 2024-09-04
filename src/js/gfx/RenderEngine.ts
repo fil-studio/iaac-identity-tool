@@ -2,6 +2,7 @@ import { Color, LinearFilter, Mesh, PlaneGeometry, ShaderMaterial, Texture, Text
 import fragmentShader from "../../glsl/shader.frag";
 import vertexShader from "../../glsl/shader.vert";
 import { Knot } from "../components/ui/ThresholdController";
+import { SCOPE } from "../core/Globals";
 // import { RTUtils } from "@fils/gfx";
 
 const tLoader = new TextureLoader();
@@ -60,6 +61,7 @@ export class RenderEngine {
 
     constructor() {
         this.quad = new Mesh(geo, MAT);
+        SCOPE.engine = this;
     }
 
     set patterns(patterns:Texture[]) {

@@ -52,6 +52,13 @@ export class GLView {
         const w = isCrop ? vis.crop.width : vis.originalSize.width;
         const h = isCrop ? vis.crop.height : vis.originalSize.height;
 
+        this.setSize(w, h);
+    }
+
+    setSize(width:number, height:number) {
+        const w = width;
+        const h = height;
+
         this.gl.setSize(w, h);
 
         this.camera = new OrthographicCamera(-w/2, w/2, h/2, -h/2, 1, 100);

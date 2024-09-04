@@ -1,0 +1,1 @@
+window.Exporter = require('./lib/exporter').Exporter;

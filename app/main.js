@@ -21,9 +21,10 @@ const { app, BrowserWindow } = require('electron');
     });
     // and load the index.html of the app.
     mainWindow.loadURL(`file://${__dirname}/public/index.html`);
+    mainWindow.webContents.executeJavaScript(`window.Exporter.outputPath="${app.getPath('downloads')}"`)
 
     mainWindow.webContents.once('dom-ready', () => {
-
+      
     });
     };
 

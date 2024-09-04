@@ -4,6 +4,7 @@ import { GLView } from "./GLView";
 import { RenderEngine } from "./RenderEngine";
 import { CropSettings, Visual, VisualSettings } from "./Visual";
 import { TempCrop } from "./CropView";
+import { SCOPE } from "../core/Globals";
 
 export function equalCrops(c1:CropSettings, c2:CropSettings):boolean {
     return c1.height === c2.height && 
@@ -25,6 +26,8 @@ export class ExportView extends GLView implements CropRendererListener {
         this.scene.add(this.engine.quad);
 
         this.crop.addListener(this);
+
+        SCOPE.view = this;
     }
 
     set enabled(value:boolean) {
