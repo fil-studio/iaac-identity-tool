@@ -139,7 +139,7 @@ export class PatternPanel extends FloatingPanel {
 
     updateState() {
         // To-Do: en funció del selectedColor -> refrescar UI
-        console.log(this.selectedImage);
+        // console.log(this.selectedImage);
         for(const input of this.library) {
             // console.log(this.selectedImage, input.value);
             input.checked = input.value === this.selectedImage;
