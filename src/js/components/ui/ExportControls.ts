@@ -32,6 +32,7 @@ export class ExportControls extends HiddeableComponent {
     }
 
     refresh() {
+        super.refresh();
         if(this.isVideo) {
             this.formatSel.classList.remove('disabled');
         } else {

@@ -4,6 +4,7 @@ import { FloatingPanel } from "../core/FloatingPanel"
 export class ColorPanel extends FloatingPanel {
     selectedColor:string;
     library:HTMLInputElement[] = [];
+    colorInput:HTMLInputElement;
 
     constructor(_id:string, _dom:HTMLElement) {
         super(_id, _dom);
@@ -19,6 +20,8 @@ export class ColorPanel extends FloatingPanel {
         const inputs = _dom.querySelectorAll('input');
         for(const input of inputs) {
             if(input.type === 'color') {
+                this.colorInput = input;
+
                 input.oninput = () =>{
                     setInputColor(input);
                 }
@@ -37,6 +40,7 @@ export class ColorPanel extends FloatingPanel {
 
             input.onclick = () => {
                 this.setValue(input.value);
+                this.updateState();
             }
         }
     }
@@ -64,11 +68,18 @@ export class ColorPanel extends FloatingPanel {
     }
 
     updateState() {
+        let found = false;
         for(const input of this.library) {
             input.checked = input.value === this.selectedColor;
-            if(input.checked) {
-                // To-Do: custom color not used
-            }
+            found = found || input.checked
+        }
+
+        const el = this.colorInput.parentElement.parentElement;
+
+        if(found) {
+            el.classList.remove('active');
+        } else {
+            el.classList.add('active');
         }
     }
 }

@@ -125,8 +125,8 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
     }
 
     onCropChanged(value: boolean) {
-        // console.log('Crop changed', value)
         this.menu.cropping = value;
+        this.exportCtrl.active = !value;
         if(value) {
             this.colorsPanel.hide();
             this.patternsPanel.hide();
