@@ -38,7 +38,7 @@ export class PatternCards extends CardContainer {
                 texture
             });
 
-            i++
+            // i++
         }
 
         for(let i=0; i<4; i++) {

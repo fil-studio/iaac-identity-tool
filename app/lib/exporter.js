@@ -13,8 +13,8 @@ const Exporter = {
                   alert("An error ocurred creating the file " + err.message);
                 //   state.rendering = false;
                 } else {
-                    // const { shell } = require('electron');
-                    // shell.showItemInFolder( opath );
+                    const { shell } = require('electron');
+                    shell.showItemInFolder( opath );
                     callback();
                 }
               });
@@ -25,6 +25,7 @@ const Exporter = {
 
     showFile(filename) {
         const opath = `${this.outputPath}/${filename}`;
+        const { shell } = require('electron');
         shell.showItemInFolder( opath );
     }
 }
