@@ -19,7 +19,7 @@ export class PatternCards extends CardContainer {
         const tiles = _dom.querySelectorAll('.tile');
         let i = 0;
         for(const tile of tiles) {
-            tile.setAttribute('card-value', `${i+1}`);
+            tile.setAttribute('card-value', `${i}`);
             const canvas = el('canvas') as HTMLCanvasElement;
             const ctx = canvas.getContext('2d', {
                 willReadFrequently: true
@@ -42,7 +42,7 @@ export class PatternCards extends CardContainer {
         }
 
         for(let i=0; i<4; i++) {
-            this.initImage(i);
+            this.initImage(0);
         }
     }
 
@@ -95,7 +95,7 @@ export class PatternCards extends CardContainer {
         img.onload = () => {
             this.drawImage(i, img);
         }
-        img.src = `assets/patterns/pattern-${i+1}.svg`
+        img.src = `assets/patterns/pattern-${i}.svg`
     }
 
     protected drawImage(i:number, img:HTMLImageElement) {
