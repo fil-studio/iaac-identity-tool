@@ -65,6 +65,21 @@ export class ThresholdController {
         });
 
         this.updateKnotPositions();
+
+        const r = this.dom.querySelector('button.jsThRestart').querySelector('svg');
+        r.addEventListener('click', e => {
+            this.reset();
+        })
+    }
+
+    reset() {
+        this.stopDrag();
+        for(let i=0;i<4; i++) {
+            this.knots[i].progress = (i*.25 + .125);
+        }
+
+        this.updateKnotPositions();
+        this.broadcastChange();
     }
 
     addListener(lis:ThresholdListener) {
@@ -145,6 +160,10 @@ export class ThresholdController {
             }
         }
 
+        this.broadcastChange();
+    }
+
+    protected broadcastChange() {
         for(const lis of this.listeners) {
             lis.onThresholdsChanged(this.knots);
         }
