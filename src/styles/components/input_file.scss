@@ -1,5 +1,7 @@
 .input_file {
     border: solid toRem(1) transparent;
+    border-radius: var(--radius-medium);
+    transition: all .3s ease;
     cursor: pointer;
     
     input {
@@ -14,8 +16,9 @@
     label {
         display: flex;
         gap: toRem(12);
-        padding: toRem(8) toRem(4);
+        padding: toRem(8) 0;
         align-items: center;
+        transition: all .3s ease;
     }
 
     .label {
@@ -27,6 +30,10 @@
 
     &:hover {
         border-color: var(--grey-100);
+        
+        label {
+            padding: toRem(8) toRem(4);
+        }
     }
 
 &-warning {
