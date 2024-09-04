@@ -65,6 +65,15 @@ export class FloatingPanel extends HiddeableComponent {
         this.active = active;
     }
 
+    setPositionToElement(el:HTMLElement) {
+        const rect = el.getBoundingClientRect();
+        const x = rect.x + rect.width + 20;
+        const y = rect.y;
+        this.position.x = x;
+        this.position.y = y;
+        this.updatePosition();
+    }
+
     close() {
         if(!this.active) return;
         this.active = false;

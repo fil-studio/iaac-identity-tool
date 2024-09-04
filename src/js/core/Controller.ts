@@ -142,13 +142,13 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
             const colId = tile.getAttribute('card-value');
             // console.log(colId);
             this.selectedColorCard = card;
-            this.colorsPanel.show(colId);
+            this.colorsPanel.show(colId, card.dom);
         } else if (id === 'pattern') {
             const tile = card.dom.querySelector('.tile') as HTMLElement;
             const imgId = tile.getAttribute('card-value');
             // console.log(imgId);
             this.selectedPatternCard = card;
-            this.patternsPanel.show(imgId);
+            this.patternsPanel.show(imgId, card.dom);
         }
     }
 

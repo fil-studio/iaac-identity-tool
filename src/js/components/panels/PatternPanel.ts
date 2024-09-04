@@ -122,8 +122,11 @@ export class PatternPanel extends FloatingPanel {
         this.updateState();
     }
 
-    show(id:string) {
+    show(id:string, el:HTMLElement=null) {
         // this.selectedColor = hex;
+        if(!this.active && el) {
+            this.setPositionToElement(el);
+        }
         this.selectedImage = id;
         this.updateState();
         this.active = true;

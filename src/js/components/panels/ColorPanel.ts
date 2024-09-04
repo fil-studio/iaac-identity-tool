@@ -57,7 +57,10 @@ export class ColorPanel extends FloatingPanel {
         return `#${this.selectedColor}`;
     }
 
-    show(hex:string) {
+    show(hex:string, el:HTMLElement=null) {
+        if(!this.active && el) {
+            this.setPositionToElement(el);
+        }
         this.selectedColor = hex;
         this.updateState();
         this.active = true;
