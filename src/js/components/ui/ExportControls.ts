@@ -1,3 +1,4 @@
+import { Visual } from "../../gfx/Visual";
 import { HiddeableComponent } from "../core/Component";
 import { ExportUI } from "./menu/ExportUI";
 
@@ -19,8 +20,12 @@ export class ExportControls extends HiddeableComponent {
 
         this.exportUI = new ExportUI(document.querySelector('section.modal'));
 
+        const sel = _dom.querySelector('select');
+        // console.log(sel.value);
+
         this.exportBtn.onclick = () => {
-            this.exportUI.show(this.isVideo);
+            const video = this.isVideo && (sel.value === "Video");
+            this.exportUI.show(video);
         }
 
         this.refresh();

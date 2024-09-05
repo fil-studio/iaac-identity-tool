@@ -1,4 +1,5 @@
 import { MathUtils } from "@fils/math";
+import { SCOPE } from "../../core/Globals";
 
 export interface VideoControlsListener {
     onVideoScrub();
@@ -40,6 +41,8 @@ export class VideoControls {
     listeners:VideoControlsListener[] = [];
 
     constructor() {
+        SCOPE.videoControls = this;
+        
         this.dom = document.querySelector('div.video');
         this.playBtn = this.dom.querySelector('button');
         this.progressKnot = this.dom.querySelector('button.progress-knot');

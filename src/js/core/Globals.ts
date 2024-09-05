@@ -1,3 +1,4 @@
+import { VideoControls } from "../components/ui/VideoControls";
 import { ExportView } from "../gfx/ExportView";
 import { RenderEngine } from "../gfx/RenderEngine";
 
@@ -11,10 +12,12 @@ export interface ScopeInterface {
     engine:RenderEngine;
     view:ExportView;
     exporting:boolean;
+    videoControls:VideoControls;
 }
 
 export const SCOPE:ScopeInterface = {
     engine: null,
     view: null,
-    exporting: false
+    exporting: false,
+    videoControls: null
 }
