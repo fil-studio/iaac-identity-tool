@@ -39,8 +39,8 @@
             flex-direction: column;
             gap: toRem(4);
             padding: 4px 0;
+            font-family: var(--font-medium);
             font-size: toRem(12);
-            font-weight: 500;
             font-variant-numeric: tabular-nums; 
             color: var(--grey-300);
             

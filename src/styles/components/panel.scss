@@ -66,8 +66,8 @@
 
             > .title {
                 padding: toRem(4);
+                font-family: var(--font-medium);
                 font-size: toRem(12);
-                font-weight: 500;
                 color: var(--grey-300);
             }
         }
@@ -122,8 +122,8 @@
             
                     .title {
                         display: block;
+                        font-family: var(--font-medium);
                         font-size: toRem(12);
-                        font-weight: 500;
                     }
             
                     .value {
