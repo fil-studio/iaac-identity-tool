@@ -26,8 +26,8 @@
 
     .message {
         flex: auto;
+        font-family: var(--font-medium);
         font-size: toRem(14);
-        font-weight: 500;
         line-height: toRem(20);
         color: var(--grey-200);
     }

@@ -1,4 +1,20 @@
+@font-face {
+	font-family: 'FK Regular';
+	src: url('../assets/fonts/FKGroteskTrial-Regular.otf') format("opentype"),
+		url('../assets/fonts/FKGroteskTrial-Regular.ttf') format("ttf"),
+		url('../assets/fonts/FKGroteskTrial-Regular.woff') format("woff");
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'FK Medium';
+	src: url('../assets/fonts/FKGroteskTrial-Medium.otf') format("opentype"),
+		url('../assets/fonts/FKGroteskTrial-Medium.ttf') format("ttf"),
+		url('../assets/fonts/FKGroteskTrial-Medium.woff') format("woff");
+	font-weight: normal;
+}
+
 body {
-	font-family: var(--font-text);
+	font-family: var(--font-regular);
 	color: var(--grey-500);
 }

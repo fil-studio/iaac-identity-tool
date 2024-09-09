@@ -38,8 +38,8 @@
 
 &-warning {
     margin-top: toRem(8);
+    font-family: var(--font-medium);
     font-size: toRem(12);
-    font-weight: 500;
     color: var(--grey-300);
 }
 }
