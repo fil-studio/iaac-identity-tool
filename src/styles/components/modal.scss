@@ -73,6 +73,12 @@
 
             .export_form-list {
                 margin-top: toRem(16);
+
+                .jsQuality {
+                    &:not(.active) {
+                        display: none;
+                    }
+                }
             }
 
             .fieldset {

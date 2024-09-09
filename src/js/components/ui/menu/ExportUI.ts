@@ -24,6 +24,9 @@ export class ExportUI extends HiddeableComponent {
         }
 
         const sel = this.dom.querySelector("select#fileFormat") as HTMLSelectElement;
+        sel.onchange = () => {
+            this.toggleQuality();
+        }
 
         const saveImage = () => {
             const canvas = SCOPE.view.gl.domElement;
@@ -120,12 +123,18 @@ export class ExportUI extends HiddeableComponent {
             const exporter= window['Exporter'];
             exporter.initVideoRecording();
 
+            const q = this.dom.querySelector('.jsQuality').querySelector('select');
+
+            let exporting = false;
+
             v.onseeked = () => {
+                if(exporting) return;
                 if(current === nFrames) {
+                    exporting = true;
                     // console.log('done');
                     exporter.encodeVideo({
                         fps: 30,
-                        quality: 'high'
+                        quality: q.value
                     }, (prog:number) => {
                         progress.style.width = `${70 + 30*prog}%`;
                     }, () => {
@@ -225,6 +234,8 @@ export class ExportUI extends HiddeableComponent {
             sel.options[2].selected = video;
             sel.options[3].selected = false;
         }
+
+        this.toggleQuality();
     }
 
     show(isVideo:boolean=false) {
@@ -261,6 +272,16 @@ export class ExportUI extends HiddeableComponent {
             const v = Visual.element as HTMLVideoElement;
             v.pause();
             v.loop = true;
+        }
+    }
+
+    toggleQuality() {
+        const q = this.dom.querySelector('.jsQuality');
+        const sel = this.dom.querySelector("select#fileFormat") as HTMLSelectElement;
+        if(Visual.video && sel.value === "mp4") {
+            q.classList.add('active');
+        } else {
+            q.classList.remove('active');
         }
     }
 }

@@ -212,6 +212,8 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
         for(const card of cards) {
             const val = card.dom.querySelector('.tile').getAttribute('card-value');
             colors[card.position] = `#${val}`;
+            const h3 = card.dom.querySelector('h3');
+            h3.textContent = val.toUpperCase();
         }
 
         this.threshold.colors = colors;
