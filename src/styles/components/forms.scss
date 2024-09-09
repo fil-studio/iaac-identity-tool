@@ -24,6 +24,14 @@
         .detail {
             font-size: toRem(14);
         }
+
+        .threshold {
+            transition: transform .2s ease;
+            
+            &:hover {
+                transform: rotate(-90deg);
+            }
+        }
     }
     
 

@@ -28,7 +28,7 @@
     }
     
     .actions {
-        flex: 0 0 1%;
+        flex: 0 0 64px;
         display: flex;
         flex-direction: column;
         gap: toRem(8);
@@ -41,6 +41,7 @@
             padding: 4px 0;
             font-size: toRem(12);
             font-weight: 500;
+            font-variant-numeric: tabular-nums; 
             color: var(--grey-300);
             
             .current {
