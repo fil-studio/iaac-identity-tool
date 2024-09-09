@@ -23,6 +23,8 @@ export function saveBlob(blob:Blob, filename:string) {
         exporter.saveBlob(blob, filename, () => {
             console.log('done');
             // exporter.showFile(filename);
+            // const opath = `${exporter.outputPath}/${filename}`
+            // shell.showItemInFolder( opath );
         });
         // setTimeout(() => {
         //     exporter.showFile(filename);

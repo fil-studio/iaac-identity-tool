@@ -13,7 +13,7 @@ const Exporter = {
                   alert("An error ocurred creating the file " + err.message);
                 //   state.rendering = false;
                 } else {
-                    const { shell } = require('electron');
+                    const { shell } = require('@electron/remote');
                     shell.showItemInFolder( opath );
                     callback();
                 }

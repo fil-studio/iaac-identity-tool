@@ -23,6 +23,9 @@ const { app, BrowserWindow } = require('electron');
     mainWindow.loadURL(`file://${__dirname}/public/index.html`);
     mainWindow.webContents.executeJavaScript(`window.Exporter.outputPath="${app.getPath('downloads')}"`)
 
+    require('@electron/remote/main').initialize()
+    require("@electron/remote/main").enable(mainWindow.webContents)
+
     mainWindow.webContents.once('dom-ready', () => {
       
     });
