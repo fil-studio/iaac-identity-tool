@@ -99,3 +99,23 @@
             }
         }
 }
+
+.export_form {
+    &-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        &-item {
+            margin-top: toRem(16);
+            
+            .label {
+                display: block;
+                margin-bottom: toRem(12);
+                color: var(--black);
+                font-family: var(--font-medium);
+                font-size: toRem(16);
+            }
+        }
+}

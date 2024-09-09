@@ -9,28 +9,45 @@
         
         <div class="modal-body active">
             <div class="alert">Canvas size: 1024x1024</div>
-            <div class="fieldset">
-                <div class="input_text select medium">
-                    <select name="" id="fileFormat">
-                        <option value="svg" hidden>SVG</option>
-                        <option value="png" selected>PNG</option>
-                        <option value="webm" hidden>WebM</option>
-                        <option value="mp4" hidden>MP4</option>
-                    </select>
-                </div>
-                    
-                <div class="input_text select medium">
-                    <select name="" id="exportSize">
-                        <option value="0.5">0.5x</option>
-                        <option value="0.75">0.75x</option>
-                        <option value="1" selected>1x</option>
-                        <option value="1.5">1.5x</option>
-                        <option value="2">2x</option>
-                        <option value="3">3x</option>
-                        <option value="4">4x</option>
-                    </select>
-                </div>
-            </div>
+            <ul class="export_form-list">
+                <li class="export_form-item">
+                    <label for="" class="label">Format</label>
+                    <div class="fieldset">
+                        <div class="input_text select medium">
+                            <select name="" id="fileFormat">
+                                <option value="svg" hidden>SVG</option>
+                                <option value="png" selected>PNG</option>
+                                <option value="webm" hidden>WebM</option>
+                                <option value="mp4" hidden>MP4</option>
+                            </select>
+                        </div>
+                            
+                        <div class="input_text select medium">
+                            <select name="" id="exportSize">
+                                <option value="0.5">0.5x</option>
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2">2x</option>
+                                <option value="3">3x</option>
+                                <option value="4">4x</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                
+                <li class="export_form-item">
+                    <label for="quality" class="label">Quality</label>
+                    <div class="input_text select medium">
+                        <select name="" id="quality">
+                            <option value="web">Web</option>
+                            <option value="social" selected>Social</option>
+                            <option value="studio">Studio</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+            
             <div class="actions">
                 {{ Buttons.standardButton("Cancel", "button tertiary large") }}
                 {{ Buttons.standardButton("Export", "button primary large") }}

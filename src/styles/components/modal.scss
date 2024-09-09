@@ -71,10 +71,13 @@
                 text-align: center;
             }
 
+            .export_form-list {
+                margin-top: toRem(16);
+            }
+
             .fieldset {
                 display: flex;
                 gap: toRem(8);
-                margin-top: toRem(16);
                 
                 > * {
                     flex: auto;
@@ -115,7 +118,7 @@
             .actions {
                 display: flex;
                 gap: toRem(8);
-                margin-top: toRem(16);
+                margin-top: toRem(24);
 
                 .button {
                     flex: auto;
