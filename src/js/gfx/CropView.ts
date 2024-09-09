@@ -11,7 +11,7 @@ const mouse = new Vector2();
 const anchor = new Vector2();
 const anchorOff = new Vector2();
 
-const ratios = [1, 16.9, 9/16];
+const ratios = [1, 16/9, 9/16];
 
 export const TempCrop:CropSettings = {
     width: 0,
@@ -43,6 +43,10 @@ export class CropView extends GLView {
 
     constructor(_dom:HTMLElement) {
         super(_dom);
+
+        const rsel = document.querySelector('select#ratio') as HTMLSelectElement;
+        rsel.options[1].value = `${ratios[1]}`;
+        rsel.options[2].value = `${ratios[2]}`;
 
         window.addEventListener('resize', e => {
             clearTimeout(rT);
@@ -169,6 +173,8 @@ export class CropView extends GLView {
             c.offsetY = 0;
             
             c.ratio = ratios.indexOf(Visual.ratio) > -1 ? Visual.ratio : null;
+            console.log(Visual.ratio);
+            console.log(c.ratio);
 
             w.value = `${c.width}`;
             h.value = `${c.height}`;

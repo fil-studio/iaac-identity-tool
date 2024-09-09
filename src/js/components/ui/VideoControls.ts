@@ -222,12 +222,12 @@ export class VideoControls {
         // const h = Math.floor(value / 3600);
         const min = Math.floor(value / 60);
         const sec = Math.floor(value - min*60);
-        const millis = Math.round((value - sec) * 1000);
+        const cents = Math.round((value - sec) * 100);
 
         const m = min < 10 ? `0${min}` : `${min}`;
         const s = sec < 10 ? `0${sec}` : `${sec}`;
 
-        const mil = millis < 100 ? millis < 10 ? `00${millis}` : `0${millis}` : `${millis}`;
+        const mil = cents < 10 ? `0${cents}` : `${cents}`;
 
         return `${m}:${s}:${mil}`;
     }
