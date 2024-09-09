@@ -84,5 +84,9 @@ export class ColorPanel extends FloatingPanel {
         } else {
             el.classList.add('active');
         }
+
+        // update label for cc
+        const cc = this.dom.querySelector('.jsCC');
+        cc.textContent = this.colorInput.value.replace('#', '').toUpperCase();
     }
 }
