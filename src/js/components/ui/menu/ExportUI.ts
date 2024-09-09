@@ -1,5 +1,5 @@
-import { saveBlob } from "../../../core/EsportUtils";
-import { SCOPE } from "../../../core/Globals";
+import { encodeMP4, saveBlob } from "../../../core/EsportUtils";
+import { IS_DESKTOP_APP, SCOPE } from "../../../core/Globals";
 import { Visual } from "../../../gfx/Visual";
 import { HiddeableComponent } from "../../core/Component";
 
@@ -23,6 +23,8 @@ export class ExportUI extends HiddeableComponent {
             if(this._active) this.hide();
         }
 
+        const sel = this.dom.querySelector("select#fileFormat") as HTMLSelectElement;
+
         const saveImage = () => {
             const canvas = SCOPE.view.gl.domElement;
             canvas.toBlob(blob => {
@@ -33,59 +35,128 @@ export class ExportUI extends HiddeableComponent {
             }, "png");
         }
 
-        const realSave = () => {
+        const uiVideoExport = () => {
+            this.cards[0].classList.remove('active');
+            this.cards[1].classList.add('active');
+            const progress = this.cards[1].querySelector('div.current') as HTMLElement;
+            progress.style.width = '0%';
+        }
+
+        const webMexport = () => {
             const canvas = SCOPE.view.gl.domElement;
+            const stream = canvas.captureStream(30);
+            const recordedChunks = [];
 
-            if(this.video) {
-                const stream = canvas.captureStream(30);
-                const recordedChunks = [];
+            // Create MediaRecorder with canvas stream
+            // const options = { mimeType: "video/webm; codecs=vp8" };
+            const mediaRecorder = new MediaRecorder(stream);
 
-                // Create MediaRecorder with canvas stream
-                const mediaRecorder = new MediaRecorder(stream);
+            // On data available, push data chunks to array
+            mediaRecorder.ondataavailable = (event) => {
+              if (event.data.size > 0) {
+                recordedChunks.push(event.data);
+              }
+            };
 
-                // On data available, push data chunks to array
-                mediaRecorder.ondataavailable = (event) => {
-                  if (event.data.size > 0) {
-                    recordedChunks.push(event.data);
-                  }
-                };
+            // Create a video Blob from recorded chunks and generate a download link
+            mediaRecorder.onstop = () => {
+              const blob = new Blob(recordedChunks, { type: 'video/webm' });
+              const filename = `download-${Date.now()}.webm`;
+              saveBlob(blob, filename);
+              this.restoreCanvas();
+              this.hide();
+            };
 
-                // Create a video Blob from recorded chunks and generate a download link
-                mediaRecorder.onstop = () => {
-                  const blob = new Blob(recordedChunks, { type: 'video/webm' });
-                  const filename = `download-${Date.now()}.webm`;
-                  saveBlob(blob, filename);
-                  this.restoreCanvas();
-                  this.hide();
-                };
+            const v = Visual.element as HTMLVideoElement;
+            v.loop = false;
+            const trim = SCOPE.videoControls.trim.values;
+            v.currentTime = trim.start;
 
-                const v = Visual.element as HTMLVideoElement;
-                v.loop = false;
-                const trim = SCOPE.videoControls.trim.values;
-                v.currentTime = trim.start;
+            uiVideoExport();
+            const progress = this.cards[1].querySelector('div.current') as HTMLElement;
 
-                this.cards[0].classList.remove('active');
-                this.cards[1].classList.add('active');
-                const progress = this.cards[1].querySelector('div.current') as HTMLElement;
+            let cancel = false;
 
-                const animate = () => {
-                    if(v.currentTime >= trim.end) {
-                        v.pause();
-                        v.loop = true;
-                        mediaRecorder.stop();
-                        return;
-                    }
-                    const p = (v.currentTime - trim.start) / (trim.end - trim.start);
-                    progress.style.width = `${p*100}%`;
-                    SCOPE.view.crop.render();
-                    requestAnimationFrame(animate);
+            const btn = this.cards[1].querySelector('button');
+            btn.onclick = () => {
+                cancel = true;
+                this.hide();
+            };
+
+            const animate = () => {
+                if(cancel) return;
+                if(v.currentTime >= trim.end) {
+                    v.pause();
+                    v.loop = true;
+                    mediaRecorder.stop();
+                    return;
+                }
+                const p = (v.currentTime - trim.start) / (trim.end - trim.start);
+                progress.style.width = `${p*100}%`;
+                SCOPE.view.crop.render();
+                requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+
+            v.play();
+            // Start recording
+            mediaRecorder.start();
+        }
+
+        const exportMP4 = () => {
+            const canvas = SCOPE.view.gl.domElement;
+            const v = Visual.element as HTMLVideoElement;
+            v.loop = false;
+
+            const trim = SCOPE.videoControls.trim.values;
+            let current = 0
+            const len = trim.end - trim.start;
+            const nFrames = Math.round(len * 30);
+
+            uiVideoExport();
+            const progress = this.cards[1].querySelector('div.current') as HTMLElement;
+
+            const exporter= window['Exporter'];
+            exporter.initVideoRecording();
+
+            v.onseeked = () => {
+                if(current === nFrames) {
+                    // console.log('done');
+                    exporter.encodeVideo({
+                        fps: 30,
+                        quality: 'high'
+                    }, (prog:number) => {
+                        progress.style.width = `${70 + 30*prog}%`;
+                    }, () => {
+                        this.restoreCanvas();
+                        this.hide();
+                    })
+                    return;
                 }
 
-                requestAnimationFrame(animate);
+                SCOPE.view.crop.render();
+                console.log('seeked');
+                progress.style.width = `${(current/nFrames)*70}%`;
 
-                v.play();
-                // Start recording
-                mediaRecorder.start();
+                canvas.toBlob(blob => {
+                    exporter.saveVideoStill(blob, () => {
+                        current++;
+                        v.currentTime = trim.start + len * (current/nFrames);
+                    })
+                }, "png");
+            }
+
+            v.currentTime = trim.start;
+        }
+
+        const realSave = () => {
+            if(this.video) {
+                if(sel.value === 'webm') {
+                    webMexport();
+                } else {
+                    exportMP4();
+                }
             } else {
                 saveImage();
             }
@@ -140,15 +211,20 @@ export class ExportUI extends HiddeableComponent {
 
     updateUI(video:boolean) {
         const sel = this.dom.querySelector("select#fileFormat") as HTMLSelectElement;
-        sel.options[0].hidden = video;
+        sel.options[0].hidden = true;//video;
         sel.options[1].hidden = video;
         sel.options[2].hidden = !video;
-        sel.options[3].hidden = !video;
+        sel.options[3].hidden = !(video && IS_DESKTOP_APP);
         
-        sel.options[0].selected = !video;
-        sel.options[1].selected = false;
-        sel.options[2].selected = video;
-        sel.options[3].selected = false;
+        sel.options[0].selected = false;
+        sel.options[1].selected = !video;
+        if(IS_DESKTOP_APP) {
+            sel.options[2].selected = false;
+            sel.options[3].selected = video;
+        } else {
+            sel.options[2].selected = video;
+            sel.options[3].selected = false;
+        }
     }
 
     show(isVideo:boolean=false) {
@@ -180,9 +256,11 @@ export class ExportUI extends HiddeableComponent {
             const v = Visual.element as HTMLVideoElement;
             v.play();
             this.videoWasPlaying = false;
+            v.loop = true;
         } else if(Visual.video) {
             const v = Visual.element as HTMLVideoElement;
             v.pause();
+            v.loop = true;
         }
     }
 }

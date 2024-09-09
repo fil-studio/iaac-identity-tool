@@ -31,3 +31,12 @@ export function saveBlob(blob:Blob, filename:string) {
         // }, 100);
     }
 }
+
+export function encodeMP4(blob:Blob, filename:string) {
+    if(!IS_DESKTOP_APP) {
+        console.warn(`This feature isn't available on web mode!`)
+        return;
+    }
+    const exporter = window['Exporter'];
+    exporter.encodeMP4(blob, filename);
+}
