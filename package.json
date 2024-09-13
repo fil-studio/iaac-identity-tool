@@ -9,8 +9,8 @@
 	"private": true,
 	"scripts": {
 		"dev": "eleventy --serve --watch",
-		"build": "ELEVENTY_ENV=production eleventy",
-		"test": "yarn prepack && ELECTRON_DISABLE_SECURITY_WARNINGS=true electron app/main.js",
+		"build": "cross-env ELEVENTY_ENV=production eleventy",
+		"test": "yarn prepack && cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=true electron app/main.js",
 		"prepack": "yarn build && yarn --cwd=./app/ && node ./scripts/build/prepack.mjs",
 		"win": "electron-packager app iaac --platform=win32 --arch=x64 --icon=icons/favicon.ico --app-version=0.1.0 --out packaged --overwrite",
 		"mac": "electron-packager app iaac --platform=darwin --arch=arm64 --icon=icons/favicon.icns --app-version=0.1.0 --out packaged --overwrite",
@@ -42,6 +42,7 @@
 		"chokidar": "^3.5.3",
 		"clean-css": "^5.3.2",
 		"cli-progress": "^3.12.0",
+		"cross-env": "^7.0.3",
 		"dotenv": "^16.4.5",
 		"electron-packager": "^17.1.2",
 		"esbuild": "^0.21.5",
