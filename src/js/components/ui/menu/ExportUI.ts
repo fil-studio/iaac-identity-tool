@@ -145,7 +145,7 @@ export class ExportUI extends HiddeableComponent {
                 }
 
                 SCOPE.view.crop.render();
-                console.log('seeked');
+                // console.log('seeked');
                 progress.style.width = `${(current/nFrames)*70}%`;
 
                 canvas.toBlob(blob => {
