@@ -149,6 +149,8 @@ const Exporter = {
 
     getPath(filename) {
         const os = require('os');
+        const { app } = require("@electron/remote");
+        this.outputPath = app.getPath('downloads');
         if(os.platform() === "win32") {
             return `${this.outputPath}\\${filename}`;
         }
