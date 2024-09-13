@@ -27,7 +27,7 @@ const Exporter = {
 
     saveBlob (blob, filename, callback) {
         const reader = new FileReader();
-        const opath = `${this.outputPath}/${filename}`;
+        const opath = this.getPath(filename);
         reader.onloadend = () => {
             // fs.writeFileSync(opath, Buffer.from(reader.result));
             fs.writeFile(opath, new Uint8Array(reader.result), err => {
@@ -94,7 +94,7 @@ const Exporter = {
         const ffmpeg = require('./ffmpeg');
         const state = this.videoExport;
 
-        var opath = `${this.outputPath}/video-${Date.now()}.mp4`;
+        var opath = this.getPath(`video-${Date.now()}.mp4`);
         const job = ffmpeg({
             source: `${TMP}${state.id}/%06d.png`
         }).FPSInput(settings.fps).withFPS(settings.fps).on( 'end', () => {
@@ -127,7 +127,7 @@ const Exporter = {
         
         // job.addOption('-x264opts', 'colormatrix=bt709');
         // job.addOption('-color_trc', 'iec61966-2-1');
-        // job.addOption('-color_primaries', 'bt2020');
+        job.addOption('-color_primaries', 'bt2020');
         // job.addOption('-crf', '1');
         // job.addOption('-preset', 'veryslow')
 
@@ -145,6 +145,15 @@ const Exporter = {
             state.rendering = false;
             onError(e);
         }
+    },
+
+    getPath(filename) {
+        const os = require('os');
+        if(os.platform() === "win32") {
+            return `${this.outputPath}\\${filename}`;
+        }
+
+        return `${this.outputPath}/${filename}`;
     }
 }
 
