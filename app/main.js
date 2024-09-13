@@ -21,7 +21,9 @@ const { app, BrowserWindow } = require('electron');
     });
     // and load the index.html of the app.
     mainWindow.loadURL(`file://${__dirname}/public/index.html`);
-    mainWindow.webContents.executeJavaScript(`window.Exporter.outputPath="${app.getPath('downloads')}"`)
+    const os = require('os');
+    const path = os.platform() === "win32" ? `${app.getPath('home')}\\Downloads` : app.getPath('downloads');
+    mainWindow.webContents.executeJavaScript(`window.Exporter.outputPath="${path}"`)
 
     require('@electron/remote/main').initialize()
     require("@electron/remote/main").enable(mainWindow.webContents)
