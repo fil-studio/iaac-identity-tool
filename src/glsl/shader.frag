@@ -15,6 +15,7 @@ struct Settings {
 };
 
 uniform Settings settings;
+// uniform sampler2D[4] maps;
 
 uniform sampler2D tInput;
 
@@ -27,6 +28,19 @@ float rgb2lum(vec3 p) {
 }
 
 const vec3 bgSym = vec3(1.);
+
+/* vec4 getTile(vec2 uv, vec2 uvStep, int i) {
+    vec2 tl = 1.0 / uvStep;
+    vec2 tUv = mod(uv * tl, vec2(1.));
+    vec4 mCol = texture2D(maps[i], tUv);
+    float aR = mCol.a;//moothstep(alphaBlend, 1.0, mCol.a);
+    vec3 sym = mix(bgSym,mCol.rgb, aR);
+    float sL = rgb2lum(sym);
+    float sR = smoothstep(0., 1., sL);
+    vec3 col = mix(settings.tiles[i].color, bgSym, sR);
+    // vec3 col = vec3(tUv, 1.0);
+    return vec4(col, 1.0);
+} */
 
 void main() {
     // pixelate uv
@@ -61,14 +75,32 @@ void main() {
                 //gotcha
                 vec2 tl = 1.0 / uvStep;
                 vec2 tUv = mod(vUv * tl, vec2(1.));
-                vec4 mCol = texture2D(settings.tiles[i].map, tUv);
+                vec4 mCol;
+                switch (i) {
+                    case 0: 
+                        mCol = texture2D(settings.tiles[0].map, tUv);
+                        break;
+                    case 1: 
+                        mCol = texture2D(settings.tiles[1].map, tUv);
+                        break;
+                    case 2: 
+                        mCol = texture2D(settings.tiles[2].map, tUv);
+                        break;
+                    case 3: 
+                        mCol = texture2D(settings.tiles[3].map, tUv);
+                        break;
+                }
                 float aR = mCol.a;//moothstep(alphaBlend, 1.0, mCol.a);
                 vec3 sym = mix(bgSym,mCol.rgb, aR);
                 float sL = rgb2lum(sym);
                 float sR = smoothstep(0., 1., sL);
                 vec3 col = mix(settings.tiles[i].color, bgSym, sR);
+                // vec3 col = vec3(tUv, 1.0);
+
                 gl_FragColor = vec4(col, 1.0);
             }
         }
     }
+
+    // gl_FragColor = texture2D(tInput, vUv);
 }
