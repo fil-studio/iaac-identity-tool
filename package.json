@@ -13,8 +13,8 @@
     "test": "yarn prepack && cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=true electron app/main.js",
     "prepack": "yarn build && yarn --cwd=./app/ && node ./scripts/build/prepack.mjs",
     "win": "electron-packager app iaac --platform=win32 --arch=x64 --icon=icons/favicon.ico --app-version=0.1.0 --out packaged --overwrite",
-    "mac": "electron-packager app iaac --platform=darwin --arch=arm64 --icon=icons/favicon.icns --app-version=0.1.0 --out packaged --overwrite",
-    "mac-intel": "electron-packager app iaac --platform=darwin --arch=x64 --icon=icons/favicon.icns --app-version=0.1.0 --out packaged --overwrite",
+    "mac": "electron-packager app iaac --appBundleId=iaac.fil.studio --platform=darwin --arch=arm64 --icon=icons/favicon.icns --app-version=0.1.0 --out packaged --overwrite",
+    "mac-intel": "electron-packager app iaac --appBundleId=iaac.fil.studio --platform=darwin --arch=x64 --icon=icons/favicon.icns --app-version=0.1.0 --out packaged --overwrite",
     "package": "yarn prepack && yarn mac && yarn mac-intel && yarn win",
     "sign": "node ./scripts/build/sign.js"
   },
