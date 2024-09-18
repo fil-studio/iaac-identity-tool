@@ -145,4 +145,4 @@ yarn.lock
 packaged
 app/public
 app/tmp
-out
+app/out

@@ -1,10 +1,15 @@
 {
-  "name": "iaac-tool",
+  "name": "iaac-identity-tool",
   "version": "0.1.0",
   "main": "main.js",
   "author": "Fil Studio <hello@fil.studio>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "yarn --cwd ../ prepack && electron-forge package",
+    "make": "yarn --cwd ../ prepack && electron-forge make"
+  },
   "dependencies": {
     "@electron/remote": "^2.1.2",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
