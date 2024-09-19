@@ -22,7 +22,7 @@ const { app, BrowserWindow } = require('electron');
     // and load the index.html of the app.
     mainWindow.loadURL(`file://${__dirname}/public/index.html`);
     // const os = require('os');
-    const pth = app.getPath('downloads');//os.platform() === "win32" ? `${app.getPath('home')}\\Downloads` : app.getPath('downloads');
+    // const pth = app.getPath('downloads');//os.platform() === "win32" ? `${app.getPath('home')}\\Downloads` : app.getPath('downloads');
     // console.log(pth);
     // mainWindow.webContents.executeJavaScript(`window.Exporter.outputPath="${pth}"`)
 
@@ -35,6 +35,7 @@ const { app, BrowserWindow } = require('electron');
     };
 
     app.on('window-all-closed', () => {
+      // Exporter.clean();
       if (process.platform !== 'darwin') app.quit();
     });
 

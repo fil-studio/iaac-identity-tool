@@ -21,25 +21,25 @@ export const MAT = new ShaderMaterial({
                 tiles: [
                     {
                         map: null,
-                        color: new Color(0xFF71EB).convertLinearToSRGB(),
+                        color: new Color(0xFFFFFF).convertLinearToSRGB(),
                         t0: 0,
                         t1: .25
                     },
                     {
                         map: null,
-                        color: new Color(0xFFD302).convertLinearToSRGB(),
+                        color: new Color(0xCECECE).convertLinearToSRGB(),
                         t0: .25,
                         t1: .5
                     },
                     {
                         map: null,
-                        color: new Color(0xA057FF).convertLinearToSRGB(),
+                        color: new Color(0xFF7E1B).convertLinearToSRGB(),
                         t0: .5,
                         t1: .75
                     },
                     {
                         map: null,
-                        color: new Color(0x53565E).convertLinearToSRGB(),
+                        color: new Color(0xB2381C).convertLinearToSRGB(),
                         t0: .75,
                         t1: 1.0
                     }

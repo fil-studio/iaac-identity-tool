@@ -42,7 +42,7 @@ export class PatternCards extends CardContainer {
         }
 
         for(let i=0; i<4; i++) {
-            this.initImage(0);
+            this.initImage(i);
         }
     }
 
@@ -94,8 +94,9 @@ export class PatternCards extends CardContainer {
         const img = new Image();
         img.onload = () => {
             this.drawImage(i, img);
+            this.invertImage(i);
         }
-        img.src = `assets/patterns/pattern-${i}.svg`
+        img.src = `assets/patterns/pattern-0.svg`
     }
 
     protected drawImage(i:number, img:HTMLImageElement) {

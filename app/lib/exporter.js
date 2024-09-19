@@ -1,5 +1,12 @@
 const fs = require('fs');
-const TMP = __dirname + "/../tmp/";
+const { app } = require("@electron/remote");
+const os = require('os');
+const _TMP = app.getPath('temp');
+const uid = 'iaac.fil.studio';
+
+const TMP = os.platform() === "win32" ? `${_TMP}\\${uid}\\` : `${_TMP}/${uid}/`;
+
+console.log(TMP);
 
 const Exporter = {
     outputPath: "",

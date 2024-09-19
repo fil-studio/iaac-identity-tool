@@ -46,6 +46,13 @@ export class App implements VisualListener, SettingsChangedListener  {
 		this.start();
 
 		this.exportView.enabled = true;
+
+		window.onbeforeunload = () => {
+			if(IS_DESKTOP_APP) {
+				const exporter = window['Exporter'];
+				exporter.clean();
+			}
+		}
 	}
 
 	start() {
