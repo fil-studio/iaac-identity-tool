@@ -125,9 +125,19 @@ export class ExportUI extends HiddeableComponent {
 
             const q = this.dom.querySelector('.jsQuality').querySelector('select');
 
+            const cancel = this.dom.querySelector('.jsVideoCancel') as HTMLButtonElement;
+
             let exporting = false;
+            let canceling = false;
+
+            cancel.onclick = () => {
+                canceling = true;
+                this.restoreCanvas();
+                this.hide();
+            }
 
             v.onseeked = () => {
+                if(canceling) return;
                 if(exporting) return;
                 if(current === nFrames) {
                     exporting = true;
