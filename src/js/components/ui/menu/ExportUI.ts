@@ -186,13 +186,14 @@ export class ExportUI extends HiddeableComponent {
             const canvas = SCOPE.view.gl.domElement;
             this.configCanvasForExport();
             SCOPE.view.render();
-            if(canvas.width * canvas.height > MAX) {
+            realSave();
+            /* if(canvas.width * canvas.height > MAX) {
                 if(window.confirm('Max canvas size exceeded. File might not export correctly. Try anyway?')) {
                     realSave();
                 }
             } else {
                 realSave();
-            }
+            } */
             
         }
 
@@ -268,6 +269,24 @@ export class ExportUI extends HiddeableComponent {
         const a = this.dom.querySelector('div.alert');
         a.textContent = `Canvas size: ${Visual.crop.width}x${Visual.crop.height}`
         SCOPE.exporting = true;
+
+        const el = this.dom.querySelector('select#exportSize') as HTMLSelectElement;
+        el.options[0].selected = true;
+
+        for(let i=0; i<el.options.length; i++) {
+            const scale = parseFloat(el.options[i].value);
+            const w = Math.round(Visual.crop.width * scale);
+            const h = Math.round(Visual.crop.height * scale);
+
+            el.options[i].hidden = (w*h > MAX);
+        }
+
+        for(let i=2; i>-1; i--) {
+            if(!el.options[i].hidden) {
+                el.options[i].selected = true;
+                break;
+            }
+        }
     }
 
     hide() {
