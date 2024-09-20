@@ -71,6 +71,10 @@ main {
 
         overflow: hidden;
 
+        &:not(.active) {
+            display: none;
+        }
+
         .view {
             position: absolute;
             transform-origin: center;

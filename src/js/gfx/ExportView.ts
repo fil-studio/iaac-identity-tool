@@ -33,6 +33,7 @@ export class ExportView extends GLView implements CropRendererListener {
     set enabled(value:boolean) {
         super.enabled = value;
         if(this._enabled) {
+            if(!Visual.element) return;
             const c1 = Visual.crop;
             const c2 = TempCrop;
             if(!equalCrops(c1, c2)) {

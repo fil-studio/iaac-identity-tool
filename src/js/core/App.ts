@@ -39,9 +39,9 @@ export class App implements VisualListener, SettingsChangedListener  {
 		this.exportView = new ExportView(document.querySelector('.visual'));
 
 		Visual.addListener(this);
-		Visual.updateElement('assets/test/test-image.jpg', false, () =>{
+		/* Visual.updateElement('assets/test/test-image.jpg', false, () =>{
 			this.onVisualChanged();
-		});
+		}); */
 
 		this.start();
 

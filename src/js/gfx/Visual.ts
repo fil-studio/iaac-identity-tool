@@ -108,6 +108,9 @@ export class VisualSettings {
         this._isVideo = isVideo;
         if(isVideo) this.loadVideo(src, callback);
         else this.loadImage(src, callback);
+
+        document.querySelector('.gl').classList.add('active');
+        document.querySelector('.dropzone').classList.remove('active');
     }
 
     get video():boolean {

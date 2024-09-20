@@ -33,7 +33,7 @@ export const MAT = new ShaderMaterial({
                     },
                     {
                         map: null,
-                        color: new Color(0xFF7E1B).convertLinearToSRGB(),
+                        color: new Color(0xFF71EB).convertLinearToSRGB(),
                         t0: .5,
                         t1: .75
                     },
@@ -118,55 +118,4 @@ export class RenderEngine {
             tiles[i].color.setStyle(colors[i]).convertLinearToSRGB();
         }
     }
-
-    /* protected disposeTextrueInput() {
-        if(MAT.uniforms.tInput.value != null) {
-            MAT.uniforms.tInput.value.dispose();
-            MAT.uniforms.tInput.value = null;
-        }
-    } */
-
-    /* loadVideo(url:string) {
-        this.disposeTextrueInput();
-        const video = document.createElement('video');
-        video.muted = true;
-        video.loop = true;
-        let created = false;
-        video.addEventListener('canplaythrough', e => {
-            if(created) {
-                return;
-            }
-            created = true;
-            video.play();
-            const texture = new VideoTexture(video);
-            MAT.uniforms.tInput.value = texture;
-            this.updateTextureSettings(texture);
-            this.updateResolution(true);    
-        });
-        video.src = url;
-    }
-
-    loadImage(url:string) {
-        this.disposeTextrueInput();
-        tLoader.load(url, texture => {
-            this.updateTextureSettings(texture);
-            MAT.uniforms.tInput.value = texture;
-            this.updateResolution();
-        });
-    } */
-
-    /* setSize(width:number, height:number, margin:number) {
-        const w = width - 2 * margin;
-        const h = height - 2 * margin;
-
-        const sr = width / height;
-
-        if(sr > this.ratio) {
-            this.quad.scale.y = h;
-            this.quad.scale.x = h * this.ratio;
-        } else {
-            this.quad.scale.x = w;
-            this.quad.scale.y = w / this.ratio;
-        }
-    } */
 }
