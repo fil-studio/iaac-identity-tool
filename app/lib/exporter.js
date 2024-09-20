@@ -134,7 +134,7 @@ const Exporter = {
         
         // job.addOption('-x264opts', 'colormatrix=bt709');
         // job.addOption('-color_trc', 'iec61966-2-1');
-        job.addOption('-color_primaries', 'bt2020');
+        // job.addOption('-color_primaries', 'bt2020');
         // job.addOption('-crf', '1');
         // job.addOption('-preset', 'veryslow')
 
