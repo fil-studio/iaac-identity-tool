@@ -111,6 +111,7 @@ export class VisualSettings {
 
         document.querySelector('.gl').classList.add('active');
         document.querySelector('.dropzone').classList.remove('active');
+        document.querySelector('.dropzone').classList.remove('block');
     }
 
     get video():boolean {
