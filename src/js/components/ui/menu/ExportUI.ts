@@ -1,5 +1,6 @@
-import { encodeMP4, saveBlob } from "../../../core/EsportUtils";
+import { saveBlob } from "../../../core/EsportUtils";
 import { IS_DESKTOP_APP, SCOPE } from "../../../core/Globals";
+import { SVGExporter } from "../../../gfx/svg/SVGExporter";
 import { Visual } from "../../../gfx/Visual";
 import { HiddeableComponent } from "../../core/Component";
 
@@ -177,23 +178,21 @@ export class ExportUI extends HiddeableComponent {
                     exportMP4();
                 }
             } else {
-                saveImage();
+                if(sel.value === 'svg') {
+                    const el = this.dom.querySelector('select#exportSize') as HTMLSelectElement;
+                    const scale = parseFloat(el.value);
+                    SVGExporter.save(SCOPE.view.gl, SCOPE.patterns, scale);
+                    this.hide();
+                } else saveImage();
             }
         }
 
         const save = () => {
             // if(this._active) this.hide();
-            const canvas = SCOPE.view.gl.domElement;
+            // const canvas = SCOPE.view.gl.domElement;
             this.configCanvasForExport();
             SCOPE.view.render();
             realSave();
-            /* if(canvas.width * canvas.height > MAX) {
-                if(window.confirm('Max canvas size exceeded. File might not export correctly. Try anyway?')) {
-                    realSave();
-                }
-            } else {
-                realSave();
-            } */
             
         }
 
@@ -231,7 +230,7 @@ export class ExportUI extends HiddeableComponent {
 
     updateUI(video:boolean) {
         const sel = this.dom.querySelector("select#fileFormat") as HTMLSelectElement;
-        sel.options[0].hidden = true;//video;
+        sel.options[0].hidden = video && SCOPE.patterns.svgSupported;
         sel.options[1].hidden = video;
         sel.options[2].hidden = !video;
         sel.options[3].hidden = !(video && IS_DESKTOP_APP);

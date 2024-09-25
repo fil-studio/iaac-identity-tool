@@ -1,6 +1,7 @@
 import { el } from "@fils/utils";
 import { CanvasTexture, LinearFilter } from "three";
 import { CardContainer } from "./CardContainer";
+import { SCOPE } from "../../../core/Globals";
 
 const SIZ = 256;
 
@@ -8,6 +9,13 @@ export interface Pattern {
     canvas:HTMLCanvasElement;
     ctx:CanvasRenderingContext2D;
     texture:CanvasTexture;
+    index:number;
+    inverted:boolean;
+}
+
+export interface PatternDef {
+    value:string;
+    index:number;
 }
 
 export class PatternCards extends CardContainer {
@@ -15,6 +23,8 @@ export class PatternCards extends CardContainer {
 
     constructor(_dom:HTMLElement) {
         super("pattern", _dom);
+
+        SCOPE.patterns = this;
 
         const tiles = _dom.querySelectorAll('.tile');
         let i = 0;
@@ -35,7 +45,9 @@ export class PatternCards extends CardContainer {
             this.patterns.push({
                 canvas,
                 ctx,
-                texture
+                texture,
+                index: 0,
+                inverted: false
             });
 
             // i++
@@ -70,8 +82,10 @@ export class PatternCards extends CardContainer {
         }
     }
 
-    setValue(i:number, value:string) {
+    setValue(i:number, data:PatternDef) {
         const img = new Image();
+        const value = data.value;
+        // console.log(data.index)
         img.onload = () => {
             this.drawImage(i, img);
         }
@@ -80,14 +94,9 @@ export class PatternCards extends CardContainer {
         } else {
             img.src = `assets/patterns/pattern-${value}.svg`
         }
-    }
 
-    setFromFile(i:number, file:File) {
-        const img = new Image();
-        img.onload = () => {
-            this.drawImage(i, img);
-        }
-        img.src = URL.createObjectURL(file);
+        this.patterns[i].index = data.index;
+        this.patterns[i].inverted = false;
     }
 
     protected initImage(i:number) {
@@ -125,6 +134,8 @@ export class PatternCards extends CardContainer {
         ctx.putImageData(imgData, 0, 0);
 
         this.updateTexture(i);
+
+        this.patterns[i].inverted = !this.patterns[i].inverted;
     }
 
     protected updateTexture(i:number) {
@@ -134,5 +145,14 @@ export class PatternCards extends CardContainer {
         for(const lis of this.listeners) {
             lis.onCardSwap(this.id);
         }
+    }
+
+    get svgSupported():boolean {
+        for(let i=0; i<4; i++) {
+            const index = this.patterns[i].index;
+            if(SCOPE.patternsPanel.svgContents[index] === null) return false;
+        }
+
+        return true;
     }
 }

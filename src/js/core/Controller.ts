@@ -1,17 +1,17 @@
 import { Texture } from "three";
 import { HiddeableComponent } from "../components/core/Component";
-import { FloatingPanel, FloatingPanelListener } from "../components/core/FloatingPanel";
+import { FloatingPanelListener } from "../components/core/FloatingPanel";
 import { ColorPanel } from "../components/panels/ColorPanel";
+import { PatternPanel } from "../components/panels/PatternPanel";
 import { ExportControls } from "../components/ui/ExportControls";
 import { Menu } from "../components/ui/Menu";
 import { Card, CardListener } from "../components/ui/menu/CardContainer";
-import { TopBar, TopBarListener } from "../components/ui/TopBar";
-import { PatternPanel } from "../components/panels/PatternPanel";
-import { TilesController, TilesControllerListener } from "../components/ui/TilesController";
 import { Knot, ThresholdController, ThresholdListener } from "../components/ui/ThresholdController";
+import { TilesController, TilesControllerListener } from "../components/ui/TilesController";
+import { TopBar, TopBarListener } from "../components/ui/TopBar";
 import { VideoControls, VideoControlsListener } from "../components/ui/VideoControls";
-import { Visual } from "../gfx/Visual";
 import { TempCrop } from "../gfx/CropView";
+import { Visual } from "../gfx/Visual";
 
 export interface SettingsChangedListener {
     onColorsChanged(values:string[]);
@@ -171,12 +171,7 @@ export class Controller implements TopBarListener, CardListener, FloatingPanelLi
             if(!this.selectedPatternCard) return;
             const tile = this.selectedPatternCard.dom.querySelector('.tile') as HTMLElement;
             tile.setAttribute('card-value', data.value);
-            // console.log(data)
-            if(!data.isFile) {
-                this.menu.patterns.setValue(this.selectedPatternCard.index, data.value);
-            } else {
-                this.menu.patterns.setFromFile(this.selectedPatternCard.index, data.file);
-            }
+            this.menu.patterns.setValue(this.selectedPatternCard.index, data);
         }
     }
 

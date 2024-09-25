@@ -1,6 +1,7 @@
 import { addFileDropHandler, el } from "@fils/utils";
 import { FloatingPanel } from "../core/FloatingPanel";
 import { supportedImage } from "../../core/FileTypes";
+import { SCOPE } from "../../core/Globals";
 
 export class PatternPanel extends FloatingPanel {
     selectedImage:string;
@@ -8,8 +9,13 @@ export class PatternPanel extends FloatingPanel {
 
     nCustom:number = 0;
 
+    svgContents:SVGElement[] = [];
+    indexMap:string[] = [];
+
     constructor(_id:string, _dom:HTMLElement) {
         super(_id, _dom);
+
+        SCOPE.patternsPanel = this;
 
         const body = _dom.querySelector('.panel-body') as HTMLElement;
 
@@ -38,6 +44,7 @@ export class PatternPanel extends FloatingPanel {
         });
 
         const inputs = _dom.querySelectorAll('input');
+        let index = 0;
         for(const input of inputs) {
             if(input.type === 'file') {
                 input.addEventListener('change', e => {
@@ -46,24 +53,20 @@ export class PatternPanel extends FloatingPanel {
                 continue;
             };
             this.library.push(input);
+            this.indexMap.push(`${index++}`);
+            this.svgContents.push(input.parentNode.querySelector('svg'));
 
             input.onclick = () => {
                 this.setValue(input.value);
             }
         }
+
+        // console.log(this.indexMap)
     }
 
     protected setFile(file:File) {
         const url = URL.createObjectURL(file);
         this.selectedImage = url;
-        /* for(const lis of this.listeners) {
-            lis.onPanelDataChanged(this.id, {
-                value: 'custom',
-                isFile: true,
-                file: file
-            });
-        } */
-
         console.log(this.selectedImage);
 
         const ul = this.dom.querySelector('ul');
@@ -80,6 +83,8 @@ export class PatternPanel extends FloatingPanel {
         input.type = "radio";
         input.value = url;
         input.id = id;
+
+        this.indexMap.push(url);
 
         input.onclick = () => {
             this.setValue(input.value);
@@ -103,8 +108,23 @@ export class PatternPanel extends FloatingPanel {
         for(const lis of this.listeners) {
             lis.onPanelDataChanged(this.id, {
                 value: url,
-                isFile: false
+                index: v
             });
+        }
+
+        if(file.type === "image/svg+xml") {
+            // add svg
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                var parser = new DOMParser();
+                var svg = parser.parseFromString(reader.result as string, "image/svg+xml").querySelector('svg');
+                // console.log(reader.result);
+                // console.log(svg);
+                this.svgContents.push(svg);
+            }, false);
+            reader.readAsText(file);
+        } else {
+            this.svgContents.push(null);
         }
     }
 
@@ -115,7 +135,7 @@ export class PatternPanel extends FloatingPanel {
         for(const lis of this.listeners) {
             lis.onPanelDataChanged(this.id, {
                 value,
-                isFile: false
+                index: this.indexMap.indexOf(value)
             });
         }
 
