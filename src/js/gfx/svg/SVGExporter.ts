@@ -43,15 +43,41 @@ class _SVGExporter {
         const panel = SCOPE.patternsPanel;
 
         const svgData = [];
+        let sy = 1;
 
-        for(const p of patterns.patterns) {
-            const svg = panel.svgContents[p.index];
+        for(let i=0; i<4; i++) {
+            const p = patterns.patterns[i];
+            const _svg = panel.svgContents[p.index];
+            const sym = document.createElementNS("http://www.w3.org/2000/svg", "symbol");
+            sym.setAttribute('id', `sym${sy}`);
+            sym.setAttribute('viewBox', _svg.getAttribute('viewBox'));
+            sym.setAttribute('width', _svg.getAttribute('width'));
+            sym.setAttribute('height', _svg.getAttribute('height'));
+
+            let found = false;
+
+            const t = tiles[i];
+            tmp.copy(t.color).convertSRGBToLinear();
+
+            for(const c of _svg.children) {
+                if(c.nodeName === 'metadata') continue
+                this.fixColors(c, p, `#${tmp.getHexString()}`);
+                sym.appendChild(c);
+                found = true;
+            }
+
+            if(found) {
+                svg.appendChild(sym);
+            }
             
             svgData.push({
-                width: parseInt(svg.getAttribute('width')),
-                height: parseInt(svg.getAttribute('height')),
-                src: svg.outerHTML
+                width: parseInt(_svg.getAttribute('width')),
+                height: parseInt(_svg.getAttribute('height')),
+                src: _svg.outerHTML,
+                index: sy,
+                hasSym: found
             })
+            sy++;
         }
 
         // console.log(svgData);
@@ -93,10 +119,10 @@ class _SVGExporter {
                     svg.appendChild(rect);
                     
                     const symSVG = parser.parseFromString(sym as string, "image/svg+xml").querySelector('svg');
-                    if(symSVG.children.length) {
+                    if(svgData[j].hasSym) {
                         // console.log(symSVG);
 
-                        const scaleX = Math.abs(tw / svgData[j].width);
+                        /* const scaleX = Math.abs(tw / svgData[j].width);
                         const scaleY = Math.abs(tw / svgData[j].height);
                         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
                         g.setAttribute('transform', `
@@ -109,6 +135,15 @@ class _SVGExporter {
                             this.fixColors(c, pattern, `#${tmp.getHexString()}`);
                             g.appendChild(c);
                         }
+                        svg.appendChild(g); */
+
+                        const g = document.createElementNS("http://www.w3.org/2000/svg", "use");
+                        g.setAttribute('href', `#sym${svgData[j].index}`);
+                        g.setAttribute('x', `${x}`);
+                        g.setAttribute('y', `${y}`);
+                        g.setAttribute('width', `${tw}`);
+                        g.setAttribute('height', `${tw}`);
+                        // this.fixColors(g, pattern, `#${tmp.getHexString()}`);
                         svg.appendChild(g);
                     }
                     
