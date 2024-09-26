@@ -48,8 +48,6 @@
             position: relative;
             background: var(--grey-100);
 
-            pointer-events: none;
-        
             &:after {
                 content: '';
                 position: absolute;
