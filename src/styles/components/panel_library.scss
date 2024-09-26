@@ -55,7 +55,8 @@
                         aspect-ratio: 1;
                         width: toRem(44);
                         height: toRem(44);
-                        fill: var(--grey-500)
+                        fill: var(--grey-500);
+                        pointer-events: none;
                     }
                 }
             } 
