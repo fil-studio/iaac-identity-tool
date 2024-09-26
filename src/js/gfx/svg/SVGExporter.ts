@@ -1,10 +1,10 @@
 import { RTUtils } from "@fils/gfx";
 import { Color, WebGLRenderer, WebGLRenderTarget } from "three";
-import { PatternCards } from "../../components/ui/menu/PatternCards";
-import { MAT } from "../RenderEngine";
-import { Visual } from "../Visual";
+import { Pattern, PatternCards } from "../../components/ui/menu/PatternCards";
 import { saveBlob } from "../../core/EsportUtils";
 import { SCOPE } from "../../core/Globals";
+import { MAT } from "../RenderEngine";
+import { Visual } from "../Visual";
 
 class _SVGExporter {
     save(rnd:WebGLRenderer, patterns:PatternCards, scale:number) {
@@ -75,7 +75,7 @@ class _SVGExporter {
                     const color = pattern.inverted ? tmp.getHexString() : "FFFFFF";
                     rect.setAttribute('fill', `#${color}`);
 
-                    let sym = svgData[j].src.toLowerCase() as string;
+                    /* let sym = svgData[j].src.toLowerCase() as string;
                     if(!pattern.inverted) {
                         //@ts-ignore
                         sym = sym.replaceAll('000000', tmp.getHexString())
@@ -86,7 +86,9 @@ class _SVGExporter {
                         sym = sym.replaceAll('ffffff', tmp.getHexString())
                         //@ts-ignore
                         sym = sym.replaceAll('black', tmp.getHexString())
-                    }
+                    } */
+
+                    let sym = svgData[j].src as string;
 
                     svg.appendChild(rect);
                     
@@ -103,7 +105,8 @@ class _SVGExporter {
                         `)
                         for(const c of symSVG.children) {
                             if(c.nodeName === 'metadata') continue;
-                            console.log(c)
+                            // console.log(c)
+                            this.fixColors(c, pattern, `#${tmp.getHexString()}`);
                             g.appendChild(c);
                         }
                         svg.appendChild(g);
@@ -122,6 +125,39 @@ class _SVGExporter {
         }
 
         return svg;
+    }
+
+    protected fixColors(node:Element, pattern:Pattern, hex:string) {
+        const fill = node.getAttribute('fill');
+        const stroke = node.getAttribute('stroke');
+        if(fill && fill != 'none') {
+            node.setAttribute('fill', this.getColorHex(pattern, fill, hex));
+        } else {
+            // it was black
+            node.setAttribute('fill', pattern.inverted ? '#ffffff' : hex);
+        }
+        if(stroke && stroke !== 'none') {
+            node.setAttribute('stroke', this.getColorHex(pattern, stroke, hex));
+        }
+    }
+
+    protected getColorHex(pattern:Pattern, input:string, hex:string):string {
+        const tmp = new Color().setStyle(input);
+        if(pattern.inverted) {
+            // turn black into white and white into hex
+            if(tmp.r === 0 && tmp.g === 0 && tmp.b === 0) {
+                return "#ffffff";
+            } else if(tmp.r === 1 && tmp.g === 1 && tmp.b === 1) {
+                return hex;
+            }
+        } else {
+            // turn black into hex and keep white
+            if(tmp.r === 0 && tmp.g === 0 && tmp.b === 0) {
+                return hex;
+            }
+        }
+
+        return input;
     }
 }
 
