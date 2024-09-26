@@ -53,6 +53,7 @@
                 position: absolute;
                 inset: toRem(4);
                 border: dotted toRem(2) var(--grey-300);
+                pointer-events: none;
             }
         }
     }
