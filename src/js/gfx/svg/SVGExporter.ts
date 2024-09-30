@@ -51,7 +51,7 @@ class _SVGExporter {
 
         for(let i=0; i<4; i++) {
             const p = patterns.patterns[i];
-            const _svg = panel.svgContents[p.index];
+            const _svg = panel.svgContents[p.index].cloneNode(true) as SVGElement;
             const sym = document.createElementNS("http://www.w3.org/2000/svg", "symbol");
             sym.setAttribute('id', `sym${sy}`);
             sym.setAttribute('viewBox', _svg.getAttribute('viewBox'));
@@ -63,6 +63,16 @@ class _SVGExporter {
             const t = tiles[i];
             tmp.copy(t.color).convertSRGBToLinear();
 
+            const symW = parseInt(_svg.getAttribute('width'));
+            const symH = parseInt(_svg.getAttribute('height'));
+
+            /* const scaleX = Math.abs(tw / symW);
+            const scaleY = Math.abs(tw / symH);
+
+            sym.setAttribute('transform', `
+                scale(${scaleX} ${scaleY})
+            `) */
+
             for(const c of _svg.children) {
                 if(c.nodeName === 'metadata') continue
                 this.fixColors(c, p, `#${tmp.getHexString()}`);
@@ -73,11 +83,13 @@ class _SVGExporter {
             if(found) {
                 svg.appendChild(sym);
             }
+
+            const _svg2 = panel.svgContents[p.index].cloneNode(true) as SVGElement;
             
             svgData.push({
-                width: parseInt(_svg.getAttribute('width')),
-                height: parseInt(_svg.getAttribute('height')),
-                src: _svg.outerHTML,
+                width: symW,
+                height: symH,
+                src: _svg2.outerHTML,
                 index: sy,
                 hasSym: found
             })
@@ -105,19 +117,6 @@ class _SVGExporter {
                     const color = pattern.inverted ? tmp.getHexString() : "FFFFFF";
                     rect.setAttribute('fill', `#${color}`);
 
-                    /* let sym = svgData[j].src.toLowerCase() as string;
-                    if(!pattern.inverted) {
-                        //@ts-ignore
-                        sym = sym.replaceAll('000000', tmp.getHexString())
-                        //@ts-ignore
-                        sym = sym.replaceAll('black', tmp.getHexString())
-                    } else {
-                        //@ts-ignore
-                        sym = sym.replaceAll('ffffff', tmp.getHexString())
-                        //@ts-ignore
-                        sym = sym.replaceAll('black', tmp.getHexString())
-                    } */
-
                     let sym = svgData[j].src as string;
 
                     svg.appendChild(rect);
@@ -126,7 +125,7 @@ class _SVGExporter {
                     if(svgData[j].hasSym) {
                         // console.log(symSVG);
 
-                        /* const scaleX = Math.abs(tw / svgData[j].width);
+                        const scaleX = Math.abs(tw / svgData[j].width);
                         const scaleY = Math.abs(tw / svgData[j].height);
                         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
                         g.setAttribute('transform', `
@@ -139,16 +138,19 @@ class _SVGExporter {
                             this.fixColors(c, pattern, `#${tmp.getHexString()}`);
                             g.appendChild(c);
                         }
-                        svg.appendChild(g); */
+                        svg.appendChild(g);
 
-                        const g = document.createElementNS("http://www.w3.org/2000/svg", "use");
+                        // const scaleX = Math.abs(tw / svgData[j].width);
+                        // const scaleY = Math.abs(tw / svgData[j].height);
+
+                        /* const g = document.createElementNS("http://www.w3.org/2000/svg", "use");
                         g.setAttribute('href', `#sym${svgData[j].index}`);
                         g.setAttribute('x', `${x}`);
                         g.setAttribute('y', `${y}`);
                         g.setAttribute('width', `${tw}`);
                         g.setAttribute('height', `${tw}`);
                         // this.fixColors(g, pattern, `#${tmp.getHexString()}`);
-                        svg.appendChild(g);
+                        svg.appendChild(g); */
                     }
                     
                     k++;
