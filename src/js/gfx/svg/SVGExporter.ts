@@ -27,6 +27,10 @@ class _SVGExporter {
 
     protected createSVG(pixels:Uint8Array, patterns:PatternCards, scale:number):SVGElement {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute('version', '1.1');
+        svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        svg.setAttribute('xmlns:svg', 'http://www.w3.org/2000/svg');
+        
         const crop = Visual.crop;
         const s = MAT.uniforms.settings.value;
         const tiles = s.tiles;
