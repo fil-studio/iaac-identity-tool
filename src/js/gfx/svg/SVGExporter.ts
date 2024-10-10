@@ -66,13 +66,6 @@ class _SVGExporter {
             const symW = parseInt(_svg.getAttribute('width'));
             const symH = parseInt(_svg.getAttribute('height'));
 
-            /* const scaleX = Math.abs(tw / symW);
-            const scaleY = Math.abs(tw / symH);
-
-            sym.setAttribute('transform', `
-                scale(${scaleX} ${scaleY})
-            `) */
-
             for(const c of _svg.children) {
                 if(c.nodeName === 'metadata') continue
                 this.fixColors(c, p, `#${tmp.getHexString()}`);
@@ -139,18 +132,6 @@ class _SVGExporter {
                             g.appendChild(c);
                         }
                         svg.appendChild(g);
-
-                        // const scaleX = Math.abs(tw / svgData[j].width);
-                        // const scaleY = Math.abs(tw / svgData[j].height);
-
-                        /* const g = document.createElementNS("http://www.w3.org/2000/svg", "use");
-                        g.setAttribute('href', `#sym${svgData[j].index}`);
-                        g.setAttribute('x', `${x}`);
-                        g.setAttribute('y', `${y}`);
-                        g.setAttribute('width', `${tw}`);
-                        g.setAttribute('height', `${tw}`);
-                        // this.fixColors(g, pattern, `#${tmp.getHexString()}`);
-                        svg.appendChild(g); */
                     }
                     
                     k++;

@@ -25,10 +25,7 @@ export class App implements VisualListener, SettingsChangedListener  {
 			console.log(window.process);
 		}
 
-		// this.layer = new SceneLayer(this.gl);
-
 		initDragAndDrop(document.querySelector('.canvas'), document.querySelector('.dropzone'), (url:string, isVideo:boolean=false) => {
-			// this.layer.loadVisual(url, isVideo);
 			this.updateVisual(url, isVideo);
 		});
 		
@@ -39,9 +36,6 @@ export class App implements VisualListener, SettingsChangedListener  {
 		this.exportView = new ExportView(document.querySelector('.visual'));
 
 		Visual.addListener(this);
-		/* Visual.updateElement('assets/test/test-image.jpg', false, () =>{
-			this.onVisualChanged();
-		}); */
 
 		this.start();
 
@@ -117,12 +111,8 @@ export class App implements VisualListener, SettingsChangedListener  {
 
 	onVisualSelected(file: File) {
 		getVisualURL(file, (url:string, isVideo:boolean=false) => {
-			// this.layer.loadVisual(url, isVideo);
 			this.updateVisual(url, isVideo);
 		})
-
-		// const input = document.querySelector('input#input_file') as HTMLInputElement;
-		// input.value = file.name;
 	}
 
 	updateVisual(url:string, isVideo:boolean=false) {

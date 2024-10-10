@@ -20,11 +20,6 @@ export class SceneLayer extends ThreeLayer {
         this.params.camera = this.camera;
 
         this.camera.position.z = 20;
-
-        // this.engine = new RenderEngine();
-        // this.scene.add(this.engine.quad);
-
-        // this.initGUI();
     }
 
     protected initGUI() {
@@ -116,13 +111,6 @@ export class SceneLayer extends ThreeLayer {
 
     render(): void {
         if(!this.needsUpdate) return;
-        // this.needsUpdate = false;
-        // this.engine.setSize(this.gl.rect.width, this.gl.rect.height, 100);
         super.render();
-    }
-
-    loadVisual(url:string, isVideo:boolean=false) {
-        if(isVideo) this.engine.loadVideo(url);
-        else this.engine.loadImage(url);
     }
 }

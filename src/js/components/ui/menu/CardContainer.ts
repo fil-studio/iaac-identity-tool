@@ -51,8 +51,6 @@ export class CardContainer extends Component {
                 this.drag(e.currentTarget as HTMLElement)
             });
             
-            const header = card.querySelector('header');
-            this.addDragActions(cards.length-1, header);
         }
 
         this.addTileEvents();
@@ -79,38 +77,15 @@ export class CardContainer extends Component {
         this.listeners.splice(this.listeners.indexOf(lis), 1);
     }
 
-    protected addDragActions(index:number, header:HTMLElement) {
-        /* header.addEventListener('mousedown', e => {
-            this.startDrag(this.cards[index], e.clientX, e.clientY);
-        }); */
-    }
-
     protected startDrag(dom:HTMLElement) {
         if(this.dragging) return;
         this.dragging = true;
         this.dragIndex = this.cardsDom.indexOf(dom);
-        // card.dom.draggable = true;
-        /* this.dragging = true;
-        const box = card.dom.getBoundingClientRect();
-        const el = card.dom.cloneNode(true) as HTMLElement;
-        el.classList.add('dragger');
-        el.style.left = `${box.left}px`;
-        el.style.top = `${box.top}px`;
-        el.style.width = `${box.width}px`;
-        el.style.height = `${box.height}px`;
-        document.body.appendChild(el);
-        card.dom.classList.add('hidden');
-
-        this.dragEl = el; */
     }
 
     protected drag(target:HTMLElement) {
         if(target === this.cards[this.dragIndex].dom) return;
-        // const pos1 = this.cards[this.dragIndex].position;
-        // console.log(this.cardsDom.indexOf(target));
         const card2 = this.cards[this.cardsDom.indexOf(target)];
-        // const pos2 = card2.position;
-        // console.log('Dragging me over', pos1, pos2);
         this.swapPositions(this.cards[this.dragIndex], card2);
     }
 
@@ -118,7 +93,6 @@ export class CardContainer extends Component {
         if(!this.dragging) return;
         // console.log('STOP DRAG')
         this.dragging = false;
-        // this.cards[this.dragIndex].dom.draggable = false;
         this.dragIndex = -1;
     }
 
