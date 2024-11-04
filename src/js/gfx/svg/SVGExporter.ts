@@ -12,10 +12,19 @@ class _SVGExporter {
         m.uniforms.mode.value = 1;
         const s = m.uniforms.settings.value;
         const w = s.columns;
-        const h = Math.floor(w / Visual.crop.ratio);
+        let ratio = Visual.crop.ratio;
+        console.log(ratio, Visual.crop.width, Visual.crop.height);
+        if(ratio === null) {
+            ratio = Visual.crop.width / Visual.crop.height;
+            console.warn('Crop ratioatio is null! Recalculating ratio...');
+            console.log('New calculated ratio', ratio);
+            Visual.crop.ratio = ratio;
+        }
+        const h = Math.floor(w / ratio);
         const rt = new WebGLRenderTarget(w, h);
         RTUtils.renderToRT(rt, rnd, m);
         const buffer = new Uint8Array(w*h*4);
+        // console.log(buffer);
         // console.log(w,h);
         rnd.readRenderTargetPixels(rt, 0, 0, w, h, buffer);
         // console.log(buffer);
